@@ -4,20 +4,16 @@
 生存战争荒野科技模组
 
 #### 软件架构
-软件架构说明
+荒野科技拥有真是的生存体系
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  使用VS或C#shell
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  HYKJ基于Survivalcraft2API1.80开发
 
 #### 参与贡献
 
