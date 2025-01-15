@@ -1,0 +1,58 @@
+    <CanvasWidget xmlns="runtime-namespace:Game" Margin="0,10">
+
+	<CanvasWidget Size="920, 550" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+		<RectangleWidget FillColor="80, 80, 80, 25" OutlineColor="120, 120, 120, 160" OutlineThickness="2" />
+
+		<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5">
+
+			<StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <CanvasWidget Size="400, 40" HorizontalAlignment="Center" VerticalAlignment="Center">
+          <LabelWidget Name="TitleLabel" Text="" Margin="5, 5" HorizontalAlignment="Center"/>
+        </CanvasWidget>
+			</StackPanelWidget>
+
+			<CanvasWidget Size="910, 470" Margin="20, 3">
+
+				<RectangleWidget FillColor="0, 187, 247, 155" OutlineColor="20, 20, 20, 128" OutlineThickness="1" />
+
+				<ScrollPanelWidget Name="ScrollPanel" Direction="Vertical" Margin="3, 3" ClampToBounds="true">
+					<CanvasWidget HorizontalAlignment="Center" VerticalAlignment="Center">
+						<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" Margin="10, 0" >
+						         <LabelWidget FontScale="1.0" Text="\n\n生存战争荒野科技0.0" HorizontalAlignment="Center" Color="64, 192, 64" DropShadow="true" />
+                                 <LabelWidget FontScale="0.7" Text="—————————————" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="true" />
+                                 <LabelWidget FontScale="0.7" Text="发布时间：2024-10-6" HorizontalAlignment="Center" Color="160, 46, 231" DropShadow="true" />
+                                 <LabelWidget FontScale="0.7" Text="—————————————" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="true" />
+                                 <LabelWidget FontScale="0.8" Text="1.修改生命值贴图显示问题\n2.增加挖掘方块掉血\n3.给石长矛增加描述\n减少耐久360→70，增加合成配方\n4.增加骨头爆率\n平均：大骨25%概率\n小骨50%概率\n小骨100%概率掉落\n5.增加新的属性条：耐力值，为绿色\n6.增加模组更新内容展示，主页可以看到[点击查看模组更新]\n7.增加新物品\n8.增加新机制\n9.更改原版内容\n\n\n" HorizontalAlignment="Center" Color="255, 0, 0" DropShadow="true" />
+                                 <LabelWidget FontScale="1.0" Text="\n生存战争荒野科技0.03B" HorizontalAlignment="Center" Color="64, 192, 64" DropShadow="true" /> 
+                      
+                            <LabelWidget Name="ContentLabel" Text=""  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter" WordWrap="true" />
+						</StackPanelWidget>
+					</CanvasWidget>
+				</ScrollPanelWidget>
+
+			</CanvasWidget>
+
+      <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      
+		<CanvasWidget Size="405, 40">
+          <LabelWidget Name="Time" Text="" Margin="5, 5"/>
+        </CanvasWidget>
+        
+        <CanvasWidget Size="950, 40">
+          <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Near" VerticalAlignment="Far">
+            <BevelledButtonWidget Name="OkButton" Size="80, 40" VerticalAlignment="Far" HorizontalAlignment="Near" Margin="0, 3">
+              <RectangleWidget FillColor="100, 100, 100, 255" OutlineColor="120, 120, 120, 255" IsVisible="true"/>
+              <LabelWidget Name="ButtonLabel" Text="" Font="{Fonts/Pericles}" HorizontalAlignment="Center" VerticalAlignment="Center" Color="255, 255, 255, 255" IsVisible="true"/>
+            </BevelledButtonWidget>
+          </StackPanelWidget>
+        </CanvasWidget>
+
+      </StackPanelWidget>
+
+
+    </StackPanelWidget>
+    
+	</CanvasWidget>
+
+</CanvasWidget>
