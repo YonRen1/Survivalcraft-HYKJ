@@ -10,7 +10,8 @@
 #### 安装教程
 
 1.  使用VS或C#shell
-
+2.  用VS就，git本仓库，用C#shell就下载压缩包
+3.  开发完后新建Pull Request等待审核后合并仓库
 #### 使用说明
 
 1.  HYKJ基于Survivalcraft2API1.80开发
