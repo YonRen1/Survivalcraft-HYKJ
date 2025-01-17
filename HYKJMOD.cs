@@ -300,23 +300,12 @@ namespace HYKJ//命名空间HYKJ
             Margin = new Vector2(4, 0),
         };
 
-        private LinkWidget modName = new LinkWidget
-        {
-            Text = "HYKJMOD 0.01BETA",
-            Color = new Color(20, 164, 210, 195),
-            HorizontalAlignment = WidgetAlignment.Center,
-            Margin = new Vector2(0.5f, 0f),
-            FontScale = 0.65f,
-            DropShadow = true,
-        };
-
         public override void GuiUpdate(ComponentGui componentGui)
         {
             ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;
             CanvasWidget controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");
             StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");
             moreContents.AddChildren(tool);
-            controlsContainer.AddChildren(modName);
 
             if (tool.IsClicked)
             {
