@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -20,41 +20,7 @@ using Engine.Input;
 using System.Text;
 using System.Threading.Tasks;
 //———————————————————————荒野科技——————————————————————— 
-namespace HYKJ//命名空间HYKJ
-{
-    //———————————荒野科技版本配置————————————
-    //string HYKJModVersion = "HYKJMOD 0.01BETA";//水印
-
-    //————————————————基类——————————————
-    /*public abstract class Ingot1Block : Block//锭
-    {
-        public string m_meshName;//模型组件名称
-
-        public BlockMesh m_standaloneBlockMesh = new BlockMesh();
-
-        public Ingot1Block(string meshName, Color color)
-      {
-           m_meshName = meshName;
-           Color = color;
-       }
-
-        public override void Initialize()
-       {
-          Model model = ContentManager.Get<Model>("Models/Ingots");
-          Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh(m_meshName).ParentBone);
-          m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh(m_meshName).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.1f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
-          base.Initialize();
-       }
-
-       public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
-      {
-      }
-
-       public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
-      {
-          BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, 2f * size, ref matrix, environmentData);//渲染颜色
-       }
-   }*/
+namespace HYKJ
 
     public abstract class spear : Block//长矛
     {
