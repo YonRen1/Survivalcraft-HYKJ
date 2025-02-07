@@ -388,6 +388,19 @@ namespace HYKJ//命名空间HYKJ
 
     }
 
+    //————————————————————————xml属性—————————————————————
+    public class ProcessingData
+    {
+        /// <summary>
+        ///物品类名 动态ID
+        /// </summary>
+        public int Result;
+        
+        /// <summary>
+        ///物品所需要的加工次数
+        /// </summary>
+        public int processing;
+    }
 
 
 }

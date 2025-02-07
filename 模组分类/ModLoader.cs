@@ -1,0 +1,67 @@
+using System.Linq;
+using Game;
+using Engine.Serialization;
+using System.Xml.Linq;
+using Engine;
+using System;
+using Engine.Media;
+using Random = Game.Random;
+using Engine.Graphics;
+using GameEntitySystem;
+using System.Collections.Generic;
+using System.Globalization;
+using TemplatesDatabase;
+using System.Reflection;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using XmlUtilities;
+using Engine.Input;
+using System.Text;
+using System.Threading.Tasks;
+//———————————————————————荒野科技——————————————————————— 
+namespace HYKJ
+{
+    public class HYKJModLoader : ModLoader
+    {
+        public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null)
+        {
+            return new Subtexture(ContentManager.Get<Texture2D>(imgpath), TopLeft ?? Vector2.Zero, BottomRight ?? Vector2.One);
+        }
+
+        public override void __ModInitialize()
+        {
+            ModsManager.RegisterHook("GuiUpdate", this);
+            ModsManager.RegisterHook("OnLoadingFinished", this);
+        }
+
+        private BitmapButtonWidget tool = new BitmapButtonWidget
+        {
+            Name = "toolButton",
+            Size = new Vector2(68f, 64f),
+            NormalSubtexture = ToSubtexture("Textures/Button/tool"),
+            ClickedSubtexture = ToSubtexture("Textures/Button/tool_Pressed"),
+            Text = "",
+            Margin = new Vector2(4, 0),
+        };
+
+        public override void GuiUpdate(ComponentGui componentGui)
+        {
+            ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;
+            StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");
+            moreContents.AddChildren(tool);
+
+            if (tool.IsClicked)
+            {
+                m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
+            }
+        }
+        public override void OnLoadingFinished(List<Action> actions)
+        {
+            actions.Add(delegate ()
+            {
+                ScreensManager.m_screens["MainMenu"] = new HYKJMainMenuScreen();
+            });
+        }
+    }
+}
