@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -18,6 +18,7 @@ using System.Threading;
 using XmlUtilities;
 using Engine.Input;
 using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 //———————————————————————荒野科技——————————————————————— 
 namespace HYKJ
@@ -96,7 +97,6 @@ namespace HYKJ
 
         public New1CraftingTableWidget(IInventory inventory)
         {
-            m_newcomponentCraftingTable = newcomponentCraftingTable;
             XElement node = ContentManager.Get<XElement>("HYKJWidgets/New1CraftingTableWidget");
             LoadContents(this, node);
             m_inventoryGrid = Children.Find<GridPanelWidget>("InventoryGrid");
@@ -114,20 +114,19 @@ namespace HYKJ
                     m_inventoryGrid.SetWidgetCell(inventorySlotWidget, new Point2(j, i));
                 }
             }
-              num = 0;
-              for (int k = 0; k < m_craftingGrid.RowsCount; k++)
-              {
-                    for (int l = 0; l < m_craftingGrid.ColumnsCount; l++)
-                    {
-                        var inventorySlotWidget2 = new InventorySlotWidget();
-                        inventorySlotWidget2.AssignInventorySlot();
-                        m_craftingGrid.Children.Add(inventorySlotWidget2);
-                        m_craftingGrid.SetWidgetCell(inventorySlotWidget2, new Point2(l, k));
-                    }
-              }
-              m_craftingResultSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.ResultSlotIndex);
-              m_craftingRemainsSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.RemainsSlotIndex);
+            num = 0;
+            for (int k = 0; k < m_craftingGrid.RowsCount; k++)
+            {
+                for (int l = 0; l < m_craftingGrid.ColumnsCount; l++)
+                {
+                    var inventorySlotWidget2 = new InventorySlotWidget();
+                    inventorySlotWidget2.AssignInventorySlot(m_newcomponentCraftingTable, num++);
+                    m_craftingGrid.Children.Add(inventorySlotWidget2);
+                    m_craftingGrid.SetWidgetCell(inventorySlotWidget2, new Point2(l, k));
+                }
             }
+            m_craftingResultSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.ResultSlotIndex);
+            m_craftingRemainsSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.RemainsSlotIndex);
         }
 
         public override void Update()
@@ -225,17 +224,15 @@ namespace HYKJ
             {
                 MarketplaceManager.ShowMarketplace();
             }
-
             // 点击HYKJButton按钮
             if (this.Children.Find<ButtonWidget>("HYKJButton", true).IsClicked)
             {
                 HYKJUpdate.ShowUpdate();
             }
-
-            /*if (this.Children.Find<ButtonWidget>("GXButton", true).IsClicked)
+            if (this.Children.Find<ButtonWidget>("GXButton", true).IsClicked)
             {
-                DialogsManager.ShowDialog(null, new Message, LanguageControl.Ok, null, null));
-            }*/
+                GxUpdate.ShowUpdate();
+            }
 
             if (Children.Find<BevelledButtonWidget>("Manage").IsClicked)
             {
@@ -334,6 +331,7 @@ namespace HYKJ
         public ButtonWidget m_okButton; // Ok按钮
         public Action Action; // 动作
     }
+
     //工具界面   
     public class ToolWidget : CanvasWidget
     {
@@ -350,4 +348,87 @@ namespace HYKJ
         {
         }
     }
+    //这段出问题找找Style
+    public class GxUpdate
+    {
+        public void Update()
+        {
+        }
+
+        public static async Task ShowUpdate()
+        {
+            try
+            {
+                string title = "HYKJ更新公告";
+                string text = await GetContentFromUrl("https://gitee.com/YonRen/Survivalcraft2-HYKJ/raw/master/%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9.txt");
+
+                DialogsManager.ShowDialog(null, new GXDialog(title, text, delegate ()
+                {
+                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+                }));
+
+                MotdManager.CanShowBulletin = false;
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
+            }
+        }
+
+        private static async Task<string> GetContentFromUrl(string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlContent = await client.GetStringAsync(url);
+                    return urlContent;
+                }
+                catch (HttpRequestException e)
+                {
+                    Log.Error($"Request error: {e.Message}");
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Log.Error($"An error occurred: {e.Message}");
+                    throw;
+                }
+            }
+        }
+    }
+    //界面
+    public class GXDialog : Dialog
+    {
+        public GXDialog(string title, string content, Action action)
+        {
+            XElement xelement = ContentManager.Get<XElement>("HYKJDialogs/GXDialog", null);
+            base.LoadContents(this, xelement);
+            this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
+            this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
+            this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
+            this.m_buttonLabel = this.Children.Find<LabelWidget>("ButtonLabel", true);
+            this.m_buttonLabel.Text = LanguageControl.Ok;
+            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_titleLabel.Text = title;
+            this.m_contentLabel.Text = content;
+            this.Action = action;
+        }
+
+        public override void Update()
+        {
+            if (this.m_okButton.IsClicked)
+            {
+                this.Action.Invoke();
+                DialogsManager.HideDialog(this);
+            }
+        }
+
+        public LabelWidget m_titleLabel; // 标题标签
+        public LabelWidget m_contentLabel; // 内容标签
+        public LabelWidget m_buttonLabel; // 按钮标签
+        public ButtonWidget m_okButton; // Ok按钮
+        public Action Action; // 动作
+    }
+
 }
