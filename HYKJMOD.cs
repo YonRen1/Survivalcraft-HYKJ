@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -114,7 +114,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/Machete");
+            Model model = ContentManager.Get<Model>("HYKJModels/刀");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
             var blockMesh = new BlockMesh();
@@ -137,8 +137,86 @@ namespace HYKJ//命名空间HYKJ
             BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, 2f * size, ref matrix, environmentData);
         }
     }
+    //刀
+    public abstract class processing_MacheteBlock : Block
+    {
+        public int m_handleTextureSlot;
 
+        public int m_headTextureSlot;
 
+        public BlockMesh m_standaloneBlockMesh = new();
+
+        public processing_MacheteBlock(int handleTextureSlot, int headTextureSlot)
+        {
+            m_handleTextureSlot = handleTextureSlot;
+            m_headTextureSlot = headTextureSlot;
+        }
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/加工刀");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
+            Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid").ParentBone);
+            var blockMesh = new BlockMesh();
+            blockMesh.AppendModelMeshPart(model.FindMesh("Handle").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh.TransformTextureCoordinates(Matrix.CreateTranslation(m_handleTextureSlot % 16 / 16f, m_handleTextureSlot / 16 / 16f, 0f));
+            var blockMesh2 = new BlockMesh();
+            blockMesh2.AppendModelMeshPart(model.FindMesh("cuboid").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh2.TransformTextureCoordinates(Matrix.CreateTranslation(m_headTextureSlot % 16 / 16f, m_headTextureSlot / 16 / 16f, 0f));
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh);
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh2);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, 2f * size, ref matrix, environmentData);
+        }
+    }
+    //锤
+    public abstract class hammer1Block : Block
+    {
+        public int m_handleTextureSlot;
+
+        public int m_headTextureSlot;
+
+        public BlockMesh m_standaloneBlockMesh = new();
+
+        public hammer1Block(int handleTextureSlot, int headTextureSlot)
+        {
+            m_handleTextureSlot = handleTextureSlot;
+            m_headTextureSlot = headTextureSlot;
+        }
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/锤");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
+            Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
+            var blockMesh = new BlockMesh();
+            blockMesh.AppendModelMeshPart(model.FindMesh("Handle").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh.TransformTextureCoordinates(Matrix.CreateTranslation(m_handleTextureSlot % 16 / 16f, m_handleTextureSlot / 16 / 16f, 0f));
+            var blockMesh2 = new BlockMesh();
+            blockMesh2.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh2.TransformTextureCoordinates(Matrix.CreateTranslation(m_headTextureSlot % 16 / 16f, m_headTextureSlot / 16 / 16f, 0f));
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh);
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh2);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, 2f * size, ref matrix, environmentData);
+        }
+    }
     //燧石
     public class FlintBlock : SFlatBlock
     {
@@ -465,7 +543,7 @@ namespace HYKJ//命名空间HYKJ
         }
 
     }
-    //CopperPickaxeBlock骨镐
+    //骨镐
     public class bone_pickBlock : PickaxeBlock
     {
         public static int Index = 321;
@@ -473,11 +551,9 @@ namespace HYKJ//命名空间HYKJ
         public bone_pickBlock()
             : base(47, 7)
         {
-            DefaultDisplayName = "骨镐";
-            DefaultCategory = "测试";
         }
     }
-    //CopperMacheteBlock刀
+    //骨刀
     public class bone_MacheteBlock : MacheteBlock
     {
         public static int Index = 322;
@@ -485,11 +561,9 @@ namespace HYKJ//命名空间HYKJ
         public bone_MacheteBlock()
             : base(47, 7)
         {
-            DefaultDisplayName = "骨刀";
-            DefaultCategory = "测试";
         }
     }
-    //CopperShovelBlock铲
+    //骨铲
     public class bone_ShovelBlock : ShovelBlock
     {
         public static int Index = 323;
@@ -497,11 +571,9 @@ namespace HYKJ//命名空间HYKJ
         public bone_ShovelBlock()
             : base(47, 7)
         {
-            DefaultDisplayName = "骨铲";
-            DefaultCategory = "测试";
         }
     }
-    //CopperAxeBlock斧
+    //骨斧
     public class bone_AxeBlock : AxeBlock
     {
         public static int Index = 324;
@@ -509,11 +581,9 @@ namespace HYKJ//命名空间HYKJ
         public bone_AxeBlock()
             : base(47, 7)
         {
-            DefaultDisplayName = "骨斧";
-            DefaultCategory = "测试";
         }
     }
-    //CopperSpearBlock矛
+    //骨矛
     public class bone_SpearBlock : SpearBlock
     {
         public static int Index = 325;
@@ -521,8 +591,120 @@ namespace HYKJ//命名空间HYKJ
         public bone_SpearBlock()
             : base(47, 7)
         {
-            DefaultDisplayName = "骨矛";
-            DefaultCategory = "测试";
+        }
+    }
+    //工作桩
+    public class working_piles1Block : Block
+    {
+        public const int Index = 326;
+
+        public Dictionary<Texture2D, BlockMesh> m_meshes = new Dictionary<Texture2D, BlockMesh>();
+
+        public Dictionary<Texture2D, BlockMesh> m_meshes2 = new Dictionary<Texture2D, BlockMesh>();
+
+        private BlockMesh m_standaloneBlockMesh = new BlockMesh();
+
+        private BlockMesh m_drawBlockMesh = new BlockMesh();
+
+        public Texture2D texture = ContentManager.Get<Texture2D>("HYKJTextures/CraftingTable1");
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/CraftingTable1");
+            Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("CraftingTable1").ParentBone);
+            m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable1").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable1").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            m_meshes.Add(texture, m_standaloneBlockMesh);
+            m_meshes2.Add(texture, m_drawBlockMesh);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+            foreach (var m in m_meshes)
+            {
+                generator.GenerateShadedMeshVertices(this, x, y, z, m.Value, Color.White, null, null, geometry.GetGeometry(m.Key).SubsetAlphaTest);
+            }
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            foreach (var m in m_meshes2)
+            {
+                BlocksManager.DrawMeshBlock(primitivesRenderer, m.Value, m.Key, Color.White, size, ref matrix, environmentData);
+            }
+        }
+    }
+    //工作版
+    public class working_piles2Block : Block
+    {
+        public const int Index = 327;
+
+        public Dictionary<Texture2D, BlockMesh> m_meshes = new Dictionary<Texture2D, BlockMesh>();
+
+        public Dictionary<Texture2D, BlockMesh> m_meshes2 = new Dictionary<Texture2D, BlockMesh>();
+
+        private BlockMesh m_standaloneBlockMesh = new BlockMesh();
+
+        private BlockMesh m_drawBlockMesh = new BlockMesh();
+
+        public Texture2D texture = ContentManager.Get<Texture2D>("HYKJTextures/CraftingTable1");
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/CraftingTable1");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("CraftingTable").ParentBone);
+            m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            m_meshes.Add(texture, m_standaloneBlockMesh);
+            m_meshes2.Add(texture, m_drawBlockMesh);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+            foreach (var m in m_meshes)
+            {
+                generator.GenerateShadedMeshVertices(this, x, y, z, m.Value, Color.White, null, null, geometry.GetGeometry(m.Key).SubsetAlphaTest);
+            }
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            foreach (var m in m_meshes2)
+            {
+                BlocksManager.DrawMeshBlock(primitivesRenderer, m.Value, m.Key, Color.White, size, ref matrix, environmentData);
+            }
+        }
+    }
+    //燧石加工刀
+    public class Flint_processingBlock : processing_MacheteBlock
+    {
+        public static int Index = 328;
+
+        public Flint_processingBlock()
+            : base(47, 19)
+        {
+        }
+    }
+    //铜锤
+    public class copper_hammerBlock : hammer1Block
+    {
+        public static int Index = 329;
+
+        public copper_hammerBlock()
+            : base(47, 79)
+        {
+        }
+    }
+    //铁锤
+    public class iron_hammerBlock : hammer1Block
+    {
+        public static int Index = 330;
+
+        public iron_hammerBlock()
+            : base(47, 63)
+        {
         }
     }
 }
