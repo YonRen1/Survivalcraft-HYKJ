@@ -55,48 +55,6 @@ namespace HYKJ//命名空间HYKJ
             BlocksManager.DrawFlatBlock(primitivesRenderer, value, size * 1f, ref matrix, texture, Color.White, isEmissive: true, environmentData);
         }
     }
-    //立方体方块外置材质
-    /*public abstract class New_CubeBlock : Block
-	{
-		public Texture2D texture;
-		public int m_blockmianshu;
-		public cheshiCubeBlock(int blockmianshu)
-		{
-			m_blockmianshu=blockmianshu;
-		}
-		public override void Initialize()
-		{
-			base.Initialize();
-			texture=ContentManager.Get<Texture2D>("？");
-		}
-		public override int GetTextureSlotCount(int value)
-		{
-			return 16;
-		}
-		public override int GetFaceTextureSlot(int face, int value)
-		{
-			if(face==-1)
-			return m_blockmianshu;
-			return m_blockmianshu;
-		}
-		public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
-		{
-			generator.GenerateCubeVertices(this, value, x, y, z, Color.White, geometry.OpaqueSubsetsByFace);
-		}
-
-		public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
-		{
-			BlocksManager.DrawCubeBlock(primitivesRenderer, value, new Vector3(size), ref matrix, color, color, environmentData);
-		}
-	}
-	public class shenjinkuangBlock : cheshiCubeBlock
-	{
-		public const int Index = 999;
-		public shenjinkuangBlock()
-		:base(1)
-		{
-		}
-	}*/
     //刀
     public abstract class XiaoMacheteBlock : Block
     {
