@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -55,6 +55,48 @@ namespace HYKJ//命名空间HYKJ
             BlocksManager.DrawFlatBlock(primitivesRenderer, value, size * 1f, ref matrix, texture, Color.White, isEmissive: true, environmentData);
         }
     }
+    //立方体方块外置材质
+    /*public abstract class New_CubeBlock : Block
+	{
+		public Texture2D texture;
+		public int m_blockmianshu;
+		public cheshiCubeBlock(int blockmianshu)
+		{
+			m_blockmianshu=blockmianshu;
+		}
+		public override void Initialize()
+		{
+			base.Initialize();
+			texture=ContentManager.Get<Texture2D>("？");
+		}
+		public override int GetTextureSlotCount(int value)
+		{
+			return 16;
+		}
+		public override int GetFaceTextureSlot(int face, int value)
+		{
+			if(face==-1)
+			return m_blockmianshu;
+			return m_blockmianshu;
+		}
+		public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+		{
+			generator.GenerateCubeVertices(this, value, x, y, z, Color.White, geometry.OpaqueSubsetsByFace);
+		}
+
+		public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+		{
+			BlocksManager.DrawCubeBlock(primitivesRenderer, value, new Vector3(size), ref matrix, color, color, environmentData);
+		}
+	}
+	public class shenjinkuangBlock : cheshiCubeBlock
+	{
+		public const int Index = 999;
+		public shenjinkuangBlock()
+		:base(1)
+		{
+		}
+	}*/
     //刀
     public abstract class XiaoMacheteBlock : Block
     {
@@ -98,44 +140,76 @@ namespace HYKJ//命名空间HYKJ
 
 
     //燧石
-    public class FlintBlock : FlatBlock
+    public class FlintBlock : SFlatBlock
     {
         public static int Index = 300;
+        public FlintBlock()
+           : base(32)
+        {
+        }
     }
     //燧石片
-    public class flint_flakeBlock : FlatBlock
+    public class flint_flakeBlock : SFlatBlock
     {
         public static int Index = 301;
+        public flint_flakeBlock()
+           : base(33)
+        {
+        }
     }
     //植物纤维
-    public class plant_fiberBlock : FlatBlock
+    public class plant_fiberBlock : SFlatBlock
     {
         public static int Index = 302;
+        public plant_fiberBlock()
+           : base(34)
+        {
+        }
     }
     //草绳
-    public class straw_ropeBlock : FlatBlock
+    public class straw_ropeBlock : SFlatBlock
     {
         public static int Index = 303;
+        public straw_ropeBlock()
+           : base(35)
+        {
+        }
     }
     //麻绳
-    public class hemp_ropeBlock : FlatBlock
+    public class hemp_ropeBlock : SFlatBlock
     {
         public static int Index = 304;
+        public hemp_ropeBlock()
+           : base(36)
+        {
+        }
     }
     //树枝
-    public class branchesBlock : FlatBlock
+    public class branchesBlock : SFlatBlock
     {
         public static int Index = 305;
+        public branchesBlock()
+           : base(37)
+        {
+        }
     }
     //树皮
-    public class barkBlock : FlatBlock
+    public class barkBlock : SFlatBlock
     {
         public static int Index = 307;
+        public barkBlock()
+           : base(38)
+        {
+        }
     }
     //钻木取火
-    public class drill_wood_make_fireBlock : FlatBlock
+    public class drill_wood_make_fireBlock : SFlatBlock
     {
         public static int Index = 308;
+        public drill_wood_make_fireBlock()
+           : base(39)
+        {
+        }
     }
 
     //燧石锤
@@ -148,7 +222,7 @@ namespace HYKJ//命名空间HYKJ
         public override void Initialize()
         {
             int num = 47;//材质
-            int num2 = 49;//材质
+            int num2 = 19;//材质
             Model model = ContentManager.Get<Model>("Models/StoneAxe");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
@@ -173,9 +247,13 @@ namespace HYKJ//命名空间HYKJ
         }
     }
     //木材
-    public class Wood1Block : FlatBlock
+    public class Wood1Block : SFlatBlock
     {
         public static int Index = 310;
+        public Wood1Block()
+           : base(41)
+        {
+        }
     }
 
     //皮革布
@@ -251,7 +329,7 @@ namespace HYKJ//命名空间HYKJ
     //工作桩
     public class working_pilesBlock : Block
     {
-        public const int Index = 330;
+        public const int Index = 318;
 
         public Dictionary<Texture2D, BlockMesh> m_meshes = new Dictionary<Texture2D, BlockMesh>();
 
@@ -296,7 +374,7 @@ namespace HYKJ//命名空间HYKJ
     //燧石加工桌 
     public class Flint_processing_tableBlock : Block
     {
-        public static int Index = 331;
+        public static int Index = 319;
 
         public BlockMesh m_blockMesh = new();
 
@@ -343,7 +421,7 @@ namespace HYKJ//命名空间HYKJ
     //皮革背包 
     public class nBlock : Block
     {
-        public static int Index = 334;
+        public static int Index = 320;
 
         public BlockMesh m_blockMesh = new();
 
@@ -387,7 +465,64 @@ namespace HYKJ//命名空间HYKJ
         }
 
     }
+    //CopperPickaxeBlock骨镐
+    public class bone_pickBlock : PickaxeBlock
+    {
+        public static int Index = 321;
 
+        public bone_pickBlock()
+            : base(47, 7)
+        {
+            DefaultDisplayName = "骨镐";
+            DefaultCategory = "测试";
+        }
+    }
+    //CopperMacheteBlock刀
+    public class bone_MacheteBlock : MacheteBlock
+    {
+        public static int Index = 322;
 
+        public bone_MacheteBlock()
+            : base(47, 7)
+        {
+            DefaultDisplayName = "骨刀";
+            DefaultCategory = "测试";
+        }
+    }
+    //CopperShovelBlock铲
+    public class bone_ShovelBlock : ShovelBlock
+    {
+        public static int Index = 323;
 
+        public bone_ShovelBlock()
+            : base(47, 7)
+        {
+            DefaultDisplayName = "骨铲";
+            DefaultCategory = "测试";
+        }
+    }
+    //CopperAxeBlock斧
+    public class bone_AxeBlock : AxeBlock
+    {
+        public static int Index = 324;
+
+        public bone_AxeBlock()
+            : base(47, 7)
+        {
+            DefaultDisplayName = "骨斧";
+            DefaultCategory = "测试";
+        }
+    }
+    //CopperSpearBlock矛
+    public class bone_SpearBlock : SpearBlock
+    {
+        public static int Index = 325;
+
+        public bone_SpearBlock()
+            : base(47, 7)
+        {
+            DefaultDisplayName = "骨矛";
+            DefaultCategory = "测试";
+        }
+    }
 }

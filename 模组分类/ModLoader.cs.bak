@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -24,6 +24,8 @@ namespace HYKJ
 {
     public class HYKJModLoader : ModLoader
     {
+        public Text m_text;
+        
         public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null)
         {
             return new Subtexture(ContentManager.Get<Texture2D>(imgpath), TopLeft ?? Vector2.Zero, BottomRight ?? Vector2.One);
@@ -41,7 +43,7 @@ namespace HYKJ
             Size = new Vector2(68f, 64f),
             NormalSubtexture = ToSubtexture("Textures/Button/tool"),
             ClickedSubtexture = ToSubtexture("Textures/Button/tool_Pressed"),
-            Text = "",
+            m_text = "",
             Margin = new Vector2(4, 0),
         };
 
