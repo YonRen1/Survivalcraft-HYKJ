@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -81,62 +81,6 @@ namespace HYKJ
         }
     }
 
-    public class New1CraftingTableWidget : CanvasWidget
-    {
-        public GridPanelWidget m_inventoryGrid;
-
-        public GridPanelWidget m_craftingGrid;
-
-        public InventorySlotWidget m_craftingResultSlot;
-
-        public InventorySlotWidget m_craftingRemainsSlot;
-
-        public NewComponentCraftingTable m_newcomponentCraftingTable;
-
-        public const string fName = "New1CraftingTableWidget";
-
-        public New1CraftingTableWidget(IInventory inventory)
-        {
-            XElement node = ContentManager.Get<XElement>("HYKJWidgets/New1CraftingTableWidget");
-            LoadContents(this, node);
-            m_inventoryGrid = Children.Find<GridPanelWidget>("InventoryGrid");
-            m_craftingGrid = Children.Find<GridPanelWidget>("CraftingGrid");
-            m_craftingResultSlot = Children.Find<InventorySlotWidget>("CraftingResultSlot");
-            m_craftingRemainsSlot = Children.Find<InventorySlotWidget>("CraftingRemainsSlot");
-            int num = 10;
-            for (int i = 0; i < m_inventoryGrid.RowsCount; i++)
-            {
-                for (int j = 0; j < m_inventoryGrid.ColumnsCount; j++)
-                {
-                    var inventorySlotWidget = new InventorySlotWidget();
-                    inventorySlotWidget.AssignInventorySlot(inventory, num++);
-                    m_inventoryGrid.Children.Add(inventorySlotWidget);
-                    m_inventoryGrid.SetWidgetCell(inventorySlotWidget, new Point2(j, i));
-                }
-            }
-            num = 0;
-            for (int k = 0; k < m_craftingGrid.RowsCount; k++)
-            {
-                for (int l = 0; l < m_craftingGrid.ColumnsCount; l++)
-                {
-                    var inventorySlotWidget2 = new InventorySlotWidget();
-                    inventorySlotWidget2.AssignInventorySlot(m_newcomponentCraftingTable, num++);
-                    m_craftingGrid.Children.Add(inventorySlotWidget2);
-                    m_craftingGrid.SetWidgetCell(inventorySlotWidget2, new Point2(l, k));
-                }
-            }
-            m_craftingResultSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.ResultSlotIndex);
-            m_craftingRemainsSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.RemainsSlotIndex);
-        }
-
-        public override void Update()
-        {
-            if (!m_newcomponentCraftingTable.IsAddedToProject)
-            {
-                ParentWidget.Children.Remove(this);
-            }
-        }
-    }
     //覆盖原版界面
     public class HYKJMainMenuScreen : Screen
     {
@@ -337,10 +281,33 @@ namespace HYKJ
     {
         public ComponentPlayer m_componentPlayer;//玩家界面
 
+        public BevelledButtonWidget m_button2;
+
         public ToolWidget(ComponentPlayer componentPlayer)
         {
             m_componentPlayer = componentPlayer;
             XElement node = ContentManager.Get<XElement>("HYKJWidgets/ToolWidget");
+            LoadContents(this, node);
+            this.m_button2 = this.Children.Find<BevelledButtonWidget>("Button2", true);//成就
+        }
+
+        public override void Update()//检测
+        {
+            if (this.m_button2.IsClicked)
+            {
+                m_componentPlayer.ComponentGui.ModalPanelWidget = new CJWidget(m_componentPlayer);
+            }
+        }
+    }
+    //成就界面   
+    public class CJWidget : CanvasWidget
+    {
+        public ComponentPlayer m_componentPlayer;//玩家界面
+
+        public CJWidget(ComponentPlayer componentPlayer)
+        {
+            m_componentPlayer = componentPlayer;
+            XElement node = ContentManager.Get<XElement>("HYKJWidgets/CJWidget");
             LoadContents(this, node);
         }
 
@@ -423,7 +390,6 @@ namespace HYKJ
                 DialogsManager.HideDialog(this);
             }
         }
-
         public LabelWidget m_titleLabel; // 标题标签
         public LabelWidget m_contentLabel; // 内容标签
         public LabelWidget m_buttonLabel; // 按钮标签

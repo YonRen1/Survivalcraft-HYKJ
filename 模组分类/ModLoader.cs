@@ -32,9 +32,11 @@ namespace HYKJ
         public override void __ModInitialize()
         {
             ModsManager.RegisterHook("GuiUpdate", this);
+            ModsManager.RegisterHook("OnMinerHit", this);
             ModsManager.RegisterHook("OnLoadingFinished", this);
         }
 
+        //定义新的按钮
         private BitmapButtonWidget tool = new BitmapButtonWidget
         {
             Name = "toolButton",
@@ -45,23 +47,65 @@ namespace HYKJ
             Margin = new Vector2(4, 0),
         };
 
+        /// <summary>
+        /// Gui组件帧更新时执行
+        /// </summary>
+        /// <param name="componentGui"></param>
         public override void GuiUpdate(ComponentGui componentGui)
         {
             ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;
+            //获取容器
             StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");
             moreContents.AddChildren(tool);
 
+            //点击事件
             if (tool.IsClicked)
             {
                 m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
             }
         }
+
+        /// <summary>
+        /// 加载任务结束时执行
+        /// 在BlocksManager初始化之后
+        /// </summary>
+        /// <param name="actions"></param>
         public override void OnLoadingFinished(List<Action> actions)
         {
             actions.Add(delegate ()
             {
-                ScreensManager.m_screens["MainMenu"] = new HYKJMainMenuScreen();
+                ScreensManager.m_screens["MainMenu"] = new HYKJMainMenuScreen();//覆盖原版
             });
         }
+
+        /*/// <summary>
+        /// 当人物击打时执行
+        /// </summary>
+        public override void OnMinerHit(ComponentMiner miner, ComponentBody componentBody, Vector3 hitPoint, Vector3 hitDirection, ref float attackPower, ref float playerProbability, ref float creatureProbability, out bool Hitted)
+        {
+            //ComponentZelaTool tool = miner.Entity.FindComponent<ComponentZelaTool>();
+            if (tool != null)
+            {
+                int value = miner.ActiveBlockValue;
+                Block block = BlocksManager.Blocks[Terrain.ExtractContents(value)];
+                if (block is hammer1Block)
+                {
+                    hammer1Block zelaPlat = ((hammer1Block)block);
+                    //tool.laset = miner.m_lastHitTime;
+                    miner.m_lastHitTime -= zelaPlat.GetItemSpeed(value);
+                    if (zelaPlat.GetItemHitD(value) < 2)
+                    {
+                        if (Vector3.Distance(hitPoint, tool.componentPlayer.ComponentCreatureModel.EyePosition) > zelaPlat.GetItemHitD(value))
+                        {
+                            playerProbability = 0;
+                            miner.m_lastHitTime = 0;
+                            //tool.m_subsystemParticles.AddParticleSystem(new HitValueParticleSystem(hitPoint, hitDirection * miner.m_random.Float(-3, 3), Color.Yellow, "太短了!"));
+                        }
+                    }
+                    //zelaPlat.GetItemHited(miner, componentBody, hitPoint, hitDirection, attackPower, playerProbability);
+                }
+            }
+            Hitted = false;
+        }*/
     }
 }

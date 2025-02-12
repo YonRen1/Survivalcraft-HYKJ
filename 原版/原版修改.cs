@@ -27,13 +27,14 @@ namespace HYKJ
     //碎石
     public class GravelBlock : CubeBlock
     {
-        public static int Index = 6;
+        public static int Index = 6;//ID
 
         public GravelBlock()
         {
-            IsCollapsable = true;
+            IsCollapsable = true;//滑落
         }
-
+        
+        //随机掉落方法
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
@@ -41,7 +42,7 @@ namespace HYKJ
             {
                 return;
             }
-            if (Random.Float(0f, 1f) < 0.85f)
+            if (Random.Float(0f, 1f) < 0.9f)
             {
                 base.GetDropValues(subsystemTerrain, oldValue, newValue, toolLevel, dropValues, out showDebris);
                 return;
@@ -51,7 +52,7 @@ namespace HYKJ
             {
                 dropValues.Add(new BlockDropValue
                 {
-                    Value = Terrain.MakeBlockValue(FlintBlock.Index),
+                    Value = Terrain.MakeBlockValue(flint_flakeBlock.Index),
                     Count = 1
                 });
             }
@@ -69,7 +70,7 @@ namespace HYKJ
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
-            int num = Random.Int(1, 2);//随机掉落1-2个
+            int num = Random.Int(1, 1);//随机掉落1-2个
             for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
@@ -91,7 +92,7 @@ namespace HYKJ
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
-            int num = Random.Int(1, 2);//随机掉落1-2个
+            int num = Random.Int(1, 1);//随机掉落1-2个
             for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
@@ -113,7 +114,7 @@ namespace HYKJ
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
-            int num = Random.Int(1, 2);//随机掉落1-2个
+            int num = Random.Int(1, 1);//随机掉落1-2个
             for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
@@ -135,7 +136,7 @@ namespace HYKJ
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
-            int num = Random.Int(1, 2);//随机掉落1-2个
+            int num = Random.Int(1, 1);//随机掉落1-2个
             for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
@@ -157,7 +158,7 @@ namespace HYKJ
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
             showDebris = true;
-            int num = Random.Int(1, 2);//随机掉落1-2个
+            int num = Random.Int(1, 1);//随机掉落1-2个
             for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
@@ -175,17 +176,26 @@ namespace HYKJ
 
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
-            int data = Terrain.ExtractData(oldValue);
-            if (!GetIsSmall(data))
+            showDebris = true;
+            if (toolLevel < RequiredToolLevel)
+            {
+                return;
+            }
+            if (Random.Float(0f, 1f) < 0.8f)
+            {
+                return;
+            }
+            int num = Random.Int(1, 1);
+            for (int i = 0; i < num; i++)
             {
                 dropValues.Add(new BlockDropValue
                 {
-                    Value = Terrain.MakeBlockValue(302, 0, data),
+                    Value = Terrain.MakeBlockValue(plant_fiberBlock.Index),
                     Count = 1
                 });
             }
-            showDebris = true;
         }
+        
         public override int GetFaceTextureSlot(int face, int value)
         {
             if (!GetIsSmall(Terrain.ExtractData(value)))
@@ -283,9 +293,9 @@ namespace HYKJ
         }
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
-            showDebris = true;
-            int num = Random.Int(3, 4);//随机掉落1-2个
-            for (int i = 0; i < num; i++)
+            showDebris = true;//挖掘碎片
+            int num = Random.Int(3, 5);//随机掉落3-4个
+            for (int i = 0; i < num; i++)//循环
             {
                 dropValues.Add(new BlockDropValue
                 {
@@ -321,9 +331,8 @@ namespace HYKJ
             {
                 return;
             }
-            if (Random.Float(0f, 1f) < 0.5f)
+            if (Random.Float(0f, 1f) < 0.9f)
             {
-                base.GetDropValues(subsystemTerrain, oldValue, newValue, toolLevel, dropValues, out showDebris);
                 return;
             }
             int num = Random.Int(1, 1);
@@ -337,5 +346,22 @@ namespace HYKJ
             }
         }
     }
+    //土块滑落
+    public class DirtBlock : CubeBlock
+	{
+		public static int Index = 2;
+
+        public override bool IsSuitableForPlants(int value, int plantValue)
+        {
+            return true;
+        }
+        
+        public DirtBlock()
+        {
+		   IsCollapsable = true;
+        }
+    }
+
+    
 
 }
