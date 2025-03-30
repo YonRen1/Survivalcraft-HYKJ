@@ -20,6 +20,8 @@ using Engine.Input;
 using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 //———————————————————————荒野科技——————————————————————— 
 namespace HYKJ
 {
@@ -242,14 +244,81 @@ namespace HYKJ
             XElement xelement = ContentManager.Get<XElement>("HYKJDialogs/HYKJDialog", null);
             base.LoadContents(this, xelement);
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
-            /*this.m_qqButton = this.Children.Find<ButtonWidget>("QQButton", true);//QQ群
-            this.m_gxButton = this.Children.Find<ButtonWidget>("GXButton", true);//贡献
+            this.m_qqButton = this.Children.Find<ButtonWidget>("QQ", true);//QQ群
+            /*this.m_gxButton = this.Children.Find<ButtonWidget>("GXButton", true);//贡献
             this.m_hmButton = this.Children.Find<ButtonWidget>("HMButton", true);//黑名单
             this.m_ryButton = this.Children.Find<ButtonWidget>("RYButton", true);//荣誉
             this.m_jjButton = this.Children.Find<ButtonWidget>("JJButton", true);//简介
             this.m_jqButton = this.Children.Find<ButtonWidget>("JQButton", true);//剧情
             this.m_mxButton = this.Children.Find<ButtonWidget>("MXButton", true);//鸣谢
-            this.m_zzButton = this.Children.Find<ButtonWidget>("ZZButton", true);//制作*/
+            */
+            this.m_zzButton = this.Children.Find<ButtonWidget>("ZZButton", true);//制作
+            this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
+            this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
+            this.m_buttonLabel = this.Children.Find<LabelWidget>("ButtonLabel", true);
+            this.m_buttonLabel.Text = LanguageControl.Ok;
+            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_titleLabel.Text = title;
+            this.m_contentLabel.Text = content;
+            this.Action = action;
+        }
+
+        public override void Update()
+        {
+            if (this.m_okButton.IsClicked)
+            {
+                this.Action.Invoke();
+                DialogsManager.HideDialog(this);
+            }
+            if (this.m_qqButton.IsClicked)
+            {
+                QQUpdate.ShowUpdate();
+                DialogsManager.HideDialog(this);
+            }
+            if (this.m_zzButton.IsClicked)
+            {
+                ZZUpdate.ShowUpdate();
+                DialogsManager.HideDialog(this);
+            }
+        }
+
+        public LabelWidget m_titleLabel; // 标题标签
+        public LabelWidget m_contentLabel; // 内容标签
+        public LabelWidget m_buttonLabel; // 按钮标签
+        public ButtonWidget m_okButton; // Ok按钮
+        public ButtonWidget m_qqButton;
+        public ButtonWidget m_zzButton;
+        public Action Action; // 动作
+    }
+
+    public class QQUpdate
+    {
+        public static void ShowUpdate()
+        {
+            try
+            {
+                string title = "荒野科技原始人指挥部";
+                string text = "";
+                string text2 = " ";
+                DialogsManager.ShowDialog(null, new QQDialog(title, text + "\n" + text2, delegate ()
+                {
+                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+                }));
+                MotdManager.CanShowBulletin = false;
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
+            }
+        }
+    }
+    public class QQDialog : Dialog
+    {
+        public QQDialog(string title, string content, Action action)
+        {
+            XElement xelement = ContentManager.Get<XElement>("HYKJDialogs/QQDialog", null);
+            base.LoadContents(this, xelement);
+            this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
             this.m_buttonLabel = this.Children.Find<LabelWidget>("ButtonLabel", true);
@@ -276,6 +345,62 @@ namespace HYKJ
         public Action Action; // 动作
     }
 
+
+    public class ZZUpdate
+    {
+        public static void ShowUpdate()
+        {
+            try
+            {
+                string title = "荒野科技制作组";
+                string text = "";
+                string text2 = " ";
+                DialogsManager.ShowDialog(null, new ZZDialog(title, text + "\n" + text2, delegate ()
+                {
+                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+                }));
+                MotdManager.CanShowBulletin = false;
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
+            }
+        }
+    }
+    public class ZZDialog : Dialog
+    {
+        public ZZDialog(string title, string content, Action action)
+        {
+            XElement xelement = ContentManager.Get<XElement>("HYKJDialogs/ZZDialog", null);
+            base.LoadContents(this, xelement);
+            this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
+            this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
+            this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
+            this.m_buttonLabel = this.Children.Find<LabelWidget>("ButtonLabel", true);
+            this.m_scrollPanel = this.Children.Find<ScrollPanelWidget>("ScrollPanel", true);
+            this.m_buttonLabel.Text = LanguageControl.Ok;
+            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_titleLabel.Text = title;
+            this.m_contentLabel.Text = content;
+            this.Action = action;
+        }
+
+        public override void Update()
+        {
+            if (this.m_okButton.IsClicked)
+            {
+                this.Action.Invoke();
+                DialogsManager.HideDialog(this);
+            }
+        }
+
+        public LabelWidget m_titleLabel; // 标题标签
+        public LabelWidget m_contentLabel; // 内容标签
+        public LabelWidget m_buttonLabel; // 按钮标签
+        public ButtonWidget m_okButton; // Ok按钮
+        public Action Action; // 动作
+        public ScrollPanelWidget m_scrollPanel;
+    }
     //工具界面   
     public class ToolWidget : CanvasWidget
     {
@@ -396,5 +521,185 @@ namespace HYKJ
         public ButtonWidget m_okButton; // Ok按钮
         public Action Action; // 动作
     }
+  /*  public class HYKJHelpScreen : Screen
+    {
+        public ListPanelWidget m_topicsList;
 
+        public Screen m_previousScreen;
+
+        public Dictionary<string, HelpTopic> m_topics = [];
+
+        public HYKJHelpScreen()
+        {
+            XElement node = ContentManager.Get<XElement>("Screens/HYKJHelpScreen");
+            LoadContents(this, node);
+            m_topicsList = Children.Find<ListPanelWidget>("TopicsList");
+            m_topicsList.ItemWidgetFactory = delegate (object item)
+            {
+                var helpTopic3 = (HelpTopic)item;
+                XElement node2 = ContentManager.Get<XElement>("Widgets/HelpTopicItem");
+                var obj = (ContainerWidget)LoadWidget(this, node2, null);
+                obj.Children.Find<LabelWidget>("HelpTopicItem.Title").Text = helpTopic3.Title;
+                return obj;
+            };
+            m_topicsList.ItemClicked += delegate (object item)
+            {
+                var helpTopic2 = item as HelpTopic;
+                if (helpTopic2 != null)
+                {
+                    ShowTopic(helpTopic2);
+                }
+            };
+            foreach (var item in LanguageControl.jsonNode["HYKJHelp"].AsObject())
+            {
+                JsonNode item3 = item.Value;
+                JsonNode displa = item3["DisabledPlatforms"];
+                if (displa != null && displa.GetValueKind() == JsonValueKind.String)
+                {
+                    if ((displa.GetValue<string>()).Split(new string[] { "," }, StringSplitOptions.None).FirstOrDefault((string s) => s.Trim().Equals(VersionsManager.PlatformString, StringComparison.CurrentCultureIgnoreCase)) == null) continue;
+                }
+                JsonNode Title = item3["Title"];
+                JsonNode Name = item3["Name"];
+                JsonNode value = item3["value"];
+                string attributeValue = Name != null && Name.GetValueKind() == JsonValueKind.String ? Name.GetValue<string>() : string.Empty;
+                string attributeValue2 = Title != null && Title.GetValueKind() == JsonValueKind.String ? Title.GetValue<string>() : string.Empty;
+                string text = string.Empty;
+                if (value != null)
+                {
+                    string[] array = value.GetValue<string>().Split(new string[] { "\n" }, StringSplitOptions.None);
+                    foreach (string text2 in array)
+                    {
+                        text = text + text2.Trim() + " ";
+                    }
+                    text = text.Replace("\r", "");
+                    text = text.Replace("’", "'");
+                    text = text.Replace("\\n", "\n");
+                }
+                bool floatParseSucceed = float.TryParse(item.Key, out float index);
+                var helpTopic = new HelpTopic
+                {
+                    Index = floatParseSucceed ? index : 0f,
+                    Name = attributeValue,
+                    Title = attributeValue2,
+                    Text = text
+                };
+                if (!string.IsNullOrEmpty(helpTopic.Name))
+                {
+                    m_topics.Add(helpTopic.Name, helpTopic);
+                }
+                m_topicsList.m_items.Add(helpTopic);
+            }
+            m_topicsList.m_items.Sort((x, y) =>
+            {
+                var x_topic = x as HelpTopic;
+                var y_topic = y as HelpTopic;
+                if (x == null || y == null) return 0;
+                return x_topic.Index.CompareTo(y_topic.Index);
+            }
+            );
+        }
+
+        public override void Enter(object[] parameters)
+        {
+            if (ScreensManager.PreviousScreen != ScreensManager.FindScreen<Screen>("HelpTopic") && ScreensManager.PreviousScreen != ScreensManager.FindScreen<Screen>("Recipaedia") && ScreensManager.PreviousScreen != ScreensManager.FindScreen<Screen>("Bestiary"))
+            {
+                m_previousScreen = ScreensManager.PreviousScreen;
+            }
+        }
+
+        public override void Leave()
+        {
+            m_topicsList.SelectedItem = null;
+        }
+
+        public override void Update()
+        {
+            if (Input.Back || Input.Cancel || Children.Find<ButtonWidget>("TopBar.Back").IsClicked)
+            {
+                ScreensManager.SwitchScreen(m_previousScreen);
+            }
+        }
+
+        public HelpTopic GetTopic(string name)
+        {
+            return m_topics[name];
+        }
+
+        public void ShowTopic(HelpTopic helpTopic)
+        {
+            if (helpTopic.Name == "Keyboard")
+            {
+                DialogsManager.ShowDialog(null, new KeyboardHelpDialog());
+            }
+            else if (helpTopic.Name == "Gamepad")
+            {
+                DialogsManager.ShowDialog(null, new GamepadHelpDialog());
+            }
+            else
+            {
+                ScreensManager.SwitchScreen("HelpTopic", helpTopic);
+            }
+        }
+    }*/
+
+
+    public class HYKJClothingWidget : CanvasWidget
+    {
+        public StackPanelWidget m_clothingStack;
+
+        public PlayerModelWidget m_innerClothingModelWidget;
+
+        public PlayerModelWidget m_outerClothingModelWidget;
+
+        public ComponentPlayer m_componentPlayer;
+
+        public LabelWidget m_titleLabel;
+
+        public ValueBarWidget m_healthValueBar;
+
+        public ValueBarWidget m_staminaValueBar;
+
+        public ValueBarWidget m_foodValueBar;
+
+        public ValueBarWidget m_sleepValueBar;
+
+        public ValueBarWidget m_experienceValueBar;
+
+        public LabelWidget m_insulationLabel;
+
+        public ValueBarWidget m_temperatureValueBar;
+
+        public HYKJClothingWidget(ComponentPlayer componentPlayer)
+        {
+            m_componentPlayer = componentPlayer;
+            XElement node = ContentManager.Get<XElement>("Widgets/HYKJClothingWidget");
+            LoadContents(this, node);
+            m_clothingStack = Children.Find<StackPanelWidget>("ClothingStack");
+            m_innerClothingModelWidget = Children.Find<PlayerModelWidget>("InnerClothingModel");
+            m_outerClothingModelWidget = Children.Find<PlayerModelWidget>("OuterClothingModel");
+            m_innerClothingModelWidget.PlayerClass = componentPlayer.PlayerData.PlayerClass;
+            m_innerClothingModelWidget.CharacterSkinTexture = m_componentPlayer.ComponentClothing.InnerClothedTexture;
+            m_outerClothingModelWidget.PlayerClass = componentPlayer.PlayerData.PlayerClass;
+            m_outerClothingModelWidget.OuterClothingTexture = m_componentPlayer.ComponentClothing.OuterClothedTexture;
+            m_titleLabel = Children.Find<LabelWidget>("TitleLabel");
+            m_healthValueBar = Children.Find<ValueBarWidget>("HealthValueBar");
+            m_staminaValueBar = Children.Find<ValueBarWidget>("StaminaValueBar");
+            m_temperatureValueBar = Children.Find<ValueBarWidget>("TemperatureValueBar");
+            m_foodValueBar = Children.Find<ValueBarWidget>("FoodValueBar");
+            m_sleepValueBar = Children.Find<ValueBarWidget>("SleepValueBar");
+            m_experienceValueBar = Children.Find<ValueBarWidget>("ExperienceValueBar");
+        }
+
+        public override void Update()
+        {
+            m_titleLabel.Text = $"{m_componentPlayer.PlayerData.Name}, 等级 {MathF.Floor(m_componentPlayer.PlayerData.Level)}  ";
+            m_healthValueBar.Value = m_componentPlayer.ComponentHealth.Health;
+            m_staminaValueBar.Value = m_componentPlayer.ComponentVitalStats.Stamina;
+            m_foodValueBar.Value = m_componentPlayer.ComponentVitalStats.Food;
+            m_sleepValueBar.Value = m_componentPlayer.ComponentVitalStats.Sleep;
+            m_temperatureValueBar.Value = m_componentPlayer.ComponentVitalStats.Temperature / 24f;
+            m_experienceValueBar.Value = m_componentPlayer.PlayerData.Level - MathF.Floor(m_componentPlayer.PlayerData.Level);
+        }
+
+    }
 }

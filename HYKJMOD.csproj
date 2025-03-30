@@ -14,6 +14,7 @@
     <Compile Update="模组分类/ModLoader.cs" />
     <Compile Update="模组分类/Subsystem.cs" />
     <Compile Update="原版/原版修改.cs" />
+    <Compile Update="模组分类/Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath=".../Engine.dll" />

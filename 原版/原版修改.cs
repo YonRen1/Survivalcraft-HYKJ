@@ -20,9 +20,9 @@ using Engine.Input;
 using System.Text;
 using System.Threading.Tasks;
 //———————————————————————荒野科技——————————————————————— 
-namespace HYKJ    
+namespace HYKJ
 {
-//————————————————————————原版修改—————————————————————
+    //————————————————————————原版修改—————————————————————
 
     //碎石
     public class GravelBlock : CubeBlock
@@ -33,7 +33,7 @@ namespace HYKJ
         {
             IsCollapsable = true;//滑落
         }
-        
+
         //随机掉落方法
         public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
         {
@@ -195,7 +195,7 @@ namespace HYKJ
                 });
             }
         }
-        
+
         public override int GetFaceTextureSlot(int face, int value)
         {
             if (!GetIsSmall(Terrain.ExtractData(value)))
@@ -348,20 +348,19 @@ namespace HYKJ
     }
     //土块滑落
     public class DirtBlock : CubeBlock
-	{
-		public static int Index = 2;
+    {
+        public static int Index = 2;
 
         public override bool IsSuitableForPlants(int value, int plantValue)
         {
             return true;
         }
-        
+
         public DirtBlock()
         {
-		   IsCollapsable = true;
+            IsCollapsable = true;
         }
     }
 
-    
 
 }

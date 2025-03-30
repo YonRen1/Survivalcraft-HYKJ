@@ -175,6 +175,46 @@ namespace HYKJ//命名空间HYKJ
             BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, 2f * size, ref matrix, environmentData);
         }
     }
+    //锯
+    public abstract class sawBlock : Block
+    {
+        public int m_handleTextureSlot;
+
+        public int m_headTextureSlot;
+
+        public BlockMesh m_standaloneBlockMesh = new();
+
+        public sawBlock(int handleTextureSlot, int headTextureSlot)
+        {
+            m_handleTextureSlot = handleTextureSlot;
+            m_headTextureSlot = headTextureSlot;
+        }
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/锯");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
+            Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
+            var blockMesh = new BlockMesh();
+            blockMesh.AppendModelMeshPart(model.FindMesh("Handle").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh.TransformTextureCoordinates(Matrix.CreateTranslation(m_handleTextureSlot % 16 / 16f, m_handleTextureSlot / 16 / 16f, 0f));
+            var blockMesh2 = new BlockMesh();
+            blockMesh2.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            blockMesh2.TransformTextureCoordinates(Matrix.CreateTranslation(m_headTextureSlot % 16 / 16f, m_headTextureSlot / 16 / 16f, 0f));
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh);
+            m_standaloneBlockMesh.AppendBlockMesh(blockMesh2);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, 2f * size, ref matrix, environmentData);
+        }
+    }
     //燧石
     public class FlintBlock : SFlatBlock
     {
@@ -665,4 +705,196 @@ namespace HYKJ//命名空间HYKJ
         {
         }
     }
+    //石锤
+    public class malletBlock : hammer1Block
+    {
+        public static int Index = 331;
+
+        public malletBlock()
+            : base(47, 6)
+        {
+        }
+    }
+    //骨锤
+    public class bone_hammerBlock : hammer1Block
+    {
+        public static int Index = 332;
+
+        public bone_hammerBlock()
+            : base(47, 7)
+        {
+        }
+    }
+    //铜粒
+    public class copper_particlesBlock : SFlatBlock
+    {
+        public static int Index = 335;
+
+        public copper_particlesBlock()
+            : base(227)
+        {
+        }
+    }
+    //铁粒
+    public class sideroblastsBlock : SFlatBlock
+    {
+        public static int Index = 336;
+        public sideroblastsBlock()
+           : base(225)
+        {
+        }
+    }
+    public class emBlock : Block
+    {
+        public static int Index = 337;
+
+        public BlockMesh m_blockMesh = new();
+
+        public BlockMesh m_standaloneBlockMesh = new();
+
+        public int m_textureCount;
+
+        public Texture2D texture;
+
+        public override BlockDebrisParticleSystem CreateDebrisParticleSystem(SubsystemTerrain subsystemTerrain, Vector3 position, int value, float strength)
+        {
+            return new BlockDebrisParticleSystem(subsystemTerrain, position, strength, DestructionDebrisScale, Color.White, GetFaceTextureSlot(1, value), texture);
+        }
+        public override void Initialize()
+        {
+            texture = ContentManager.Get<Texture2D>("HYKJTextures/犀牛头颅");
+
+            Model model = ContentManager.Get<Model>("HYKJModels/犀牛头颅");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
+            m_blockMesh.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
+            base.Initialize();
+        }
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+            generator.GenerateShadedMeshVertices(this, x, y, z, m_blockMesh, Color.White, null, null, geometry.GetGeometry(texture).SubsetOpaque);
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, texture, color, size, ref matrix, environmentData);
+        }
+
+    }
+    //尸体
+    public class bodyBlock : SFlatBlock
+    {
+        public static int Index = 338;
+        public bodyBlock()
+           : base(45)
+        {
+        }
+    }
+    //皮毛
+    public class furBlock : SFlatBlock
+    {
+        public static int Index = 339;
+        public furBlock()
+           : base(46)
+        {
+        }
+    }
+    //尖木棍
+    public class sharp_stickBlock : SFlatBlock
+    {
+        public static int Index = 340;
+        public sharp_stickBlock()
+           : base(62)
+        {
+        }
+    }
+    //木柴
+    public class firewoodBlock : SFlatBlock
+    {
+        public static int Index = 341;
+        public firewoodBlock()
+           : base(63)
+        {
+        }
+    }
+    //肉块
+    public class meat_1Block : SFlatBlock
+    {
+        public static int Index = 342;
+        public meat_1Block()
+           : base(47)
+        {
+        }
+    }
+    //烧制粘土
+    public class firing_clayBlock : CubeBlock
+    {
+        public static int Index = 343;
+    }
+    //粘土
+    public class clay_Block : SFlatBlock
+    {
+        public static int Index = 344;
+        public clay_Block()
+           : base(50)
+        {
+            CanBeBuiltIntoFurniture = true;
+        }
+    }
+    //铁锯
+    public class iron_sawBlock : sawBlock
+    {
+        public static int Index = 350;
+
+        public iron_sawBlock()
+            : base(47, 63)
+        {
+        }
+    }
+    //铜锯
+    public class copper_sawBlock : sawBlock
+    {
+        public static int Index = 351;
+
+        public copper_sawBlock()
+            : base(47, 79)
+        {
+        }
+    }
+    //焦炭
+    public class cokeBlock : SFlatBlock
+    {
+        public static int Index = 352;
+        public cokeBlock()
+           : base(48)
+        {
+        }
+    }
+    //废料
+    public class wasteBlock : SFlatBlock
+    {
+        public static int Index = 353;
+        public wasteBlock()
+           : base(51)
+        {
+        }
+    }
+    //模版
+    public class templateBlock : SFlatBlock
+    {
+        public static int Index = 354;
+        public templateBlock()
+           : base(208)
+        {
+        }
+    }
+    public class gold_mineBlock : CubeBlock
+	{
+		public static int Index = 355;
+	}
+	public class nuggetBlock : CubeBlock
+	{
+		public static int Index = 356;
+	}
 }

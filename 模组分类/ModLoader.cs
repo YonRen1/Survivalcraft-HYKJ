@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -24,6 +24,16 @@ namespace HYKJ
 {
     public class HYKJModLoader : ModLoader
     {
+        public static ReadOnlyList<string> Categories => new(m_categories);
+
+        public static List<string> m_categories = [];
+
+        private bool isSprintChecked = false;
+
+        public GameMode gameMode;
+
+        public ComponentGui m_componentGui;
+
         public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null)
         {
             return new Subtexture(ContentManager.Get<Texture2D>(imgpath), TopLeft ?? Vector2.Zero, BottomRight ?? Vector2.One);
@@ -34,34 +44,196 @@ namespace HYKJ
             ModsManager.RegisterHook("GuiUpdate", this);
             ModsManager.RegisterHook("OnMinerHit", this);
             ModsManager.RegisterHook("OnLoadingFinished", this);
+            ModsManager.RegisterHook("BlocksInitalized", this);
         }
 
-        //定义新的按钮
+        //定义新的按钮：工具按钮
         private BitmapButtonWidget tool = new BitmapButtonWidget
         {
             Name = "toolButton",
             Size = new Vector2(68f, 64f),
-            NormalSubtexture = ToSubtexture("Textures/Button/tool"),
-            ClickedSubtexture = ToSubtexture("Textures/Button/tool_Pressed"),
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/tool"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/tool_Pressed"),
             Text = "",
             Margin = new Vector2(4, 0),
         };
+        //定义新的按钮：属性按钮
+        private BitmapButtonWidget attribute = new BitmapButtonWidget
+        {
+            Name = "attributeButton",
+            Size = new Vector2(68f, 64f),
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_1"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed_1"),
+            Text = "",
+            Margin = new Vector2(4, 0),
+        };
+        //属性图像
+        private RectangleWidget attribute_one = new RectangleWidget
+        {
+            Size = new Vector2(45f, 45f),
+            OutlineColor = new Color(0, 0, 0, 0),
+            FillColor = new Color(255, 255, 255),
+            Subtexture = ToSubtexture("HYKJTextures/Button/attribute"),
+            //居中
+            HorizontalAlignment = WidgetAlignment.Center,
+            VerticalAlignment = WidgetAlignment.Center,
+        };
+        //跑步
+        private BitmapButtonWidget sprint = new BitmapButtonWidget
+        {
+            Name = "SprintButton",
+            Size = new Vector2(64f, 64f),
+            HorizontalAlignment = WidgetAlignment.Far,
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed"),
+            Margin = new Vector2(0, 3), //外边距
+            //开启自动选中
+            IsAutoCheckingEnabled = true,
+        };
+        //模组信息
+        /* private BitmapButtonWidget mod = new BitmapButtonWidget
+         {
+             Name = "mod",
+             Style = ContentManager.Get<XElement>("Styles/ButtonStyle_310x60"),
+             HorizontalAlignment = WidgetAlignment.Far,
+             Margin = new Vector2(0, 3), //外边距
+         };*/
+        //跑步
+        private RectangleWidget sprintImg = new RectangleWidget
+        {
+            Size = new Vector2(40f, 40f),
+            OutlineColor = new Color(0, 0, 0, 0),
+            FillColor = new Color(255, 255, 255),
+            Subtexture = ToSubtexture("HYKJTextures/Button/Sprint"),
+            //居中
+            HorizontalAlignment = WidgetAlignment.Center,
+            VerticalAlignment = WidgetAlignment.Center,
+        };
+        //耐力
+        private ValueBarWidget staminaBar = new ValueBarWidget
+        {
+            Name = "StaminaBar",
+            BarSize = new Vector2(16f, 16f), //条大小
+            LitBarColor = new Color(220, 241, 37),
+            UnlitBarColor = new Color(0, 0, 0, 255),
+            //条显示图标
+            BarSubtexture = ToSubtexture("HYKJTextures/Button/Stamina"),
+            BarsCount = 10, //条图标个数
+            BarBlending = false,
+            HalfBars = true,
+            TextureLinearFilter = true,
+        };
+        //耐力
+        private ValueBarWidget Water = new ValueBarWidget
+        {
+            Name = "Water",
+            BarSize = new Vector2(16f, 16f), //条大小
+            LitBarColor = new Color(0, 149, 255),
+            UnlitBarColor = new Color(0, 0, 0, 255),
+            //条显示图标
+            BarSubtexture = ToSubtexture("HYKJTextures/Button/Water"),
+            BarsCount = 10, //条图标个数
+            BarBlending = false,
+            HalfBars = true,
+            TextureLinearFilter = true,
+        };
 
+        private LinkWidget modName = new LinkWidget
+        {
+            Name = "ModNameLink",
+            Text = "",
+            Color = new Color(32, 160, 246, 195),
+            TextAnchor = TextAnchor.HorizontalCenter,
+            Size = new Vector2(10f, 10f),
+            FontScale = 0.7f, //字体缩放
+            HorizontalAlignment = WidgetAlignment.Center,
+            Margin = new Vector2(0f, 18f) //方向(左右，上下)
+        };
         /// <summary>
         /// Gui组件帧更新时执行
         /// </summary>
         /// <param name="componentGui"></param>
         public override void GuiUpdate(ComponentGui componentGui)
         {
-            ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;
-            //获取容器
-            StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");
+            ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;//获取玩家组件
+            CanvasWidget controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");//屏幕总控件容器
+            StackPanelWidget leftContainer = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("LeftControlsContainer");//屏幕左侧控件容器       
+            StackPanelWidget lightContainer = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("RightControlsContainer");//屏幕右侧控件容器
+            StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");//屏幕右侧最顶隐藏容器
+            StackPanelWidget statusContents = (StackPanelWidget)m_componentPlayer.GuiWidget.Children.Find<ValueBarWidget>("TemperatureBar").ParentWidget; //玩家生存模式状态栏容器 //获取父类容器
+            controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");
+            //疾跑按钮
+            sprint.AddChildren(sprintImg); //给空白按钮添加图标
+            lightContainer.AddChildren(sprint);
+            //属性按钮
+            attribute.AddChildren(attribute_one); //给空白按钮添加图标
+            leftContainer.AddChildren(attribute);
+            //耐力条
+            statusContents.AddChildren(staminaBar);
+            //水分条
+            statusContents.AddChildren(Water);
+            //工具按钮
             moreContents.AddChildren(tool);
+            controlsContainer.AddChildren(modName);
+
+            if (modName != null)
+            {
+                //调用值
+                HYKJVersion modVersion = new HYKJVersion();
+                modName.Text = modVersion.FullVersion;
+            }
+            if (tool != null)
+            {
+                tool.Text = "";
+            }
+            if (attribute != null)
+            {
+                attribute.Text = "";
+            }
+            if (sprint != null)
+            {
+                sprint.Text = "";
+            }
+
+            //获取游戏难度
+            gameMode = m_componentGui.m_subsystemGameInfo.WorldSettings.GameMode;
+            //控件是否显示
+            staminaBar.IsVisible = gameMode != GameMode.Creative;
+            Water.IsVisible = gameMode != GameMode.Creative;
+
 
             //点击事件
             if (tool.IsClicked)
             {
                 m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
+            }
+            if (attribute.IsClicked)
+            {
+                m_componentPlayer.ComponentGui.ModalPanelWidget = new HYKJClothingWidget(m_componentPlayer);
+            }
+            //耐力
+            if (staminaBar.IsVisible)
+            {
+                staminaBar.Value = m_componentPlayer.ComponentVitalStats.Stamina;
+            }
+            if (Water.IsVisible)
+            {
+                Water.Value = m_componentPlayer.ComponentVitalStats.Stamina;
+            }
+            //跑步
+            if (sprint.IsClicked)
+            {
+                isSprintChecked = (isSprintChecked) ? false : true;
+                if (isSprintChecked)
+                {
+                    m_componentPlayer.ComponentLocomotion.WalkSpeed += 0.9f;
+                    componentGui.DisplaySmallMessage("开始疾跑", Color.White, false, false);
+                }
+                else
+                {
+                    m_componentPlayer.ComponentLocomotion.WalkSpeed -= 0.9f;
+                    componentGui.DisplaySmallMessage("停止疾跑", Color.White, false, false);
+                }
             }
         }
 
@@ -78,34 +250,29 @@ namespace HYKJ
             });
         }
 
-        /*/// <summary>
-        /// 当人物击打时执行
+        /// <summary>
+        /// 方块初始化完成时执行
         /// </summary>
-        public override void OnMinerHit(ComponentMiner miner, ComponentBody componentBody, Vector3 hitPoint, Vector3 hitDirection, ref float attackPower, ref float playerProbability, ref float creatureProbability, out bool Hitted)
+        public override void BlocksInitalized()
         {
-            //ComponentZelaTool tool = miner.Entity.FindComponent<ComponentZelaTool>();
-            if (tool != null)
-            {
-                int value = miner.ActiveBlockValue;
-                Block block = BlocksManager.Blocks[Terrain.ExtractContents(value)];
-                if (block is hammer1Block)
-                {
-                    hammer1Block zelaPlat = ((hammer1Block)block);
-                    //tool.laset = miner.m_lastHitTime;
-                    miner.m_lastHitTime -= zelaPlat.GetItemSpeed(value);
-                    if (zelaPlat.GetItemHitD(value) < 2)
-                    {
-                        if (Vector3.Distance(hitPoint, tool.componentPlayer.ComponentCreatureModel.EyePosition) > zelaPlat.GetItemHitD(value))
-                        {
-                            playerProbability = 0;
-                            miner.m_lastHitTime = 0;
-                            //tool.m_subsystemParticles.AddParticleSystem(new HitValueParticleSystem(hitPoint, hitDirection * miner.m_random.Float(-3, 3), Color.Yellow, "太短了!"));
-                        }
-                    }
-                    //zelaPlat.GetItemHited(miner, componentBody, hitPoint, hitDirection, attackPower, playerProbability);
-                }
-            }
-            Hitted = false;
-        }*/
+            BlocksManager.m_categories.Clear();
+            BlocksManager.m_categories.Add("Terrain");
+            BlocksManager.m_categories.Add("Minerals");
+            BlocksManager.m_categories.Add("Plants");
+            BlocksManager.m_categories.Add("Construction");
+            BlocksManager.m_categories.Add("Items");
+            BlocksManager.m_categories.Add("荒野科技材料");
+            BlocksManager.m_categories.Add("Tools");
+            BlocksManager.m_categories.Add("荒野科技工具");
+            BlocksManager.m_categories.Add("Weapons");
+            BlocksManager.m_categories.Add("荒野科技武器");
+            BlocksManager.m_categories.Add("Clothes");
+            BlocksManager.m_categories.Add("Electrics");
+            BlocksManager.m_categories.Add("Food");
+            BlocksManager.m_categories.Add("Spawner Eggs");
+            BlocksManager.m_categories.Add("Painted");
+            BlocksManager.m_categories.Add("Dyed");
+            BlocksManager.m_categories.Add("Fireworks");
+        }
     }
 }
