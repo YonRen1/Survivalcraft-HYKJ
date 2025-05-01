@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -889,12 +889,31 @@ namespace HYKJ//命名空间HYKJ
         {
         }
     }
+    //金矿
     public class gold_mineBlock : CubeBlock
-	{
-		public static int Index = 355;
-	}
-	public class nuggetBlock : CubeBlock
-	{
-		public static int Index = 356;
-	}
+    {
+        public static int Index = 355;
+    }
+    //斧头模具
+    public class axe_moldBlock : SFlatBlock
+    {
+        public axe_moldBlock() : base(210)
+        { }
+        public static int Index = 356;
+    }
+    //板模具
+    public class slab_moldBlock : SFlatBlock
+    {
+        public slab_moldBlock() : base(212)
+        { }
+        public static int Index = 357;
+    }
+    //尖棍
+    public class sharp_1stickBlock : SFlatBlock
+    {
+        public sharp_1stickBlock()
+        : base(62)
+        { }
+        public static int Index = 340;
+    }
 }

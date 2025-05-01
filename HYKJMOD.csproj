@@ -15,6 +15,7 @@
     <Compile Update="模组分类/Subsystem.cs" />
     <Compile Update="原版/原版修改.cs" />
     <Compile Update="模组分类/Version.cs" />
+    <Compile Update="模组分类/ComponentThirst.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath=".../Engine.dll" />

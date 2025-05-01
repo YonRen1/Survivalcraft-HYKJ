@@ -47,108 +47,6 @@ namespace HYKJ
             ModsManager.RegisterHook("BlocksInitalized", this);
         }
 
-        //定义新的按钮：工具按钮
-        private BitmapButtonWidget tool = new BitmapButtonWidget
-        {
-            Name = "toolButton",
-            Size = new Vector2(68f, 64f),
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/tool"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/tool_Pressed"),
-            Text = "",
-            Margin = new Vector2(4, 0),
-        };
-        //定义新的按钮：属性按钮
-        private BitmapButtonWidget attribute = new BitmapButtonWidget
-        {
-            Name = "attributeButton",
-            Size = new Vector2(68f, 64f),
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_1"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed_1"),
-            Text = "",
-            Margin = new Vector2(4, 0),
-        };
-        //属性图像
-        private RectangleWidget attribute_one = new RectangleWidget
-        {
-            Size = new Vector2(45f, 45f),
-            OutlineColor = new Color(0, 0, 0, 0),
-            FillColor = new Color(255, 255, 255),
-            Subtexture = ToSubtexture("HYKJTextures/Button/attribute"),
-            //居中
-            HorizontalAlignment = WidgetAlignment.Center,
-            VerticalAlignment = WidgetAlignment.Center,
-        };
-        //跑步
-        private BitmapButtonWidget sprint = new BitmapButtonWidget
-        {
-            Name = "SprintButton",
-            Size = new Vector2(64f, 64f),
-            HorizontalAlignment = WidgetAlignment.Far,
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed"),
-            Margin = new Vector2(0, 3), //外边距
-            //开启自动选中
-            IsAutoCheckingEnabled = true,
-        };
-        //模组信息
-        /* private BitmapButtonWidget mod = new BitmapButtonWidget
-         {
-             Name = "mod",
-             Style = ContentManager.Get<XElement>("Styles/ButtonStyle_310x60"),
-             HorizontalAlignment = WidgetAlignment.Far,
-             Margin = new Vector2(0, 3), //外边距
-         };*/
-        //跑步
-        private RectangleWidget sprintImg = new RectangleWidget
-        {
-            Size = new Vector2(40f, 40f),
-            OutlineColor = new Color(0, 0, 0, 0),
-            FillColor = new Color(255, 255, 255),
-            Subtexture = ToSubtexture("HYKJTextures/Button/Sprint"),
-            //居中
-            HorizontalAlignment = WidgetAlignment.Center,
-            VerticalAlignment = WidgetAlignment.Center,
-        };
-        //耐力
-        private ValueBarWidget staminaBar = new ValueBarWidget
-        {
-            Name = "StaminaBar",
-            BarSize = new Vector2(16f, 16f), //条大小
-            LitBarColor = new Color(220, 241, 37),
-            UnlitBarColor = new Color(0, 0, 0, 255),
-            //条显示图标
-            BarSubtexture = ToSubtexture("HYKJTextures/Button/Stamina"),
-            BarsCount = 10, //条图标个数
-            BarBlending = false,
-            HalfBars = true,
-            TextureLinearFilter = true,
-        };
-        //耐力
-        private ValueBarWidget Water = new ValueBarWidget
-        {
-            Name = "Water",
-            BarSize = new Vector2(16f, 16f), //条大小
-            LitBarColor = new Color(0, 149, 255),
-            UnlitBarColor = new Color(0, 0, 0, 255),
-            //条显示图标
-            BarSubtexture = ToSubtexture("HYKJTextures/Button/Water"),
-            BarsCount = 10, //条图标个数
-            BarBlending = false,
-            HalfBars = true,
-            TextureLinearFilter = true,
-        };
-
-        private LinkWidget modName = new LinkWidget
-        {
-            Name = "ModNameLink",
-            Text = "",
-            Color = new Color(32, 160, 246, 195),
-            TextAnchor = TextAnchor.HorizontalCenter,
-            Size = new Vector2(10f, 10f),
-            FontScale = 0.7f, //字体缩放
-            HorizontalAlignment = WidgetAlignment.Center,
-            Margin = new Vector2(0f, 18f) //方向(左右，上下)
-        };
         /// <summary>
         /// Gui组件帧更新时执行
         /// </summary>
@@ -174,14 +72,7 @@ namespace HYKJ
             statusContents.AddChildren(Water);
             //工具按钮
             moreContents.AddChildren(tool);
-            controlsContainer.AddChildren(modName);
 
-            if (modName != null)
-            {
-                //调用值
-                HYKJVersion modVersion = new HYKJVersion();
-                modName.Text = modVersion.FullVersion;
-            }
             if (tool != null)
             {
                 tool.Text = "";
@@ -274,5 +165,96 @@ namespace HYKJ
             BlocksManager.m_categories.Add("Dyed");
             BlocksManager.m_categories.Add("Fireworks");
         }
+                //定义新的按钮：工具按钮
+        private BitmapButtonWidget tool = new BitmapButtonWidget
+        {
+            Name = "toolButton",
+            Size = new Vector2(68f, 64f),
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/tool"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/tool_Pressed"),
+            Text = "",
+            Margin = new Vector2(4, 0),
+        };
+        //定义新的按钮：属性按钮
+        private BitmapButtonWidget attribute = new BitmapButtonWidget
+        {
+            Name = "attributeButton",
+            Size = new Vector2(68f, 64f),
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_1"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed_1"),
+            Text = "",
+            Margin = new Vector2(4, 0),
+        };
+        //属性图像
+        private RectangleWidget attribute_one = new RectangleWidget
+        {
+            Size = new Vector2(45f, 45f),
+            OutlineColor = new Color(0, 0, 0, 0),
+            FillColor = new Color(255, 255, 255),
+            Subtexture = ToSubtexture("HYKJTextures/Button/attribute"),
+            //居中
+            HorizontalAlignment = WidgetAlignment.Center,
+            VerticalAlignment = WidgetAlignment.Center,
+        };
+        //跑步
+        private BitmapButtonWidget sprint = new BitmapButtonWidget
+        {
+            Name = "SprintButton",
+            Size = new Vector2(64f, 64f),
+            HorizontalAlignment = WidgetAlignment.Far,
+            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton"),
+            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed"),
+            Margin = new Vector2(0, 3), //外边距
+            //开启自动选中
+            IsAutoCheckingEnabled = true,
+        };
+        //模组信息
+        /* private BitmapButtonWidget mod = new BitmapButtonWidget
+         {
+             Name = "mod",
+             Style = ContentManager.Get<XElement>("Styles/ButtonStyle_310x60"),
+             HorizontalAlignment = WidgetAlignment.Far,
+             Margin = new Vector2(0, 3), //外边距
+         };*/
+        //跑步
+        private RectangleWidget sprintImg = new RectangleWidget
+        {
+            Size = new Vector2(40f, 40f),
+            OutlineColor = new Color(0, 0, 0, 0),
+            FillColor = new Color(255, 255, 255),
+            Subtexture = ToSubtexture("HYKJTextures/Button/Sprint"),
+            //居中
+            HorizontalAlignment = WidgetAlignment.Center,
+            VerticalAlignment = WidgetAlignment.Center,
+        };
+        //耐力
+        private ValueBarWidget staminaBar = new ValueBarWidget
+        {
+            Name = "StaminaBar",
+            BarSize = new Vector2(16f, 16f), //条大小
+            LitBarColor = new Color(220, 241, 37),
+            UnlitBarColor = new Color(0, 0, 0, 255),
+            //条显示图标
+            BarSubtexture = ToSubtexture("HYKJTextures/Button/Stamina"),
+            BarsCount = 10, //条图标个数
+            BarBlending = false,
+            HalfBars = true,
+            TextureLinearFilter = true,
+        };
+        //耐力
+        private ValueBarWidget Water = new ValueBarWidget
+        {
+            Name = "Water",
+            BarSize = new Vector2(16f, 16f), //条大小
+            LitBarColor = new Color(0, 149, 255),
+            UnlitBarColor = new Color(0, 0, 0, 255),
+            //条显示图标
+            BarSubtexture = ToSubtexture("HYKJTextures/Button/Water"),
+            BarsCount = 10, //条图标个数
+            BarBlending = false,
+            HalfBars = true,
+            TextureLinearFilter = true,
+        };
     }
+    
 }
