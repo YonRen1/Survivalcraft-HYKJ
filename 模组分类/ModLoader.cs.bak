@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -120,7 +120,9 @@ namespace HYKJ
                     componentGui.DisplaySmallMessage("停止疾跑", Color.White, false, false);
                 }
             }
+            //获取游戏难度
             gameMode = m_componentGui.m_subsystemGameInfo.WorldSettings.GameMode;
+            //控件是否显示
             staminaBar.IsVisible = gameMode != GameMode.Creative;
         }
 

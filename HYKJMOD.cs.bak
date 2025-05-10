@@ -809,6 +809,15 @@ namespace HYKJ//命名空间HYKJ
         {
         }
     }
+    //肉块
+    public class meat_1Block : SFlatBlock
+    {
+        public static int Index = 342;
+        public meat_1Block()
+           : base(47)
+        {
+        }
+    }
     //烧制粘土
     public class firing_clayBlock : CubeBlock
     {
@@ -889,6 +898,14 @@ namespace HYKJ//命名空间HYKJ
         public slab_moldBlock() : base(212)
         { }
         public static int Index = 357;
+    }
+    //尖棍
+    public class sharp_1stickBlock : SFlatBlock
+    {
+        public sharp_1stickBlock()
+        : base(62)
+        { }
+        public static int Index = 340;
     }
     //粘土窑
     public class clay_kilnBlock : Block
