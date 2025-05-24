@@ -45,14 +45,28 @@ namespace HYKJ
             ModsManager.RegisterHook("OnMinerHit", this);
             ModsManager.RegisterHook("OnLoadingFinished", this);
             ModsManager.RegisterHook("BlocksInitalized", this);
+            ModsManager.RegisterHook("OnMainMenuScreenCreated", this);
         }
 
+        /// <summary>
+        /// 在主界面初始化后执行，你可以通过这个给主界面加些你想要的按钮或者文字等
+        /// 不过建议开发者使用BeforeWidgetUpdate和AfterWidgetUpdate这两个接口实现
+        /// </summary>
+        /// <param name="mainMenuScreen">初始化完毕后的主界面</param>
+        /// <param name="leftBottomBar">主界面左下角的按钮栏，里面有着API的切换语言和资源管理按钮</param>
+        /// <param name="rightBottomBar">主界面右下角的按钮栏，Mod作者们可以在这里面放入想要的按钮（例如Mod设置按钮、Mod作者介绍按钮等）</param>
+        /*public virtual void OnMainMenuScreenCreated(MainMenuScreen mainMenuScreen, StackPanelWidget leftBottomBar, StackPanelWidget rightBottomBar)
+		{
+
+		}*/
         /// <summary>
         /// Gui组件帧更新时执行
         /// </summary>
         /// <param name="componentGui"></param>
         public override void GuiUpdate(ComponentGui componentGui)
         {
+            a = HYKJVersion.FullVersion;
+            Log.Debug(a);
             ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;//获取玩家组件
             CanvasWidget controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");//屏幕总控件容器
             StackPanelWidget leftContainer = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("LeftControlsContainer");//屏幕左侧控件容器       
@@ -61,6 +75,10 @@ namespace HYKJ
             StackPanelWidget statusContents = (StackPanelWidget)m_componentPlayer.GuiWidget.Children.Find<ValueBarWidget>("TemperatureBar").ParentWidget; //玩家生存模式状态栏容器 //获取父类容器
             controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");
             ComponentThirst componentThirst = m_componentPlayer.Entity.FindComponent<ComponentThirst>(true);
+            // WorldSettings worldSettings = m_subsystemGameInfo.WorldSettings;//获取游戏模式
+            //GameMode gameMode = worldSettings.GameMode;
+            staminaBar.IsVisible = gameMode != GameMode.Creative;//如果是创造则隐藏
+            Water.IsVisible = gameMode != GameMode.Creative;
             //疾跑按钮
             sprint.AddChildren(sprintImg); //给空白按钮添加图标
             lightContainer.AddChildren(sprint);
@@ -73,19 +91,6 @@ namespace HYKJ
             statusContents.AddChildren(Water);
             //工具按钮
             moreContents.AddChildren(tool);
-
-            if (tool != null)
-            {
-                tool.Text = "";
-            }
-            if (attribute != null)
-            {
-                attribute.Text = "";
-            }
-            if (sprint != null)
-            {
-                sprint.Text = "";
-            }
 
             //点击事件
             if (tool.IsClicked)
@@ -120,21 +125,7 @@ namespace HYKJ
                     componentGui.DisplaySmallMessage("停止疾跑", Color.White, false, false);
                 }
             }
-            gameMode = m_componentGui.m_subsystemGameInfo.WorldSettings.GameMode;
-            staminaBar.IsVisible = gameMode != GameMode.Creative;
-        }
 
-        /// <summary>
-        /// 加载任务结束时执行
-        /// 在BlocksManager初始化之后
-        /// </summary>
-        /// <param name="actions"></param>
-        public override void OnLoadingFinished(List<Action> actions)
-        {
-            actions.Add(delegate ()
-            {
-                ScreensManager.m_screens["MainMenu"] = new HYKJMainMenuScreen();//覆盖原版
-            });
         }
 
         /// <summary>

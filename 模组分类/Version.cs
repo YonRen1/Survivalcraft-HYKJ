@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -33,7 +33,7 @@ namespace HYKJ
         {
             Name = "HYKJMOD";
 
-            MOD = " 0.04";
+            MOD = " 0.0.4";
 
             Version = " beta";
 

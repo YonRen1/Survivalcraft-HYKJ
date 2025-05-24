@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -892,38 +892,50 @@ namespace HYKJ//命名空间HYKJ
     }
     //粘土窑
     public class clay_kilnBlock : Block
-	{
-		public override void Initialize()
-		{
-			Model model = ContentManager.Get<Model>("HYKJModels/黏土窑");
-			Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid", true).ParentBone);
-			this.m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);
-			this.m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);
-			this.m_meshes.Add(this.texture, this.m_standaloneBlockMesh);
-			base.Initialize();
-		}
+    {
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("HYKJModels/黏土窑");
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid", true).ParentBone);
+            this.m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);
+            this.m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);
+            this.m_meshes.Add(this.texture, this.m_standaloneBlockMesh);
+            base.Initialize();
+        }
 
-		public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
-		{
-			foreach (KeyValuePair<Texture2D, BlockMesh> keyValuePair in this.m_meshes)
-			{
-				generator.GenerateShadedMeshVertices(this, x, y, z, keyValuePair.Value, Color.White, null, null, geometry.GetGeometry(keyValuePair.Key).SubsetAlphaTest);
-			}
-		}
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+            foreach (KeyValuePair<Texture2D, BlockMesh> keyValuePair in this.m_meshes)
+            {
+                generator.GenerateShadedMeshVertices(this, x, y, z, keyValuePair.Value, Color.White, null, null, geometry.GetGeometry(keyValuePair.Key).SubsetAlphaTest);
+            }
+        }
 
-		public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
-		{
-			BlocksManager.DrawMeshBlock(primitivesRenderer, this.m_standaloneBlockMesh, this.texture, color, size, ref matrix, environmentData);
-		}
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            BlocksManager.DrawMeshBlock(primitivesRenderer, this.m_standaloneBlockMesh, this.texture, color, size, ref matrix, environmentData);
+        }
 
-		public const int Index = 341;
+        public static int Index = 341;
 
-		public Dictionary<Texture2D, BlockMesh> m_meshes = new Dictionary<Texture2D, BlockMesh>();
+        public Dictionary<Texture2D, BlockMesh> m_meshes = new Dictionary<Texture2D, BlockMesh>();
 
-		private BlockMesh m_standaloneBlockMesh = new BlockMesh();
+        private BlockMesh m_standaloneBlockMesh = new BlockMesh();
 
-		private BlockMesh m_drawBlockMesh = new BlockMesh();
+        private BlockMesh m_drawBlockMesh = new BlockMesh();
 
-		public Texture2D texture = ContentManager.Get<Texture2D>("HYKJTextures/黏土");
-	}
+        public Texture2D texture = ContentManager.Get<Texture2D>("HYKJTextures/黏土");
+    }
+    //铜制加工刀
+    public class copper_processingBlock : processing_MacheteBlock
+    {
+        public copper_processingBlock() : base(47, 181)
+        {
+        }
+        public static int Index = 359;
+    }
+    public class Litclay_kilnBlock : clay_kilnBlock
+    {
+        public static int Index = 360;
+    }
 }
