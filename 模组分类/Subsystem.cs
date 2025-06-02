@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -70,106 +70,105 @@ namespace HYKJ
             return false;
         }
     }
-    	public class Subsystemclay_kilnBlockBehavior : SubsystemEntityBlockBehavior
-	{
-		public SubsystemParticles m_subsystemParticles;
+    /*public class Subsystemclay_kilnBlockBehavior : SubsystemEntityBlockBehavior
+{
+    public SubsystemParticles m_subsystemParticles;
 
-		public Dictionary<Point3, FireParticleSystem> m_particleSystemsByCell = [];
+    public Dictionary<Point3, FireParticleSystem> m_particleSystemsByCell = [];
 
-		public override int[] HandledBlocks => new int[2]
-		{
-			341,
-			360
-		};
+    public override int[] HandledBlocks => new int[2]
+    {
+        341,
+        360
+    };
 
-		public override void OnBlockAdded(int value, int oldValue, int x, int y, int z)
-		{
-			if (Terrain.ExtractContents(oldValue) != 341 && Terrain.ExtractContents(oldValue) != 360)
-			{
-				base.OnBlockAdded(value, oldValue, x, y, z);
-			}
-			if (Terrain.ExtractContents(value) == 360)
-			{
-				AddFire(value, x, y, z);
-			}
-		}
+    public override void OnBlockAdded(int value, int oldValue, int x, int y, int z)
+    {
+        if (Terrain.ExtractContents(oldValue) != 341 && Terrain.ExtractContents(oldValue) != 360)
+        {
+            base.OnBlockAdded(value, oldValue, x, y, z);
+        }
+        if (Terrain.ExtractContents(value) == 360)
+        {
+            AddFire(value, x, y, z);
+        }
+    }
 
-		public override void OnBlockRemoved(int value, int newValue, int x, int y, int z)
-		{
-			if(Terrain.ExtractContents(newValue) != 341 && Terrain.ExtractContents(newValue) != 360)
-			{
-				base.OnBlockRemoved(value,newValue,x,y,z);
-			}
-			if (Terrain.ExtractContents(value) == 360)
-			{
-				RemoveFire(x, y, z);
-			}
-		}
+    public override void OnBlockRemoved(int value, int newValue, int x, int y, int z)
+    {
+        if(Terrain.ExtractContents(newValue) != 341 && Terrain.ExtractContents(newValue) != 360)
+        {
+            base.OnBlockRemoved(value,newValue,x,y,z);
+        }
+        if (Terrain.ExtractContents(value) == 360)
+        {
+            RemoveFire(x, y, z);
+        }
+    }
 
-		public override void OnBlockGenerated(int value, int x, int y, int z, bool isLoaded)
-		{
-			if (Terrain.ExtractContents(value) == 360)
-			{
-				AddFire(value, x, y, z);
-			}
-		}
+    public override void OnBlockGenerated(int value, int x, int y, int z, bool isLoaded)
+    {
+        if (Terrain.ExtractContents(value) == 360)
+        {
+            AddFire(value, x, y, z);
+        }
+    }
 
-		public override void OnChunkDiscarding(TerrainChunk chunk)
-		{
-			var list = new List<Point3>();
-			foreach (Point3 key in m_particleSystemsByCell.Keys)
-			{
-				if (key.X >= chunk.Origin.X && key.X < chunk.Origin.X + 16 && key.Z >= chunk.Origin.Y && key.Z < chunk.Origin.Y + 16)
-				{
-					list.Add(key);
-				}
-			}
-			foreach (Point3 item in list)
-			{
-				RemoveFire(item.X, item.Y, item.Z);
-			}
-		}
+    public override void OnChunkDiscarding(TerrainChunk chunk)
+    {
+        var list = new List<Point3>();
+        foreach (Point3 key in m_particleSystemsByCell.Keys)
+        {
+            if (key.X >= chunk.Origin.X && key.X < chunk.Origin.X + 16 && key.Z >= chunk.Origin.Y && key.Z < chunk.Origin.Y + 16)
+            {
+                list.Add(key);
+            }
+        }
+        foreach (Point3 item in list)
+        {
+            RemoveFire(item.X, item.Y, item.Z);
+        }
+    }
 
-		public override bool InteractBlockEntity(ComponentBlockEntity blockEntity,ComponentMiner componentMiner)
-		{
-			if(blockEntity != null && componentMiner.ComponentPlayer != null)
-			{
-				ComponentFurnace componentFurnace = blockEntity.Entity.FindComponent<ComponentFurnace>(throwOnError: true);
-				componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new newFurnaceWidget(componentMiner.Inventory,componentFurnace);
-				AudioManager.PlaySound("Audio/UI/ButtonClick",1f,0f,0f);
-				return true;
-			}
-			return false;
-		}
+    public override bool InteractBlockEntity(ComponentBlockEntity blockEntity,ComponentMiner componentMiner)
+    {
+        if(blockEntity != null && componentMiner.ComponentPlayer != null)
+        {
+            ComponentFurnace componentFurnace = blockEntity.Entity.FindComponent<ComponentFurnace>(throwOnError: true);
+            componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new newFurnaceWidget(componentMiner.Inventory,componentFurnace);
+            AudioManager.PlaySound("Audio/UI/ButtonClick",1f,0f,0f);
+            return true;
+        }
+        return false;
+    }
 
-		public override void Load(ValuesDictionary valuesDictionary)
-		{
-			base.Load(valuesDictionary);
-			m_subsystemParticles = Project.FindSubsystem<SubsystemParticles>(throwOnError: true);
-			m_databaseObject = Project.GameDatabase.Database.FindDatabaseObject("Furnace",Project.GameDatabase.EntityTemplateType,throwIfNotFound: true);
-		}
+    public override void Load(ValuesDictionary valuesDictionary)
+    {
+        base.Load(valuesDictionary);
+        m_subsystemParticles = Project.FindSubsystem<SubsystemParticles>(throwOnError: true);
+        m_databaseObject = Project.GameDatabase.Database.FindDatabaseObject("Furnace",Project.GameDatabase.EntityTemplateType,throwIfNotFound: true);
+    }
 
-		public void AddFire(int value, int x, int y, int z)
-		{
-			return;
-			/*
-			var v = new Vector3(0.5f, 0.2f, 0.5f);
-			float size = 0.15f;
-			var fireParticleSystem = new FireParticleSystem(new Vector3(x, y, z) + v, size, 16f);
-			m_subsystemParticles.AddParticleSystem(fireParticleSystem);
-			m_particleSystemsByCell[new Point3(x, y, z)] = fireParticleSystem;
-		*/
-			}
+    public void AddFire(int value, int x, int y, int z)
+    {
+        reurn;
 
-		public void RemoveFire(int x, int y, int z)
-		{
-			return;
-			/*
-			var key = new Point3(x, y, z);
-			FireParticleSystem particleSystem = m_particleSystemsByCell[key];
-			m_subsystemParticles.RemoveParticleSystem(particleSystem);
-			m_particleSystemsByCell.Remove(key);
-			*/
-		}
-	}
+        var v = new Vector3(0.5f, 0.2f, 0.5f);
+        float size = 0.15f;
+        var fireParticleSystem = new FireParticleSystem(new Vector3(x, y, z) + v, size, 16f);
+        m_subsystemParticles.AddParticleSystem(fireParticleSystem);
+        m_particleSystemsByCell[new Point3(x, y, z)] = fireParticleSystem;
+
+        }
+
+    public void RemoveFire(int x, int y, int z)
+    {
+        return;
+
+        var key = new Point3(x, y, z);
+        FireParticleSystem particleSystem = m_particleSystemsByCell[key];
+        m_subsystemParticles.RemoveParticleSystem(particleSystem);
+        m_particleSystemsByCell.Remove(key);
+
+    }*/
 }

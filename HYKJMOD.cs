@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Game;
 using Engine.Serialization;
 using System.Xml.Linq;
@@ -72,7 +72,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/刀");
+            Model model = ContentManager.Get<Model>("Models/刀");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
             var blockMesh = new BlockMesh();
@@ -112,7 +112,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/加工刀");
+            Model model = ContentManager.Get<Model>("Models/加工刀");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid").ParentBone);
             var blockMesh = new BlockMesh();
@@ -152,7 +152,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/锤");
+            Model model = ContentManager.Get<Model>("Models/锤");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
             var blockMesh = new BlockMesh();
@@ -192,7 +192,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/锯");
+            Model model = ContentManager.Get<Model>("Models/锯");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Handle").ParentBone);
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
             var blockMesh = new BlockMesh();
@@ -419,7 +419,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/CraftingTable1");
+            Model model = ContentManager.Get<Model>("Models/CraftingTable1");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("CraftingTable").ParentBone);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -472,7 +472,7 @@ namespace HYKJ//命名空间HYKJ
         {
             texture = ContentManager.Get<Texture2D>("HYKJTextures/Flint_processing_table");
 
-            Model model = ContentManager.Get<Model>("HYKJModels/Flint_processing_table");
+            Model model = ContentManager.Get<Model>("Models/Flint_processing_table");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Table").ParentBone);
             m_blockMesh.AppendModelMeshPart(model.FindMesh("Table").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("Table").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -519,7 +519,7 @@ namespace HYKJ//命名空间HYKJ
         {
             texture = ContentManager.Get<Texture2D>("Textures/Clothing/leather_backpack");
 
-            Model model = ContentManager.Get<Model>("HYKJModels/backpack");
+            Model model = ContentManager.Get<Model>("Models/backpack");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid").ParentBone);
             m_blockMesh.AppendModelMeshPart(model.FindMesh("cuboid").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -608,7 +608,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/CraftingTable1");
+            Model model = ContentManager.Get<Model>("Models/CraftingTable1");
             Matrix boneAbsoluteTransform2 = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("CraftingTable1").ParentBone);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable1").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable1").MeshParts[0], boneAbsoluteTransform2 * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -650,7 +650,7 @@ namespace HYKJ//命名空间HYKJ
 
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/CraftingTable1");
+            Model model = ContentManager.Get<Model>("Models/CraftingTable1");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("CraftingTable").ParentBone);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("CraftingTable").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -764,7 +764,7 @@ namespace HYKJ//命名空间HYKJ
         {
             texture = ContentManager.Get<Texture2D>("HYKJTextures/犀牛头颅");
 
-            Model model = ContentManager.Get<Model>("HYKJModels/犀牛头颅");
+            Model model = ContentManager.Get<Model>("Models/犀牛头颅");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("Head").ParentBone);
             m_blockMesh.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
             m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("Head").MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), makeEmissive: false, flipWindingOrder: false, doubleSided: false, flipNormals: false, Color.White);
@@ -895,7 +895,7 @@ namespace HYKJ//命名空间HYKJ
     {
         public override void Initialize()
         {
-            Model model = ContentManager.Get<Model>("HYKJModels/黏土窑");
+            Model model = ContentManager.Get<Model>("Models/黏土窑");
             Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(model.FindMesh("cuboid", true).ParentBone);
             this.m_standaloneBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);
             this.m_drawBlockMesh.AppendModelMeshPart(model.FindMesh("cuboid", true).MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0.5f, 0f, 0.5f), false, false, false, false, Color.White);

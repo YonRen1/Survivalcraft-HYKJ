@@ -28,16 +28,7 @@ namespace HYKJ
 
         public static List<string> m_categories = [];
 
-        private bool isSprintChecked = false;
-
-        public GameMode gameMode;
-
         public ComponentGui m_componentGui;
-
-        public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null)
-        {
-            return new Subtexture(ContentManager.Get<Texture2D>(imgpath), TopLeft ?? Vector2.Zero, BottomRight ?? Vector2.One);
-        }
 
         public override void __ModInitialize()
         {
@@ -45,9 +36,8 @@ namespace HYKJ
             ModsManager.RegisterHook("OnMinerHit", this);
             ModsManager.RegisterHook("OnLoadingFinished", this);
             ModsManager.RegisterHook("BlocksInitalized", this);
-            ModsManager.RegisterHook("OnMainMenuScreenCreated", this);
         }
-
+        
         /// <summary>
         /// 在主界面初始化后执行，你可以通过这个给主界面加些你想要的按钮或者文字等
         /// 不过建议开发者使用BeforeWidgetUpdate和AfterWidgetUpdate这两个接口实现
@@ -59,74 +49,7 @@ namespace HYKJ
 		{
 
 		}*/
-        /// <summary>
-        /// Gui组件帧更新时执行
-        /// </summary>
-        /// <param name="componentGui"></param>
-        public override void GuiUpdate(ComponentGui componentGui)
-        {
-            a = HYKJVersion.FullVersion;
-            Log.Debug(a);
-            ComponentPlayer m_componentPlayer = componentGui.m_componentPlayer;//获取玩家组件
-            CanvasWidget controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");//屏幕总控件容器
-            StackPanelWidget leftContainer = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("LeftControlsContainer");//屏幕左侧控件容器       
-            StackPanelWidget lightContainer = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("RightControlsContainer");//屏幕右侧控件容器
-            StackPanelWidget moreContents = m_componentPlayer.GuiWidget.Children.Find<StackPanelWidget>("MoreContents");//屏幕右侧最顶隐藏容器
-            StackPanelWidget statusContents = (StackPanelWidget)m_componentPlayer.GuiWidget.Children.Find<ValueBarWidget>("TemperatureBar").ParentWidget; //玩家生存模式状态栏容器 //获取父类容器
-            controlsContainer = m_componentPlayer.GuiWidget.Children.Find<CanvasWidget>("ControlsContainer");
-            ComponentThirst componentThirst = m_componentPlayer.Entity.FindComponent<ComponentThirst>(true);
-            // WorldSettings worldSettings = m_subsystemGameInfo.WorldSettings;//获取游戏模式
-            //GameMode gameMode = worldSettings.GameMode;
-            staminaBar.IsVisible = gameMode != GameMode.Creative;//如果是创造则隐藏
-            Water.IsVisible = gameMode != GameMode.Creative;
-            //疾跑按钮
-            sprint.AddChildren(sprintImg); //给空白按钮添加图标
-            lightContainer.AddChildren(sprint);
-            //属性按钮
-            attribute.AddChildren(attribute_one); //给空白按钮添加图标
-            leftContainer.AddChildren(attribute);
-            //耐力条
-            statusContents.AddChildren(staminaBar);
-            //水分条
-            statusContents.AddChildren(Water);
-            //工具按钮
-            moreContents.AddChildren(tool);
 
-            //点击事件
-            if (tool.IsClicked)
-            {
-                m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
-            }
-            if (attribute.IsClicked)
-            {
-                m_componentPlayer.ComponentGui.ModalPanelWidget = new HYKJClothingWidget(m_componentPlayer);
-            }
-            //耐力
-            if (staminaBar.IsVisible)
-            {
-                staminaBar.Value = m_componentPlayer.ComponentVitalStats.Stamina;
-            }
-            if (Water.IsVisible)
-            {
-                Water.Value = componentThirst.Water;
-            }
-            //跑步
-            if (sprint.IsClicked)
-            {
-                isSprintChecked = (isSprintChecked) ? false : true;
-                if (isSprintChecked)
-                {
-                    m_componentPlayer.ComponentLocomotion.WalkSpeed += 1.0f;
-                    componentGui.DisplaySmallMessage("开始疾跑", Color.White, false, false);
-                }
-                else
-                {
-                    m_componentPlayer.ComponentLocomotion.WalkSpeed -= 1.0f;
-                    componentGui.DisplaySmallMessage("停止疾跑", Color.White, false, false);
-                }
-            }
-
-        }
 
         /// <summary>
         /// 方块初始化完成时执行
@@ -152,96 +75,5 @@ namespace HYKJ
             BlocksManager.m_categories.Add("Dyed");
             BlocksManager.m_categories.Add("Fireworks");
         }*/
-        //定义新的按钮：工具按钮
-        private BitmapButtonWidget tool = new BitmapButtonWidget
-        {
-            Name = "toolButton",
-            Size = new Vector2(68f, 64f),
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/tool"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/tool_Pressed"),
-            //Text = "",
-            Margin = new Vector2(4, 0),
-        };
-        //定义新的按钮：属性按钮
-        private BitmapButtonWidget attribute = new BitmapButtonWidget
-        {
-            Name = "attributeButton",
-            Size = new Vector2(68f, 64f),
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_1"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed_1"),
-            //Text = "",
-            //Margin = new Vector2(4, 0),
-        };
-        //属性图像
-        private RectangleWidget attribute_one = new RectangleWidget
-        {
-            Size = new Vector2(45f, 45f),
-            OutlineColor = new Color(0, 0, 0, 0),
-            FillColor = new Color(255, 255, 255),
-            Subtexture = ToSubtexture("HYKJTextures/Button/attribute"),
-            //居中
-            HorizontalAlignment = WidgetAlignment.Center,
-            VerticalAlignment = WidgetAlignment.Center,
-        };
-        //跑步
-        private BitmapButtonWidget sprint = new BitmapButtonWidget
-        {
-            Name = "SprintButton",
-            Size = new Vector2(64f, 64f),
-            HorizontalAlignment = WidgetAlignment.Far,
-            NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton"),
-            ClickedSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_Pressed"),
-            Margin = new Vector2(0, 3), //外边距
-            //开启自动选中
-            IsAutoCheckingEnabled = true,
-        };
-        //模组信息
-        /* private BitmapButtonWidget mod = new BitmapButtonWidget
-         {
-             Name = "mod",
-             Style = ContentManager.Get<XElement>("Styles/ButtonStyle_310x60"),
-             HorizontalAlignment = WidgetAlignment.Far,
-             Margin = new Vector2(0, 3), //外边距
-         };*/
-        //跑步
-        private RectangleWidget sprintImg = new RectangleWidget
-        {
-            Size = new Vector2(40f, 40f),
-            OutlineColor = new Color(0, 0, 0, 0),
-            FillColor = new Color(255, 255, 255),
-            Subtexture = ToSubtexture("HYKJTextures/Button/Sprint"),
-            //居中
-            HorizontalAlignment = WidgetAlignment.Center,
-            VerticalAlignment = WidgetAlignment.Center,
-        };
-        //耐力
-        private ValueBarWidget staminaBar = new ValueBarWidget
-        {
-            Name = "StaminaBar",
-            BarSize = new Vector2(16f, 16f), //条大小
-            LitBarColor = new Color(220, 241, 37),
-            UnlitBarColor = new Color(0, 0, 0, 255),
-            //条显示图标
-            BarSubtexture = ToSubtexture("HYKJTextures/Button/Stamina"),
-            BarsCount = 10, //条图标个数
-            BarBlending = false,
-            HalfBars = true,
-            TextureLinearFilter = true,
-        };
-        //耐力
-        private ValueBarWidget Water = new ValueBarWidget
-        {
-            Name = "Water",
-            BarSize = new Vector2(16f, 16f), //条大小
-            LitBarColor = new Color(0, 149, 255),
-            UnlitBarColor = new Color(0, 0, 0, 255),
-            //条显示图标
-            BarSubtexture = ToSubtexture("HYKJTextures/Button/Water"),
-            BarsCount = 10, //条图标个数
-            BarBlending = false,
-            HalfBars = true,
-            TextureLinearFilter = true,
-        };
     }
-
 }

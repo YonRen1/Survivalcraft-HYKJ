@@ -1,4 +1,4 @@
-﻿using Engine;
+using Engine;
 using GameEntitySystem;
 using TemplatesDatabase;
 
@@ -52,19 +52,13 @@ namespace Game
         //测试方法（放在Update方法中）
         public void Test()
         {
-            //  WorldSettings worldSettings = m_subsystemGameInfo.WorldSettings;
-            //GameMode gameMode = worldSettings.GameMode;
-
             if (m_componentPlayer.ComponentBody.ImmersionDepth > 0.4f)  //当玩家泡在水(或熔浆）里时
             {
                 Water = Water + 0.0005f;  //Water值每次增加0.05
             }
             if (m_componentPlayer.ComponentInput.PlayerInput.Move.Length() > 0)  //当玩家移动时
             {
-                // if(gameMode = ?)
-                // {
                 Water = Water - 0.0001f;  //Water值每次减少0.001
-                                          // }
             }
             if (Water >= 0.25f && Water <= 0.3f) //当Water值处在0.2到0.3之间时
             {
@@ -72,7 +66,7 @@ namespace Game
             }
             if (Water <= 0)  //当Water值不大于0时
             {
-                //m_componentPlayer.ComponentSleep.Sleep(true);   //玩家直接入睡
+                m_componentPlayer.ComponentSleep.Sleep(true);   //玩家直接入睡
                 Water = 1f;  //随后把Water值设置为1（条满状态）
             }
         }

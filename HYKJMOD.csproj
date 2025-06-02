@@ -8,14 +8,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="HYKJMOD.cs" />
-    <Compile Update="模组分类/界面.cs" />
+    <Compile Update="模组分类/Gui.cs" />
     <Compile Update="模组分类/Component.cs" />
-    <Compile Update="模组分类/Data.cs" />
     <Compile Update="模组分类/ModLoader.cs" />
     <Compile Update="模组分类/Subsystem.cs" />
     <Compile Update="原版/原版修改.cs" />
     <Compile Update="模组分类/Version.cs" />
     <Compile Update="模组分类/ComponentThirst.cs" />
+    <Compile Update="模组分类/ComponentNewGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath=".../Engine.dll" />
