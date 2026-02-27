@@ -1,0 +1,272 @@
+{
+	"Mod": {
+	   "0.0.6Description": "荒野科技v0.0.6更新内容\n",
+	   "0.0.6Day": "版本发布时间：2025.8.10",
+	   "0.0.5Description": "荒野科技v0.0.5更新内容\n1.模组公告按钮重新上线！\n2.增加部分测试物品\n3.适配新版API1.8.1.2\n4.删除沉余文件，降低压缩包占用内存(3MB↣1MB)\n5.更改原版部分配方\n6.修复主界面模组按钮无法点击的问题\n7.修复属性按钮位置异常问题\n8.修复模组界面无圆角问题\n9.修复烧制黏土贴图不显示问题\n10.加入鸣谢人员、简介、下载模组地址\n11.自0.0.5版本之后，本模组的更新记录将不分新增修复",
+	   "0.0.5Day": "版本发布时间：2025.7.8",
+	   "0.0.4Description": "荒野科技v0.0.4更新内容\n一、新增\n1.合成配方(熔炉，箱子)\n2.增加部分测试物品\n3.部分生物属性增强\n4.主界面显示信息格式\n5.适配新版API1.8.1.1\n6.删除沉余文件，降低压缩包占用内存\n7.新的GameUI界面\n二、更改\n1.更改原版部分配方\n2.锐锤需要2级\n3.更改矿石名称\n4.原版粘土名称改为粘土块\n5.属性界面调整\n6.开局船的新贴图\n7.适量增加生物属性\n8.更改版本号信息为x.x.x，第一个x为大版本更新，推荐更新。第二个x为小版本更新，自己选择。第三个为小版本修复问题可以不更\n9.修改主界面布局以适配新版\n10.新的背景图片\n11.适当缩小水印\n三、修复\n1.创造模式显示耐力问题\n2.属性按钮位置异常问题",
+	   "0.0.4Day": "版本发布时间：2025.6.2",
+	   "0.03Description": "荒野科技V003更新内容\n一、新增\n1.合成配方（熔炉,箱子）\n2.增加部分测试物品\n3.完善新石器时代\n4.初步进入铜器时代\n5.物品栏顺序更改\n6.常春藤合成植物纤维\n7.跑步值改为黄色\n8.部分生物属性增强\n二、更改\n1.更改原版部分配方\n2.箱子“名称改为木箱子”\n3.锐锤需要2级\n4.工作台的配方锐锤改为燧石锤\n5.更改矿石名称\n6.原版粘士名称改为粘士块\n三、修复\n1.燧石加工刀和燧石锤的配方重叠问题\n2.按钮上出现错误“Usua|”\n3.无法合成工作台",
+	   "0.03Day": "版本发布时间：2025.3.22",
+	   "0.02Description": "荒野科技v0.02更新内容\n一、新增\n1.材料(尸体、木柴、皮毛等\n2.材料栏目(从物品栏目中分离出来\n3.跑步\n4.耐力条\n5.钻木取火新作用\n6.皮革的合成\n二、更改\n1.树叶可穿过\n2.去除钻木取火行为\n3.去除煤炭块无限燃烧,更改为250秒\n4.主界面\n5.木材需要加工\n6.石加工刀更改耐久及合成\n7.为锐锤添加合成方式\n8.适当修改原版堆叠\n9.适当修改模组物品堆叠\n10.生物掉落\n三、修复\n1.AP公告位置\n2.部分物品无描述\n3.锐锤的描述错误\n4.一些物品显示问题\n",
+	   "0.02Day": "版本发布时间：2025.3.02",
+	   "0.01Description": "荒野科技v0.0.1更新内容\n新的物品\n新的机制\n新武器\n新材料",
+       "0.01Day": "版本发布时间：2025.2.22",
+	   "title_a": "荒野科技模组本次版本更新",
+	   "title_b": "荒野科技模组历史更新",
+	   "bk": "本排序由远及近，仅截取前3个版本的个更新"
+	},
+	"ModDescription": {
+	   "blacklist": "暂无黑名单成员，圈子环境良好哦！",
+	   "Honorlist": "虚以待位",
+	   "Description": "生存战争荒野科技模组始创于2023年10月份，经历四次改版，最终定于现在这样。\n荒野科技模组始终以原始进化为主题，玩家扮演一名海难者被海盗流放荒岛，手无寸铁，只能从原始人开始重新发育。\n\n模组拥有丰富材料、装备、武器、工具，还拥有疾跑、口渴，在这片荒岛生存下去吧！",
+	   "thanks": "荒野科技模组鸣谢以下人员(非常感谢！)\n\n老君(QQ319****710)  使用了老君的代码\npeak(QQ348****513)  使用了牢峰的音效\n开路君(QQ675***895)  使用了开路君的代码"
+	},
+	"HYKJModLoader": {
+	   "1": "你的手感觉到疼痛",
+	   "2": "你的手很疼，快停下！",
+	   "3": "\n你......撑死了?！"
+	},
+	"HYKJHelp": {
+	   "title": "属性帮助",
+	   "help": "=======生命值======\n\n原版的区别，有什么用，，，\n\n=======饥饿值======\n\n"
+	},
+	"NewCraftingTableWidget": {
+	   "2": "工作桩",
+       "3": "背包"
+	},
+	"FurnaceWidget": {
+       "1": "原料",
+       "2": "燃料",
+       "3": "...",
+       "4": "黏土窑",
+       "5": "背包"
+    },
+	"Blocks": {
+		"StoneAxeBlock:0": {
+			"DisplayName": "锋利石锤",
+			"Description": "比较锐利的石器。\n属于新石器时代工具。"
+		},
+		"IronOreChunkBlock:0": {
+		    "DisplayName": "铁原矿",
+		    "CRDescription:0": "将一堆的粒放在一块？"
+		},
+		"MalachiteChunkBlock:0": {
+			"DisplayName": "铜原矿",
+			"CRDescription:1": "将一堆的粒放在一块？"
+		},
+		"ChestBlock:0": {
+			"DisplayName": "木箱子"
+		},
+		"ClayBlock:0": {
+			"DisplayName": "粘土块"
+		},
+        "FlintBlock:0":{
+		    "Description": "一种质地不均匀的碎石比较锋利，但是需要加工后才可以使用。"
+		},
+		"silverIngotBlock:0":{
+		    "Description": "嘿！一块银锭，看起来很好吃(划掉)用，应该可以制作一些工具武器防具吧！但和其他锭融合...或许威力会更上一层楼！"
+		},
+		"goldIngotBlock:0":{
+		    "Description": "哇袄！光辉岁月！\n一大块闪闪发光的金子，想必挖到它一定很困难吧"
+		},
+		"copper_plateBlock:0":{
+		    "Description": "平板，好平板\n铜板物品介绍"
+		},
+		"gold_plateBlock:0":{
+		    "Description": "平板，好平板\n银板物品介绍"
+		},
+		"silver_plateBlock:0":{
+		    "Description": "平板，好平板\n金板物品介绍"
+		},
+		"coal_powderBlock:0":{
+		    "Description": "煤粉物品介绍"
+		},
+		"gold_powder1Block:0":{
+		    "Description": "啊！！！你不要飘走～\n通过粉碎矿物获取的金属粉末"
+		},
+		"copper_powderBlock:0":{
+		    "Description": "啊！！！你不要飘走～\n通过粉碎矿物获取的金属粉末"
+		},
+		"iron_powderBlock:0":{
+		    "Description": "啊！！！你不要飘走～\n通过粉碎矿物获取的金属粉末"
+		},
+		"crucibleBlock:0":{
+		    "Description": "好怪的干货…我坩埚钳呢？！"
+		},
+		"crucible1Block:0":{
+		    "Description": "哇哦～很有趣哦，小心别被烫到了\n可以用来浇筑矿物锭（关联物品：模板）"
+		},
+		"silverChunkBlock:0":{
+		    "Description": "银矿物品介绍"
+		},
+		"goldChunkBlock:0":{
+		    "Description": "金矿物品介绍"
+		},
+		"CopperAxe1Block:0":{
+		    "Description": "铜斧头物品介绍(与木棍、绳子等等合成完全版铜斧，下面的也一样)"
+		},
+		"CopperPickaxe1Block:0":{
+		    "Description": "铜镐头物品介绍"
+		},
+		"silver_nuggetBlock:0":{
+		    "Description": "银块物品介绍"
+		},
+		"gold_nuggetBlock:0":{
+		    "Description": "金块物品介绍"
+		},
+	    "plant_fiberBlock:0":{
+		    "Description": "植物纤维是一种柔软的材料，可以用来制作绳子或布料"
+		},
+	    "hemp_ropeBlock:0":{
+		    "Description": "麻绳比草绳更坚固，可以更高级的工具制作\n\n\n[后续会与其他绳子类分类，目前就先这样吧]。"
+		},
+		"barkBlock:0":{
+		    "Description": "树皮是一种加工材料，也是一种废品....\n\n如果不嫌弃可以当做燃料使用。"
+		},
+		"straw_ropeBlock:0":{
+		    "Description": "草绳是由植物纤维撮合而成的一种基本捆制材料\n\n应该可以用来合成更多物品。"
+		},
+		"Wood1Block:0":{
+		    "Description": "常见且易获取，质地较软。\n适合初级玩家制作基础工具和简易建筑。"
+		},
+		"drill_wood_make_fireBlock:0":{
+		    "Description": "钻木取火是古代一种有效的生火方式\n\n如果你没有其他点火方式，钻木取火说不定是一种最好的选择。"
+		},
+		"branchesBlock:0":{
+		    "Description": "树枝的获得方式很普遍，打掉树叶后也有\n\n通过加工后可作为棍子的使用。"
+		},
+		"flint_hammerBlock:0":{
+		    "Description": "锋利石锤是一种用于敲击的工具，可以用来加工其他石器，如打制石片或修理工具边缘。\n\n同样由锋利石块制成，这种锤子的设计使其能够集中力量，有效地敲击和塑形其他石料。\n\n锋利石锤的使用体现了古人对材料特性的理解和利用，以及对工具制造技术的掌握。\n\n还处于旧石器时代。"
+		},
+		"Flint_processing_tableBlock:0":{
+		    "Description": "燧石加工桌是一种用于前期加工的工具台，主要用于处理木材等基础材料。\n\n它利用燧石的硬度，将木材切割、打磨成更精细的形状，比如制作木棍、木板或简单的木制工具。\n\n燧石加工桌在游戏早期非常实用，帮助玩家快速准备基础材料，为后续的制作和探索打下基础。\n\n\n感谢grassland提供计算机进行调试"
+		},
+		"working_pilesBlock:0":{
+		    "Description": "工作桩是一个基础的制作台，可以用来合成各种简单的物品，比如木棍、石斧、石镐等。\n\n它能帮助你制作工具和武器，是游戏中早期非常重要的工作台。"
+		},
+		"adhesiveBlock:0":{
+		    "Description": "一种粘液，能快速将物品粘合在一起，适用于多种材质。"
+		},
+		"Leather_clothBlock:0":{
+		    "Description": "一种柔软且坚韧的材料，由皮革制成，兼具皮革的耐用性和布料的柔韧性，是制作装备和道具的基础材料。"
+		},
+		"Flint_knifeBlock:0":{
+		    "DisplayName": "锋利石制小刀",
+		    "Description": "由锋利石块钱制作而成的武器，攻击力很高，但缺点是耐久低。"
+		},
+		"leather_knifeBlock:0":{
+		    "DisplayName": "锋利石制皮革刀",
+		    "Description": "由锋利石块制作而成的武器，攻击力很高，但缺点是耐久低。\n\n在原有的基础上增加了皮革握把，使得更加容易命中。"
+		},
+		"big_boneBlock:0":{
+		    "Description": "动物身体内的骨头，十分坚固，或许加工后可以制作工具，耐久更高。"
+		},
+		"boneBlock:0":{
+		    "Description": "动物身体内的骨头，十分坚固，或许加工后可以制作工具，耐久更高。"
+		},
+		"cokeBlock:0":{
+		    "DisplayName": "木炭",
+		    "Description": "用木头烧制成炭，可以当做燃料，但是至于效果上去，比煤炭弱一些。"
+		},
+		"wasteBlock:0":{
+		    "DisplayName": "废料",
+		    "Description": "制作材料中不必要的部分，或许可以进行废料重利用。"
+		},
+		"templateBlock:0":{
+		    "DisplayName": "模具",
+		    "Description": "使用粘土泥土等制成的基本模具，你可以对其进行按压成各种形态的模具。"
+		},
+		"clay_kilnBlock:0":{
+		    "DisplayName": "黏土窑",
+		    "Description": ""
+		},
+		"pick_moldBlock:0":{
+		    "Description": "对其进行按压，使他变成各种形态的模具。"
+		},
+		"ingot_moldBlock:0":{
+		    "Description": "对其进行按压，使他变成各种形态的模具。"
+		},
+		"slab_moldBlock:0":{
+		    "Description": "对其进行按压，使他变成各种形态的模具。"
+		},
+		"axe_moldBlock:0":{
+		    "Description": "对其进行按压，使他变成各种形态的模具。"
+		},
+		"bone_pickBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"bone_MacheteBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"bone_ShovelBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"bone_AxeBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"bone_SpearBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"bone_hammerBlock:0":{
+		    "Description": "由骨头打磨制成的工具，效率上相当于进入了铜器时代。"
+		},
+		"sideroblastsBlock:0":{
+		    "Description": "铁的碎粒，熔炼后可融合成块。"
+		},
+		"copper_particlesBlock:0":{
+		    "Description": "铜的碎粒，熔炼后可融合成块。"
+		},
+		"Flint_processingBlock:0":{
+		    "Description": "可以加工一些复杂的东西。"
+		},
+		"copper_processingBlock:0":{
+		    "Description": "可以加工一些复杂的东西。"
+		},
+		"malletBlock:0":{
+		    "Description": "锤子，伤害很高，但是制作材料很贵。"
+		},
+		"iron_hammerBlock:0":{
+		    "Description": "锤子，伤害很高，但是制作材料很贵。"
+		},
+		"copper_hammerBlock:0":{
+		    "Description": "锤子，伤害很高，但是制作材料很贵。"
+		},
+		"bodyBlock:0":{
+		    "Description": "动物的尸体，分解后可获得丰富的材料。"
+		},
+		"working_piles1Block:0":{
+		    "Description": "工作板，比较精巧，可以作为合成台的桌面。"
+		},
+		"working_piles2Block:0":{
+		    "Description": "工作桩，可以作为合成台的底座。"
+		},
+		"emBlock:0":{
+		    "Description": "犀牛的头颅，至高无上的荣誉，恭喜你，成功击败了原版最强的生物！"
+		},
+		"furBlock:0":{
+		    "Description": "动物的皮毛，将尸体分解后可获得，可以加工成皮革。"
+		},
+		"CupBlock:0":{
+		    "DisplayName": "木杯",
+		    "Description": "由木板加工而成的木杯，可以盛水。",
+		    "CRDescription:0": "将木板加工成杯子的样子",
+		},
+		"firewoodBlock:0":{
+		    "Description": "用绳子将木材捆绑起来，燃烧值比煤炭还耐烧\n\n可惜燃烧热度达不到要求，所以不能用来融化矿物。"
+		},
+		"sharp_stickBlock:0":{
+		    "Description": "削尖的木棍，可以用来钻木取火！"
+		},
+	    "ClothingBlock:38": {
+			"DisplayName": "加固木护甲",
+			"Description": "用木板和绳子继续加固的木甲。提供一定的保护效果。可以保温一点。",
+			"CRDescription:0": "制作加固木甲"
+		},
+		"ClothingBlock:39": {
+			"DisplayName": "加固木护腿",
+			"Description": "用木板和绳子继续加固的腿甲。提供一定的保护效果。可以隔热一点。",
+			"CRDescription:0": "把木棍和木板绑在一起加固"
+		}
+    }
+}

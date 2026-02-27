@@ -1,0 +1,94 @@
+<ClothingWidget xmlns="runtime-namespace:Game">
+  
+  <BevelledRectangleWidget Size="670, 382" BevelSize="3" />
+  <LabelWidget CanvasWidget.Position="38, 14" Text="人物"  Color="255, 255, 255, 192"/>
+  <LabelWidget CanvasWidget.Position="208, 14" Text="详细属性"  Color="255, 255, 255, 192"/>
+  <CanvasWidget CanvasWidget.Position="36, 52">
+     <CanvasWidget Size="160, 23">
+        <BevelledRectangleWidget BevelSize="-2" DirectionalLight="0.15" CenterColor="0, 0, 0, 0" />
+        <LabelWidget Name="TitleLabel" Text="[VitalStatsWidget:1]" FontScale="0.8" Color="255, 255, 255" HorizontalAlignment="Center"/>
+     </CanvasWidget>
+     <CanvasWidget CanvasWidget.Position="0, 0" Size="160, 275">
+        <BevelledRectangleWidget BevelSize="-2" DirectionalLight="0.15" CenterColor="0, 0, 0, 0" />
+        <StackPanelWidget Name="ClothingStack" Direction="Vertical" />
+        <PlayerModelWidget Name="InnerClothingModel" AnimateHeadSeed="1" AnimateHandsSeed="1"/>
+        <PlayerModelWidget Name="OuterClothingModel" AnimateHeadSeed="1" AnimateHandsSeed="1" OuterClothing="true"/>
+     </CanvasWidget>
+  </CanvasWidget>
+  
+  <BevelledButtonWidget Size="50, 50" Name="HelpTopicIcon" CanvasWidget.Position="603, 3">
+	 <RectangleWidget Size="50, 50" TextureLinearFilter="true" HorizontalAlignment="Center" VerticalAlignment="Center" Subtexture="{HYKJTextures/Button/HelpTopicIcon}" OutlineColor="0, 0, 0, 0" FillColor="255, 255, 255" IsVisible="true" TextureAnisotropicFilter="true" BlendState="NonPremultiplied"/>
+  </BevelledButtonWidget>
+
+  <CanvasWidget CanvasWidget.Position="206, 52" Size="440, 288">
+     <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+     <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <LinkWidget Name="HealthLink" Size="110, -1" Text="[VitalStatsWidget:3]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+            <CanvasWidget Size="10, 0"/>
+            <CanvasWidget Size="148, 36" >
+               <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+               <ValueBarWidget Name="HealthValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="160, 32, 0" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </CanvasWidget>
+         
+           <CanvasWidget Size="10, 0"/>
+        
+           <LinkWidget Name="StaminaLink" Size="110, -1" Text="[VitalStatsWidget:4]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+              <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+              <ValueBarWidget Name="StaminaValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="0, 128, 0" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+           </CanvasWidget>
+        
+           <CanvasWidget Size="10, 0"/>
+
+           <LinkWidget Name="FoodLink" Size="110, -1" Text="[VitalStatsWidget:6]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+              <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+              <ValueBarWidget Name="FoodValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="112, 64, 0" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+           </CanvasWidget>
+           
+           <CanvasWidget Size="10, 0"/>
+           
+           
+        </StackPanelWidget>
+        <StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+       
+           <LinkWidget Name="ExperienceLink" Size="110, -1" Text="[VitalStatsWidget:9]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+              <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+              <ValueBarWidget Name="ExperienceValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="255, 208, 128" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+           </CanvasWidget>
+           
+           <CanvasWidget Size="10, 0"/>
+           
+           <LinkWidget Name="SleepLink" Size="110, -1" Text="[VitalStatsWidget:5]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+              <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+              <ValueBarWidget Name="SleepValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="112, 112, 136" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </CanvasWidget>
+            
+           <LinkWidget Name="TemperatureLink" Size="110, -1" Text="[VitalStatsWidget:8]"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+             <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+             <ValueBarWidget Name="TemperatureValueBar" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="0, 96, 255" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+           </CanvasWidget>
+           
+           <CanvasWidget Size="10, 0"/>
+          
+           <LinkWidget Name="SeasonLink" Size="110, -1" Text="当前季节"  TextAnchor="Right,VerticalCenter" Color="64, 192, 64" VerticalAlignment="Center" />
+           <CanvasWidget Size="10, 0"/>
+           <CanvasWidget Size="148, 36" >
+              <BevelledRectangleWidget BevelSize="-2" CenterColor="0, 0, 0, 0" />
+              <!--<ValueBarWidget Name="SeasonText" LayoutDirection="Horizontal" BarsCount="10" HalfBars="true" BarBlending="false"  LitBarColor="112, 64, 0" UnlitBarColor="48, 48, 48, 80" BarSize="14, 28" BarSubtexture="{Textures/Atlas/ProgressBarTall}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+           </CanvasWidget>
+
+        </StackPanelWidget>
+     </StackPanelWidget>
+  </CanvasWidget>
+</ClothingWidget>

@@ -1,0 +1,45 @@
+<WaterDrinking>
+       <!--Result:方块类名:特殊值 
+           WaterValue:回复水分 
+           SicknessProbability:生病概率-->
+
+    <Water Result="MilkBucketBlock" 
+           WaterValue="0.55" 
+           SicknessProbability="0"/>
+
+    <Water Result="RottenMilkBucketBlock" 
+           WaterValue="0.45" 
+           SicknessProbability="0"/>
+
+    <Water Result="PumpkinSoupBucketBlock" 
+           WaterValue="0.6" 
+           SicknessProbability="0"/>
+
+    <Water Result="RottenPumpkinSoupBucketBlock" 
+           WaterValue="0.35" 
+           SicknessProbability="0"/>
+
+    <Water Result="BreadBlock" 
+           WaterValue="-0.15" 
+           SicknessProbability="0"/>
+
+    <Water Result="CookedBirdBlock" 
+           WaterValue="-0.05" 
+           SicknessProbability="0"/>
+
+    <Water Result="RawMeatBlock" 
+           WaterValue="0.05" 
+           SicknessProbability="0"/>
+
+    <Water Result="CookedMeatBlock" 
+           WaterValue="-0.3" 
+           SicknessProbability="0"/>
+
+    <Water Result="CookedFishBlock" 
+           WaterValue="0.05" 
+           SicknessProbability="0"/>
+
+    <Water Result="FreshwaterCupBlock" 
+           WaterValue="0.1" 
+           SicknessProbability="0"/>
+</WaterDrinking>

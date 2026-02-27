@@ -1,0 +1,33 @@
+<HYKJButtonsPanelWidget xmlns="runtime-namespace:Game">
+	<CanvasWidget Size="550, 340" ClampToBounds="true" HorizontalAlignment="Near" VerticalAlignment="Center">
+       <BevelledRectangleWidget BevelSize="3" />
+       <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+          <CanvasWidget Size="300, 340" HorizontalAlignment="Center" VerticalAlignment="Center">
+             <BevelledRectangleWidget BevelSize="2" />
+             <StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CanvasWidget Size="300, 180" HorizontalAlignment="Near" VerticalAlignment="Center">
+                    <BevelledRectangleWidget BevelSize="2" />
+                    <RectangleWidget Size="80, 80" Margin="20, 20" OutlineColor="0, 0, 0, 0" FillColor="255, 255, 255" Subtexture="{HYKJTextures/圆角icon}" />
+                    	<StackPanelWidget HorizontalAlignment="Center" Direction="Vertical" Margin="0, 0">
+		                    <LabelWidget Name="Name" Text="\n                  模组名称：荒野科技\n                  模组版本：0.0.6beta\n                  版本日期：2025.7.8" FontScale="0.8" HorizontalAlignment="Near" VerticalAlignment="Center" Color="64, 192, 64" DropShadow="true" IsVisible="true"/>
+		                    <LabelWidget Name="txt" Text="\n              模组官网：\nhttps://gitee.com/YonRen/Sur\n      vivalcraft2-HYKJ" FontScale="0.8" HorizontalAlignment="Near" VerticalAlignment="Center" Color="64, 192, 64" DropShadow="true" IsVisible="true"/>
+			           </StackPanelWidget>
+                </CanvasWidget>
+                <CanvasWidget Size="300, 160">
+                    <BevelledRectangleWidget BevelSize="2" />
+                    <BevelledButtonWidget Name="Button2" Text="模组菜单" Size="200,70" HorizontalAlignment="Center"/>
+                    <BevelledButtonWidget Name="Button1" Text="模组本次更新" Size="200,70" HorizontalAlignment="Center"/> 
+                </CanvasWidget>
+             </StackPanelWidget>
+          </CanvasWidget>
+          
+          <CanvasWidget Size="250, 340" HorizontalAlignment="Near" VerticalAlignment="Center">
+             <BevelledRectangleWidget BevelSize="2" />
+             <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">    
+                 <BevelledButtonWidget Name="Button3" Text="模组历史更新" Size="200,70" HorizontalAlignment="Center"/> 
+             </StackPanelWidget>
+          </CanvasWidget>
+          
+       </StackPanelWidget>
+	</CanvasWidget>
+</HYKJButtonsPanelWidget>

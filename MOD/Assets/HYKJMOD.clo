@@ -1,0 +1,8 @@
+<Clothes>
+
+    <ClothingData Index="38" DisplayName="[ClothingBlock:38]" Description="[ClothingBlock:38]"  Slot="Torso" ArmorProtection="1.0" Sturdiness="30" Insulation="0.1" MovementSpeedFactor="1" SteedMovementSpeedFactor="1" DensityModifier="0.0" IsOuter="True" CanBeDyed="False" Layer="4" PlayerLevelRequired="1" TextureName="Textures/Clothing/加固木护甲" ImpactSoundsFolder="Audio/Impacts/Wood"  />
+    <ClothingData Index="39" DisplayName="[ClothingBlock:39]" Description="[ClothingBlock:39]"  Slot="Legs" ArmorProtection="1.0" Sturdiness="30" Insulation="0.1" MovementSpeedFactor="1" SteedMovementSpeedFactor="1" DensityModifier="0.0" IsOuter="True" CanBeDyed="False" Layer="4" PlayerLevelRequired="1" TextureName="Textures/Clothing/加固木护腿" ImpactSoundsFolder="Audio/Impacts/Wood"  />
+    <ClothingData Index="40" DisplayName="铜锁链甲" Description="戴上去是不是挺好看的呀"  Slot="Torso" ArmorProtection="1.0" Sturdiness="15" Insulation="0.0" MovementSpeedFactor="1" SteedMovementSpeedFactor="1" DensityModifier="0.0" IsOuter="True" CanBeDyed="False" Layer="4" PlayerLevelRequired="1" TextureName="Textures/Clothing/铜锁链甲" ImpactSoundsFolder="Audio/Impacts/Wood"  />
+    <ClothingData Index="41" DisplayName="骨制护甲" Description="戴上去是不是挺好看的呀"  Slot="Torso" ArmorProtection="1.0" Sturdiness="15" Insulation="0.0" MovementSpeedFactor="1" SteedMovementSpeedFactor="1" DensityModifier="0.0" IsOuter="True" CanBeDyed="False" Layer="4" PlayerLevelRequired="1" TextureName="Textures/Clothing/骨制护甲" ImpactSoundsFolder="Audio/Impacts/Wood"  />
+
+</Clothes>

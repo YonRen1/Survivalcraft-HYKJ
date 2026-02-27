@@ -1,0 +1,12 @@
+{
+   "Name": "荒野科技",
+   "Version": "0.0.6测试版本",
+   "ApiVersion": "1.8.1",
+   "Description": "生存战争荒野科技模组交流群\nQQ群号：786212967\n生存战争荒野科技模组频道\n频道号：ScHYKJModPd\n\n荒野科技简介\n\n生存战争荒野科技模组始创于2023年10月份，经历四次改版，最终定于现在这样。\n荒野科技模组始终以原始进化为主题，玩家扮演一名海难者被海盗流放荒岛，手无寸铁，只能从原始人开始重新发育。\n\n模组拥有丰富材料、装备、武器、工具，还拥有疾跑，昼夜变得更长，在这片荒岛生存下去吧！",
+   "ScVersion": "2.4.0.0",
+   "Link": "https://gitee.com/YonRen/Survivalcraft2-HYKJ",
+   "Author": "荒野科技制作组",
+   "PackageName": "Survivalcraft.HYKJ",
+   "Dependencies": [],
+   "LoadOrder": -10000
+}

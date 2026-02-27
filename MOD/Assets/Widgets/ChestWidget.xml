@@ -1,0 +1,8 @@
+<ChestWidget xmlns="runtime-namespace:Game">
+  <!--木箱子页面-->
+  <BevelledRectangleWidget Size="550, 300" BevelSize="3" />
+  <LabelWidget CanvasWidget.Position="12, 14" Name="ChestLabel" Text="[ChestWidget:1]"  Color="255, 255, 255, 192"/>
+  <LabelWidget CanvasWidget.Position="306, 14" Name="InventoryLabel" Text="[ChestWidget:2]"  Color="255, 255, 255, 192"/>
+  <GridPanelWidget CanvasWidget.Position="12, 52" Name="ChestGrid" ColumnsCount="3" RowsCount="3"/>
+  <GridPanelWidget CanvasWidget.Position="306, 52" Name="InventoryGrid" ColumnsCount="3" RowsCount="3"/>
+</ChestWidget>

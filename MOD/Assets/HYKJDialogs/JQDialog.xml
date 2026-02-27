@@ -1,0 +1,58 @@
+    <CanvasWidget xmlns="runtime-namespace:Game" Margin="0,10">
+
+	<CanvasWidget Size="750, 450" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+		<BevelledRectangleWidget DirectionalLight="0" AmbientLight="1" BevelColor="120, 120, 120, 160" CenterColor="80, 80, 80, 25" BevelSize="3" RoundingRadius="10" RoundingCount="2" />
+
+		<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5">
+
+			<StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <CanvasWidget Size="700, 40" HorizontalAlignment="Center" VerticalAlignment="Center">
+          <LabelWidget Name="TitleLabel" Text="" Margin="5, 5" HorizontalAlignment="Center"/>
+        </CanvasWidget>
+			</StackPanelWidget>
+
+			<CanvasWidget Size="730, 355" Margin="20, 3">
+
+				<BevelledRectangleWidget DirectionalLight="0" AmbientLight="1" BevelColor="255, 255, 255" CenterColor="20, 20, 20, 128" BevelSize="3" RoundingRadius="10" RoundingCount="2" />
+
+				<ScrollPanelWidget Name="ScrollPanel" Direction="Vertical" Margin="3, 3" ClampToBounds="true">
+					<CanvasWidget HorizontalAlignment="Center" VerticalAlignment="Center">
+						<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" Margin="10, 0" >
+                            <LabelWidget Name="ContentLabel" Text=""  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter" WordWrap="true" />
+                            <RectangleWidget Size="350, 130" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/scpd}" />
+                            <LabelWidget FontScale="1.0" Text="生存战争2频道" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="#腾讯频道：survivalcraft2" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="备注：内有各种资源及荒野科技教程板块，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.9" Text="\n————————————————\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <RectangleWidget Size="400, 170" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/schub}" />
+                            <LabelWidget FontScale="1.0" Text="生存战争中文社区" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="网站官网：www.schub.top" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="生存战争的优质社区，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.9" Text="\n————————————————\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                             <RectangleWidget Size="400, 170" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/ModWeb}" />
+                            <LabelWidget FontScale="1.0" Text="生存战争清凝模组网" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="网站官网：www.scmod.cn" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="生存战争的优质模组网站，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.9" Text="\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+ 						</StackPanelWidget>
+					</CanvasWidget>
+				</ScrollPanelWidget>
+
+			</CanvasWidget>
+
+      <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <CanvasWidget Size="700, 40">
+          <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Near" VerticalAlignment="Far">
+            <BevelledButtonWidget Name="OkButton" Text="确定" Style="{Styles/ButtonStyle_40x20}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </StackPanelWidget>
+        </CanvasWidget>
+
+      </StackPanelWidget>
+
+
+    </StackPanelWidget>
+    
+	</CanvasWidget>
+
+</CanvasWidget>

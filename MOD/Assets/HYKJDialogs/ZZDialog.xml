@@ -1,0 +1,93 @@
+<CanvasWidget xmlns="runtime-namespace:Game" Margin="0,10">
+	<CanvasWidget Size="710, 520" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<BevelledRectangleWidget DirectionalLight="0" AmbientLight="1" BevelColor="120, 120, 120, 160" CenterColor="80, 80, 80, 25" BevelSize="3" RoundingRadius="10" RoundingCount="2" />
+		<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5">
+			<StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CanvasWidget Size="370, 35" HorizontalAlignment="Center" VerticalAlignment="Center">
+                     <LabelWidget Name="TitleLabel" Text="" Margin="5, 5" HorizontalAlignment="Center"/>
+                </CanvasWidget>
+			</StackPanelWidget>
+			<CanvasWidget Size="700, 440" Margin="15, 3">
+				<BevelledRectangleWidget DirectionalLight="0" AmbientLight="1" BevelColor="255, 255, 255" CenterColor="20, 20, 20, 128" BevelSize="3" RoundingRadius="10" RoundingCount="2" />
+			    <CanvasWidget HorizontalAlignment="Center" VerticalAlignment="Center">
+			         <ScrollPanelWidget Name="ScrollPanel" Direction="Vertical" Margin="4, 3">
+				         <StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" Margin="0, 0" >
+                         <!--滚动条-->
+                              <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <LabelWidget Name="ContentLabel" Text=""  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter"/>
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/YonRen}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								         <LabelWidget Text="      永仁" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								         <LabelWidget Text="   (QQ:3570678237)\n    制作组主开发者，完成模组主要代码完\n   完成大部分bug修复工作，担任辅助\n    策划工作" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>   
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/guocheng}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      郭丞_IronPat" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:3761408279)\n    制作组先行策划，审查大部分内容，策\n   划功能“亿”种，并规划模组发展方向" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>   
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/glass}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      grassland" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:1685308448)\n    制作组功能调试，提供相关设备进行调\n   试并提供相关技术" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/Style}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      Style" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:2916966290)\n    制作组程序猿，技术顾问，提供相关技术" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget> 
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/xiao_hua}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      小花" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:562308440)\n    制作组功能程序猿一枚，提供技术功能" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/lao_lin}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      The first Daniu" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:3367426251)\n    制作组数据平衡，均衡生物、武器、护\n   甲数据" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>
+							  </StackPanelWidget>
+							  <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <StackPanelWidget HorizontalAlignment="Near" Margin="0, 6">
+								      <RectangleWidget FillColor="255, 255, 255" Margin="0, 5" OutlineColor="0, 0, 0, 0" Size="100, 100" Subtexture="{HYKJTextures/制作组/men}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								      <StackPanelWidget Direction="Vertical">
+								      <LabelWidget Text="      梦绕" Color="64, 192, 64" FontScale="1.0" HorizontalAlignment="Near" DropShadow="true"/>
+								      <LabelWidget Text="   (QQ:2824328878)\n    2025.7.16加入制作组，担任副策划职责" FontScale="0.8" HorizontalAlignment="Center" DropShadow="true"/>
+								      </StackPanelWidget>
+							      </StackPanelWidget>
+							  </StackPanelWidget>
+			             </StackPanelWidget>
+				     </ScrollPanelWidget>
+				</CanvasWidget>
+			</CanvasWidget>
+            <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CanvasWidget Size="350, 45">
+                    <StackPanelWidget Direction="Horizontal" HorizontalAlignment="Far" VerticalAlignment="Far">
+                        <BevelledButtonWidget Name="OkButton" Text="确定" Style="{Styles/ButtonStyle_40x20}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanelWidget>
+                </CanvasWidget>
+            </StackPanelWidget>
+        </StackPanelWidget> 
+	</CanvasWidget>
+</CanvasWidget>
