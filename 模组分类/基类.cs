@@ -38,11 +38,6 @@ namespace HYKJ
         {
             BlocksManager.DrawFlatOrImageExtrusionBlock(primitivesRenderer, value, size, ref matrix, texture, Color.White, false, environmentData);
         }
-
-        /*public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
-        {
-            BlocksManager.DrawFlatBlock(primitivesRenderer, value, size * 1f, ref matrix, texture, Color.White, isEmissive: true, environmentData);
-        }*/
     }
     //镐头
     public abstract class Pickaxe1Block : Block

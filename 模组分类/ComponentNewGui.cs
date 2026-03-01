@@ -72,33 +72,23 @@ namespace HYKJ
             m_componentGui = m_componentPlayer.ComponentGui;
             ContainerWidget guiWidget = m_componentPlayer.GuiWidget;
             GameWidget gameWidget = m_componentPlayer.GameWidget;
-            //获取各容器
             controlsContainer = guiWidget.Children.Find<CanvasWidget>("ControlsContainer");
             leftContainer = guiWidget.Children.Find<StackPanelWidget>("LeftControlsContainer");
             lightContainer = guiWidget.Children.Find<StackPanelWidget>("RightControlsContainer");
             moreContents = guiWidget.Children.Find<StackPanelWidget>("MoreContents");
-            //利用玩家血槽获取父容器
-            statusContents = (StackPanelWidget)guiWidget.Children.Find<ValueBarWidget>("HealthBar").ParentWidget;
             try
             {
                 //查找界面元素是否存在(防止玩家复活后控件重复添加)
                 tool = gameWidget.Children.Find<BitmapButtonWidget>("toolButton");
-                staminaBar = gameWidget.Children.Find<ValueBarWidget>("StaminaBar");
             }
             catch
             {
-                //如果元素不存在抛出异常将控件添加到容器
-                //属性按钮
                 attribute.AddChildren(attribute_one); //给空白按钮添加图标
                 leftContainer.AddChildren(attribute);
-                //耐力条
-                InsertWidget(gameWidget.Children.Find("TemperatureBar"), staminaBar, 0);
-                //工具按钮
                 moreContents.AddChildren(tool);
             }
             //获取游戏难度
             gameMode = m_componentGui.m_subsystemGameInfo.WorldSettings.GameMode;
-            staminaBar.IsVisible = gameMode != GameMode.Creative;
         }
 
 
@@ -106,23 +96,11 @@ namespace HYKJ
         {
             if (tool.IsClicked)
             {
-                try
-                {
-                    m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
-                }
-                catch (Exception ex)
-                {
-                    Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-                }
+                m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
             }
             if (attribute.IsClicked)
             {
                 m_componentPlayer.ComponentGui.ModalPanelWidget = new HYKJClothingWidget(m_componentPlayer);
-            }
-            //耐力
-            if (staminaBar.IsVisible)
-            {
-                staminaBar.Value = m_componentPlayer.ComponentVitalStats.Stamina;
             }
         }
 
@@ -155,18 +133,6 @@ namespace HYKJ
             //居中
             HorizontalAlignment = WidgetAlignment.Center,
             VerticalAlignment = WidgetAlignment.Center,
-        };
-        //耐力
-        private ValueBarWidget staminaBar = new ValueBarWidget
-        {
-            Name = "StaminaBar",
-            BarSize = new Vector2(16f, 16f), //条大小
-            LitBarColor2 = new Color(220, 241, 37),
-            LitBarColor = new Color(190, 125, 0),
-            UnlitBarColor = new Color(0, 0, 0, 255),
-            //条显示图标
-            BarSubtexture = ToSubtexture("HYKJTextures/Button/Stamina"),
-            BarsCount = 10, //条图标个数
         };
     }
 }

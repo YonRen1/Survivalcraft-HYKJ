@@ -1,4 +1,4 @@
-﻿using Game;
+using Game;
 using System.Xml.Linq;
 using Engine;
 using System;
@@ -68,30 +68,20 @@ namespace HYKJ
             }
         }
     }
-
-    //当界面更新时
     public class HYKJUpdate
     {
         public static void ShowUpdate()
         {
-            try
+            string title = "HYKJ";
+            string text = "";
+            string text2 = " ";
+            DialogsManager.ShowDialog(null, new HYKJMODDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技";
-                string text = "";
-                string text2 = " ";
-                DialogsManager.ShowDialog(null, new HYKJMODDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
-    //HYKJMODDialog界面
     public class HYKJMODDialog : Dialog
     {
         public HYKJMODDialog(string title, string content, Action action)
@@ -109,7 +99,7 @@ namespace HYKJ
             this.m_zzButton = this.Children.Find<ButtonWidget>("ZZButton", true);//制作
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -154,11 +144,10 @@ namespace HYKJ
                 HMUpdate.ShowUpdate();
             }
         }
-
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
         public ButtonWidget m_qqButton;
         public ButtonWidget m_zzButton;
         public ButtonWidget m_upButton;
@@ -167,7 +156,7 @@ namespace HYKJ
         public ButtonWidget m_jjButton;
         public ButtonWidget m_ryButton;
         public ButtonWidget m_hmButton;
-        public Action Action; // 动作
+        public Action Action;
     }
 
     public class JJDialog : Dialog
@@ -179,7 +168,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -193,11 +182,11 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class HMDialog : Dialog
     {
@@ -208,7 +197,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -222,57 +211,39 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class JJUpdate
     {
-        public const string fName = "ModDescription";
-
         public static void ShowUpdate()
         {
-            try
-            {
-                string title = "荒野科技模组简介";
-                string text = "";
-                string text2 = LanguageControl.Get(fName, "Description");
+            string title = LanguageControl.Get("ModGui", "4");
+            string text = "";
+            string text2 = LanguageControl.Get("ModGui", "ModDescription", "Description");
 
-                DialogsManager.ShowDialog(null, new JJDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
+            DialogsManager.ShowDialog(null, new JJDialog(title, text + "\n" + text2, delegate ()
             {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class HMUpdate
     {
-        public const string fName = "ModDescription";
-
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "5");
+            string text = "";
+            string text2 = LanguageControl.Get("ModGui", "ModDescription", "blacklist");
+            DialogsManager.ShowDialog(null, new HMDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技黑名单";
-                string text = "";
-                string text2 = LanguageControl.Get(fName, "blacklist");
-                DialogsManager.ShowDialog(null, new HMDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class RYDialog : Dialog
@@ -284,7 +255,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -298,33 +269,24 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class RYUpdate
     {
-        public const string fName = "ModDescription";
-
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "6");
+            string text = "";
+            string text2 = LanguageControl.Get("ModGui", "ModDescription", "Honorlist");
+            DialogsManager.ShowDialog(null, new RYDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技荣誉榜单";
-                string text = "";
-                string text2 = LanguageControl.Get(fName, "Honorlist");
-                DialogsManager.ShowDialog(null, new RYDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class JQDialog : Dialog
@@ -336,7 +298,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -350,52 +312,38 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class JQUpdate
     {
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "7");
+            string text = "";
+            string text2 = " ";
+            DialogsManager.ShowDialog(null, new JQDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "模组新版发布地址";
-                string text = "";
-                string text2 = " ";
-                DialogsManager.ShowDialog(null, new JQDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class UPUpdate
     {
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "8");
+            string text = "";
+            string text2 = LanguageControl.Get("ModGui", "9");
+            DialogsManager.ShowDialog(null, new UPDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技知名up主";
-                string text = "";
-                string text2 = "暂无";
-                DialogsManager.ShowDialog(null, new UPDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class QQDialog : Dialog
@@ -407,7 +355,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -421,33 +369,24 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class MXUpdate
     {
-        public const string fName = "ModDescription";
-
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "10");
+            string text = "";
+            string text2 = LanguageControl.Get("ModGui", "ModDescription", "thanks");
+            DialogsManager.ShowDialog(null, new MXDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技鸣谢名单";
-                string text = "";
-                string text2 = LanguageControl.Get(fName, "thanks");
-                DialogsManager.ShowDialog(null, new MXDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class MXDialog : Dialog
@@ -459,7 +398,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -473,11 +412,11 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
     public class UPDialog : Dialog
     {
@@ -488,7 +427,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -502,53 +441,39 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
 
     public class QQUpdate
     {
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "11");
+            string text = "";
+            string text2 = " ";
+            DialogsManager.ShowDialog(null, new QQDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技原始人指挥部";
-                string text = "";
-                string text2 = " ";
-                DialogsManager.ShowDialog(null, new QQDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class ZZUpdate
     {
         public static void ShowUpdate()
         {
-            try
+            string title = LanguageControl.Get("ModGui", "12");
+            string text = "";
+            string text2 = " ";
+            DialogsManager.ShowDialog(null, new ZZDialog(title, text + "\n" + text2, delegate ()
             {
-                string title = "荒野科技制作组";
-                string text = "";
-                string text2 = " ";
-                DialogsManager.ShowDialog(null, new ZZDialog(title, text + "\n" + text2, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
     }
     public class ZZDialog : Dialog
@@ -561,7 +486,7 @@ namespace HYKJ
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
             this.m_scrollPanel = this.Children.Find<ScrollPanelWidget>("ScrollPanel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
         }
@@ -574,17 +499,16 @@ namespace HYKJ
             }
         }
 
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
         public ScrollPanelWidget m_scrollPanel;
     }
-    //工具界面   
     public class ToolWidget : CanvasWidget
     {
-        public ComponentPlayer m_componentPlayer;//玩家界面
+        public ComponentPlayer m_componentPlayer;
 
         public BevelledButtonWidget m_button1;
 
@@ -592,18 +516,12 @@ namespace HYKJ
 
         public BevelledButtonWidget m_button3;
 
-        public const string fName = "Mod";
+        string BenCi = LanguageControl.Get("Mod", "0.0.6Description")
+                       + LanguageControl.Get("Mod", "0.0.6Day");
 
-        string BenCi = LanguageControl.Get(fName, "0.0.6Description")
-                       + LanguageControl.Get(fName, "0.0.6Day");
-
-        string LiShi = LanguageControl.Get(fName, "bk")
-                     + LanguageControl.Get(fName, "0.0.5Description")
-                     + LanguageControl.Get(fName, "0.0.5Day")
-                     + LanguageControl.Get(fName, "0.0.4Description")
-                     + LanguageControl.Get(fName, "0.0.4Day")
-                     + LanguageControl.Get(fName, "0.0.3Description")
-                     + LanguageControl.Get(fName, "0.0.3Day");
+        string LiShi = LanguageControl.Get("Mod", "bk")
+                     + LanguageControl.Get("Mod", "0.0.5Description")
+                     + LanguageControl.Get("Mod", "0.0.5Day");
 
         public ToolWidget(ComponentPlayer componentPlayer)
         {
@@ -615,11 +533,11 @@ namespace HYKJ
             this.m_button3 = this.Children.Find<BevelledButtonWidget>("Button3", true);//历史更新
         }
 
-        public override void Update()//检测
+        public override void Update()
         {
             if (this.m_button1.IsClicked)
             {
-                string title_a = LanguageControl.Get(fName, "title_a");
+                string title_a = LanguageControl.Get("Mod", "title_a");
                 DialogsManager.ShowDialog(null, new MessageDialog(title_a, BenCi, LanguageControl.Ok, null, null));
             }
             if (this.m_button2.IsClicked)
@@ -628,81 +546,36 @@ namespace HYKJ
             }
             if (this.m_button3.IsClicked)
             {
-                string title_b = LanguageControl.Get(fName, "title_b");
+                string title_b = LanguageControl.Get("Mod", "title_b");
                 DialogsManager.ShowDialog(null, new MessageDialog(title_b, LiShi, LanguageControl.Ok, null, null));
             }
         }
     }
-    //成就界面   
-    /*public class CJWidget : CanvasWidget
-    {
-        public ComponentPlayer m_componentPlayer;//玩家界面
-
-        public CJWidget(ComponentPlayer componentPlayer)
-        {
-            m_componentPlayer = componentPlayer;
-            XElement node = ContentManager.Get<XElement>("Widgets/CJWidget");
-            LoadContents(this, node);
-        }
-
-        public override void Update()//检测
-        {
-        }
-    }*/
-    //这段出问题找找Style
     public class GxUpdate
     {
-        public const string fName = "MainMenuScreen";
-
-        public void Update()
-        {
-        }
+        public void Update() { }
 
         public static async Task ShowUpdate()
         {
-            try
-            {
-                string title = "HYKJ更新公告";
-                string text = await GetContentFromUrl("https://gitee.com/YonRen/Survivalcraft2-HYKJ/raw/master/%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9.txt");
+            string title = LanguageControl.Get("ModGui", "1");
+            string text = await GetContentFromUrl("https://gitee.com/YonRen/Survivalcraft2-HYKJ/raw/master/%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9.txt");
 
-                DialogsManager.ShowDialog(null, new GXDialog(title, text, delegate ()
-                {
-                    SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
-                }));
-
-                MotdManager.CanShowBulletin = false;
-            }
-            catch (Exception ex)
+            DialogsManager.ShowDialog(null, new GXDialog(title, text, delegate ()
             {
-                Log.Warning("ShowBulletin失败。原因: " + ex.Message);
-                //失败弹窗
-                DialogsManager.ShowDialog(null, new MessageDialog(LanguageControl.Get(fName, "1"), LanguageControl.Get(fName, "2"), LanguageControl.Ok, null, null));
-            }
+                SettingsManager.BulletinTime = MotdManager.m_bulletin.Time;
+            }));
+            MotdManager.CanShowBulletin = false;
         }
 
         private static async Task<string> GetContentFromUrl(string url)
         {
             using (HttpClient client = new HttpClient())
             {
-                try
-                {
-                    string urlContent = await client.GetStringAsync(url);
-                    return urlContent;
-                }
-                catch (HttpRequestException e)
-                {
-                    Log.Error($"Request error: {e.Message}");
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    Log.Error($"An error occurred: {e.Message}");
-                    throw;
-                }
+                string urlContent = await client.GetStringAsync(url);
+                return urlContent;
             }
         }
     }
-    //界面
     public class GXDialog : Dialog
     {
         public GXDialog(string title, string content, Action action)
@@ -712,7 +585,7 @@ namespace HYKJ
             this.m_okButton = this.Children.Find<ButtonWidget>("OkButton", true);
             this.m_titleLabel = this.Children.Find<LabelWidget>("TitleLabel", true);
             this.m_contentLabel = this.Children.Find<LabelWidget>("ContentLabel", true);
-            this.m_okButton.IsVisible = true;//显示按钮
+            this.m_okButton.IsVisible = true;
             this.m_titleLabel.Text = title;
             this.m_contentLabel.Text = content;
             this.Action = action;
@@ -725,39 +598,27 @@ namespace HYKJ
                 DialogsManager.HideDialog(this);
             }
         }
-        public LabelWidget m_titleLabel; // 标题标签
-        public LabelWidget m_contentLabel; // 内容标签
-        public LabelWidget m_buttonLabel; // 按钮标签
-        public ButtonWidget m_okButton; // Ok按钮
-        public Action Action; // 动作
+        public LabelWidget m_titleLabel;
+        public LabelWidget m_contentLabel;
+        public LabelWidget m_buttonLabel;
+        public ButtonWidget m_okButton;
+        public Action Action;
     }
 
     public class HYKJClothingWidget : CanvasWidget
     {
         public StackPanelWidget m_clothingStack;
-
         public PlayerModelWidget m_innerClothingModelWidget;
-
         public PlayerModelWidget m_outerClothingModelWidget;
-
         public ComponentPlayer m_componentPlayer;
-
         public ComponentPlayer componentPlayer;
-
         public LabelWidget m_titleLabel;
-
         public ValueBarWidget m_healthValueBar;
-
         public ValueBarWidget m_staminaValueBar;
-
         public ValueBarWidget m_foodValueBar;
-
         public ValueBarWidget m_sleepValueBar;
-
         public ValueBarWidget m_experienceValueBar;
-
         public LabelWidget m_insulationLabel;
-
         public ValueBarWidget m_temperatureValueBar;
 
         public HYKJClothingWidget(ComponentPlayer componentPlayer)

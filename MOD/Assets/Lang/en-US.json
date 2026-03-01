@@ -1,0 +1,268 @@
+{
+	"ModGui": {
+	   "1": "HYKJ Update Announcement",
+       "2": "Failed to Load Announcement",
+       "3": "No network connection.\nOr failed to fetch from server.",
+       "4": "Mod Description",
+       "5": "Blacklist",
+       "6": "Honor List",
+       "7": "Download Link",
+       "8": "Related Videos",
+       "9": "None",
+       "10": "Credits",
+       "11": "Primitive Command",
+       "12": "Development Team",
+       "13": "Confirm",
+       "ModDescription": {
+	      "blacklist": "No blacklist members yet. The community is healthy!",
+	      "Honorlist": "Awaiting worthy candidates",
+	      "Description": "Survivalcraft Wilderness Tech Mod was founded in October 2023, underwent four revisions, and finally settled into its current form.\nThe Wilderness Tech Mod always focuses on primitive evolution. Players play as a castaway exiled to a deserted island by pirates, starting from scratch as primitive humans to survive.\n\nThe mod features rich materials, equipment, weapons, and tools, along with sprinting and thirst mechanics. Survive on this deserted island!",
+	      "thanks": "Wilderness Tech Mod thanks the following contributors (Greatly appreciated!)\n\nLaojun (QQ319****710) - Used Laojun's code\nPeak (QQ348****513) - Used Peak's sound effects\nKailujun (QQ675***895) - Used Kailujun's code"
+	   }
+	},
+	"ModVersion": {
+	   "0.0.6Description": "Wilderness Tech v0.0.6 Update Notes\n",
+	   "0.0.6Day": "Release Date: 2025.8.10",
+	   "0.0.5Description": "Wilderness Tech v0.0.5 Update Notes\n1. Mod announcement button re-enabled!\n2. Added some test items\n3. Adapted for new API 1.8.1.2\n4. Removed redundant files, reduced package size (3MB→1MB)\n5. Changed some vanilla recipes\n6. Fixed main menu mod button not clickable\n7. Fixed attribute button position anomaly\n8. Fixed mod interface corner radius issue\n9. Fixed clay smelting texture not displaying\n10. Added credits, description, and download link\n11. From v0.0.5 onwards, update logs will no longer be categorized as additions/fixes",
+	   "0.0.5Day": "Release Date: 2025.7.8",
+	   "title_a": "Current Version Update",
+	   "title_b": "Update History",
+	   "bk": "Sorted chronologically, showing only recent updates\nOlder update records lost"
+	},
+    "BlocksManager": {
+       "HYKJ Material": "HYKJ Material",
+       "HYKJ Tool": "HYKJ Tool",
+       "HYKJ Weapons": "HYKJ Weapons"
+    },
+	"NewCraftingTableWidget": {
+	   "2": "Work Stump",
+       "3": "Inventory"
+	},
+	"Blocks": {
+		"StoneAxeBlock:0": {
+			"DisplayName": "Sharp Stone Hammer",
+			"Description": "A relatively sharp stone tool.\nBelongs to the Neolithic era."
+		},
+		"IronOreChunkBlock:0": {
+		    "DisplayName": "Raw Iron Ore",
+		    "CRDescription:0": "Put a pile of grains together?"
+		},
+		"MalachiteChunkBlock:0": {
+			"DisplayName": "Raw Copper Ore",
+			"CRDescription:1": "Put a pile of grains together?"
+		},
+		"ChestBlock:0": {
+			"DisplayName": "Wooden Chest"
+		},
+		"ClayBlock:0": {
+			"DisplayName": "Clay Block"
+		},
+        "FlintBlock:0":{
+		    "Description": "A type of uneven gravel that is relatively sharp, but requires processing before use."
+		},
+		"silverIngotBlock:0":{
+		    "Description": "Hey! A silver ingot, looks delicious (crossed out) useful. Should be able to craft tools, weapons, and armor! But combining with other ingots... might make it even more powerful!"
+		},
+		"goldIngotBlock:0":{
+		    "Description": "Wow! Glory days!\nA large chunk of glittering gold, must have been difficult to mine!"
+		},
+		"copper_plateBlock:0":{
+		    "Description": "Flat plate, good flat plate\nCopper plate item description"
+		},
+		"gold_plateBlock:0":{
+		    "Description": "Flat plate, good flat plate\nSilver plate item description"
+		},
+		"silver_plateBlock:0":{
+		    "Description": "Flat plate, good flat plate\nGold plate item description"
+		},
+		"coal_powderBlock:0":{
+		    "Description": "Coal powder item description"
+		},
+		"gold_powder1Block:0":{
+		    "Description": "Ah!!! Don't float away~\nMetal powder obtained by crushing ores"
+		},
+		"copper_powderBlock:0":{
+		    "Description": "Ah!!! Don't float away~\nMetal powder obtained by crushing ores"
+		},
+		"iron_powderBlock:0":{
+		    "Description": "Ah!!! Don't float away~\nMetal powder obtained by crushing ores"
+		},
+		"crucibleBlock:0":{
+		    "Description": "Weird dry goods... Where are my crucible tongs?!"
+		},
+		"crucible1Block:0":{
+		    "Description": "Wow~ Very interesting, be careful not to get burned\nCan be used to cast ingots (Related item: Mold)"
+		},
+		"silverChunkBlock:0":{
+		    "Description": "Silver ore item description"
+		},
+		"goldChunkBlock:0":{
+		    "Description": "Gold ore item description"
+		},
+		"CopperAxe1Block:0":{
+		    "Description": "Copper axe head description (Combine with stick, rope, etc. to make complete copper axe, same below)"
+		},
+		"CopperPickaxe1Block:0":{
+		    "Description": "Copper pickaxe head description"
+		},
+		"silver_nuggetBlock:0":{
+		    "Description": "A solid block of pure silver. Very heavy and durable. Extremely resistant to mining and explosions. Can be crafted from multiple silver ingots."
+		},
+		"gold_nuggetBlock:0":{
+		    "Description": "A solid block of pure gold, soft in texture. Very heavy and durable. Not very resistant to mining and explosions. Can be crafted from multiple gold ingots."
+		},
+	    "plant_fiberBlock:0":{
+		    "Description": "Plant fiber is a soft material that can be used to make rope or cloth"
+		},
+	    "hemp_ropeBlock:0":{
+		    "Description": "Hemp rope is stronger than grass rope and can be used for more advanced tool crafting\n\n\n[Will be categorized separately from other ropes in the future, for now it stays like this]."
+		},
+		"barkBlock:0":{
+		    "Description": "Bark is a processed material and also a waste product....\n\nIf you don't mind, it can be used as fuel."
+		},
+		"straw_ropeBlock:0":{
+		    "Description": "Grass rope is a basic binding material made from plant fibers\n\nShould be usable to craft more items."
+		},
+		"Wood1Block:0":{
+		    "Description": "Common and easy to obtain, relatively soft texture.\nSuitable for beginners to craft basic tools and simple buildings."
+		},
+		"drill_wood_make_fireBlock:0":{
+		    "Description": "Fire drilling is an ancient effective method of making fire\n\nIf you have no other ignition methods, fire drilling might be your best choice."
+		},
+		"branchesBlock:0":{
+		    "Description": "Branches are commonly obtained, also drop from leaves\n\nCan be processed into sticks."
+		},
+		"flint_hammerBlock:0":{
+		    "Description": "Sharp stone hammer is a striking tool used to process other stone tools, such as flaking or repairing tool edges.\n\nAlso made from sharp stone flakes, this hammer's design allows it to concentrate force for effective striking and shaping of other stones.\n\nThe use of sharp stone hammer demonstrates ancient understanding and utilization of material properties, as well as mastery of tool-making technology.\n\nStill in the Paleolithic era."
+		},
+		"Flint_processing_tableBlock:0":{
+		    "Description": "Flint processing table is an early-stage processing workbench, mainly used for handling basic materials like wood.\n\nIt uses flint's hardness to cut and grind wood into finer shapes, such as making sticks, planks, or simple wooden tools.\n\nFlint processing table is very practical in early game, helping players quickly prepare basic materials for subsequent crafting and exploration.\n\n\nThanks to grassland for providing the computer for debugging"
+		},
+		"working_pilesBlock:0":{
+		    "Description": "Work stump is a basic crafting station that can be used to craft various simple items like sticks, stone axes, stone pickaxes, etc.\n\nIt helps you craft tools and weapons, a very important workbench in early game."
+		},
+		"adhesiveBlock:0":{
+		    "Description": "A sticky substance that can quickly bond items together, suitable for various materials."
+		},
+		"Leather_clothBlock:0":{
+		    "Description": "A soft and tough material made from leather, combining leather's durability with fabric's flexibility, a basic material for crafting equipment and items."
+		},
+		"Flint_knifeBlock:0":{
+		    "DisplayName": "Sharp Stone Knife",
+		    "Description": "A weapon crafted from sharp stone flakes, high attack power but low durability."
+		},
+		"leather_knifeBlock:0":{
+		    "DisplayName": "Sharp Stone Leather Knife",
+		    "Description": "A weapon crafted from sharp stone flakes, high attack power but low durability.\n\nAdded leather grip on the original basis, making it easier to hit targets."
+		},
+		"big_boneBlock:0":{
+		    "Description": "Bones from animals, very sturdy, perhaps can be processed into tools with higher durability."
+		},
+		"boneBlock:0":{
+		    "Description": "Bones from animals, very sturdy, perhaps can be processed into tools with higher durability."
+		},
+		"cokeBlock:0":{
+		    "DisplayName": "Charcoal",
+		    "Description": "Wood burned into charcoal, can be used as fuel, but less effective than coal."
+		},
+		"wasteBlock:0":{
+		    "DisplayName": "Scrap",
+		    "Description": "Unnecessary parts from crafting materials, perhaps can be recycled."
+		},
+		"templateBlock:0":{
+		    "DisplayName": "Mold",
+		    "Description": "Basic mold made from clay and dirt, can be pressed into various shapes."
+		},
+		"clay_kilnBlock:0":{
+		    "DisplayName": "Clay Kiln",
+		    "Description": ""
+		},
+		"pick_moldBlock:0":{
+		    "Description": "Press it to shape it into various forms."
+		},
+		"ingot_moldBlock:0":{
+		    "Description": "Press it to shape it into various forms."
+		},
+		"slab_moldBlock:0":{
+		    "Description": "Press it to shape it into various forms."
+		},
+		"axe_moldBlock:0":{
+		    "Description": "Press it to shape it into various forms."
+		},
+		"bone_pickBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"bone_MacheteBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"bone_ShovelBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"bone_AxeBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"bone_SpearBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"bone_hammerBlock:0":{
+		    "Description": "Tool crafted from polished bones, efficiency equivalent to entering the Copper Age."
+		},
+		"sideroblastsBlock:0":{
+		    "Description": "Iron fragments, can be fused into blocks after smelting."
+		},
+		"copper_particlesBlock:0":{
+		    "Description": "Copper fragments, can be fused into blocks after smelting."
+		},
+		"Flint_processingBlock:0":{
+		    "Description": "Can process some complex items."
+		},
+		"copper_processingBlock:0":{
+		    "Description": "Can process some complex items."
+		},
+		"malletBlock:0":{
+		    "Description": "Hammer, high damage but expensive crafting materials."
+		},
+		"iron_hammerBlock:0":{
+		    "Description": "Hammer, high damage but expensive crafting materials."
+		},
+		"copper_hammerBlock:0":{
+		    "Description": "Hammer, high damage but expensive crafting materials."
+		},
+		"bodyBlock:0":{
+		    "Description": "Animal carcass, can be decomposed to obtain rich materials."
+		},
+		"working_piles1Block:0":{
+		    "Description": "Work board, relatively delicate, can serve as the desktop for a crafting table."
+		},
+		"working_piles2Block:0":{
+		    "Description": "Work stump, can serve as the base for a crafting table."
+		},
+		"emBlock:0":{
+		    "Description": "Rhino skull, supreme honor, congratulations on defeating the strongest creature in vanilla!"
+		},
+		"furBlock:0":{
+		    "Description": "Animal fur, obtained from decomposing carcasses, can be processed into leather."
+		},
+		"CupBlock:0":{
+		    "DisplayName": "Wooden Cup",
+		    "Description": "A wooden cup crafted from planks, can hold water.",
+		    "CRDescription:0": "Process planks into cup shape",
+		},
+		"firewoodBlock:0":{
+		    "Description": "Wood bundled with rope, burns longer than coal\n\nUnfortunately the burning temperature doesn't meet requirements, so it cannot be used to melt ores."
+		},
+		"sharp_stickBlock:0":{
+		    "Description": "Sharpened stick, can be used for fire drilling!"
+		},
+	    "ClothingBlock:38": {
+			"DisplayName": "Reinforced Wooden Armor",
+			"Description": "Wooden armor reinforced with planks and rope. Provides some protection. Can keep you slightly warm.",
+			"CRDescription:0": "Craft reinforced wooden armor"
+		},
+		"ClothingBlock:39": {
+			"DisplayName": "Reinforced Wooden Leggings",
+			"Description": "Leg armor reinforced with planks and rope. Provides some protection. Can provide slight heat insulation.",
+			"CRDescription:0": "Bind sticks and planks together for reinforcement"
+		}
+    }
+}

@@ -12,7 +12,7 @@
 				<ScrollPanelWidget Name="ScrollPanel" Direction="Vertical" Margin="3, 3" ClampToBounds="true">
 					<CanvasWidget HorizontalAlignment="Center" VerticalAlignment="Center">
 						<StackPanelWidget Direction="Vertical" HorizontalAlignment="Center" Margin="10, 0" >
-                            <LabelWidget Name="ContentLabel" Text="虚以待位"  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter" WordWrap="true" />
+                            <LabelWidget Name="ContentLabel" Text=""  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter" WordWrap="true" />
 						</StackPanelWidget>
 					</CanvasWidget>
 				</ScrollPanelWidget>
