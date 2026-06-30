@@ -38,6 +38,12 @@
 		"2": "Crafting Stump",
 		"3": "Inventory"
 	},
+	"ContentWidgets": {
+	   "VitalStatsWidget": {
+	       "100": "Player",
+	       "101": "Information"
+	   }
+	},
 	"Blocks": {
 		"StoneAxeBlock:0": {
 			"DisplayName": "Sharp Stone Hammer",

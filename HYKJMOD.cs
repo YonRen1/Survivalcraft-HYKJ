@@ -952,8 +952,7 @@ namespace HYKJ
             : base("IronIngot", new Color(130, 130, 130)) { }
     }
     //杯
-    public class CupBlock : Block
-    {
+    public class CupBlock : Block {
         public static int Index = 385;
 
         public BlockMesh m_blockMesh = new();
@@ -979,14 +978,82 @@ namespace HYKJ
             base.Initialize();
         }
 
-        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
-        {
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z) {
             generator.GenerateShadedMeshVertices(this, x, y, z, m_blockMesh, Color.White, null, null, geometry.GetGeometry(texture).SubsetOpaque);
         }
 
-        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
-        {
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData) {
             BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, texture, color, size, ref matrix, environmentData);
+        }
+    }
+    //箱子
+    public class IronChestBlock : CubeBlock {
+        public static int Index = 386;
+
+        public override int GetFaceTextureSlot(int face, int value) {//贴图计算方法：y*16+x
+            return face switch {
+                4 => 235,
+                5 => 235,//上下两面
+                _ => Terrain.ExtractData(value) switch {
+                    0 => face == 0 ? 234 : 235,
+                    1 => face == 1 ? 234 : 235,
+                    2 => face == 2 ? 234 : 235,
+                    _ => face == 3 ? 234 : 235
+                }
+            };
+        }
+
+        public override BlockPlacementData GetPlacementValue(SubsystemTerrain subsystemTerrain,
+            ComponentMiner componentMiner,
+            int value,
+            TerrainRaycastResult raycastResult) {
+            Vector3 forward = Matrix.CreateFromQuaternion(componentMiner.ComponentCreature.ComponentCreatureModel.EyeRotation).Forward;
+            float num = Vector3.Dot(forward, Vector3.UnitZ);
+            float num2 = Vector3.Dot(forward, Vector3.UnitX);
+            float num3 = Vector3.Dot(forward, -Vector3.UnitZ);
+            float num4 = Vector3.Dot(forward, -Vector3.UnitX);
+            int data = num == MathUtils.Max(num, num2, num3, num4) ? 2 :
+                num2 == MathUtils.Max(num2, num3, num4) ? 3 :
+                num3 == Math.Max(num3, num4) ? 0 : 1;
+            BlockPlacementData result = default;
+            result.Value = Terrain.ReplaceData(Terrain.ReplaceContents(BlocksManager.GetBlockIndex<IronChestBlock>()), data);
+            result.CellFace = raycastResult.CellFace;
+            return result;
+        }
+    }
+    
+    public class CopperChestBlock : CubeBlock {
+        public static int Index = 387;
+
+        public override int GetFaceTextureSlot(int face, int value) {//贴图计算方法：y*16+x
+            return face switch {
+                4 => 251,
+                5 => 251,//上下两面
+                _ => Terrain.ExtractData(value) switch {
+                    0 => face == 0 ? 250 : 251,
+                    1 => face == 1 ? 250 : 251,
+                    2 => face == 2 ? 250 : 251,
+                    _ => face == 3 ? 250 : 251
+                }
+            };
+        }
+
+        public override BlockPlacementData GetPlacementValue(SubsystemTerrain subsystemTerrain,
+            ComponentMiner componentMiner,
+            int value,
+            TerrainRaycastResult raycastResult) {
+            Vector3 forward = Matrix.CreateFromQuaternion(componentMiner.ComponentCreature.ComponentCreatureModel.EyeRotation).Forward;
+            float num = Vector3.Dot(forward, Vector3.UnitZ);
+            float num2 = Vector3.Dot(forward, Vector3.UnitX);
+            float num3 = Vector3.Dot(forward, -Vector3.UnitZ);
+            float num4 = Vector3.Dot(forward, -Vector3.UnitX);
+            int data = num == MathUtils.Max(num, num2, num3, num4) ? 2 :
+                num2 == MathUtils.Max(num2, num3, num4) ? 3 :
+                num3 == Math.Max(num3, num4) ? 0 : 1;
+            BlockPlacementData result = default;
+            result.Value = Terrain.ReplaceData(Terrain.ReplaceContents(BlocksManager.GetBlockIndex<CopperChestBlock>()), data);
+            result.CellFace = raycastResult.CellFace;
+            return result;
         }
     }
 }

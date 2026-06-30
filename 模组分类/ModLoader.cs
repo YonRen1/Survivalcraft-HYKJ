@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Random = Game.Random;
 using Engine.Graphics;
 using System.Collections.Generic;
@@ -13,8 +13,8 @@ namespace HYKJ
 {
     public class HYKJModLoader : ModLoader
     {
-        public ModEntity Entity;
 
+        //public ModEntity Entity;
         public static ReadOnlyList<string> Categories => new(m_categories);
 
         public static List<string> m_categories = [];
@@ -44,7 +44,7 @@ namespace HYKJ
             ModsManager.RegisterHook("AfterWidgetUpdate", this);//在Widget完成Update()后立即执行
             ModsManager.RegisterHook("ClothingProcessSlotItems", this);
         }
-        
+
         /// <summary>
         /// 在主界面初始化后执行，你可以通过这个给主界面加些你想要的按钮或者文字等
         /// 不过建议开发者使用BeforeWidgetUpdate和AfterWidgetUpdate这两个接口实现
@@ -60,7 +60,6 @@ namespace HYKJ
             if (rightBottomBar.Children.Any(c => c.Name == "HYKJButton"))
                 return;
 
-            // 创建按钮
             modButton = new BevelledButtonWidget
             {
                 Name = "ModButton", // 唯一标识
@@ -115,14 +114,11 @@ namespace HYKJ
             // 只处理主菜单屏幕
             if (widget is MainMenuScreen mainMenuScreen)
             {
-                // 确保按钮已创建
                 if (modButton == null && hykjButton == null)
                 {
-                    // 尝试查找现有按钮
                     modButton = mainMenuScreen.Children.Find<BevelledButtonWidget>("ModButton", true);
                     hykjButton = mainMenuScreen.Children.Find<BevelledButtonWidget>("HYKJButton", true);
                 }
-                // 检测按钮点击
                 if (modButton != null && modButton.IsClicked)
                 {
                     GxUpdate.ShowUpdate();
@@ -133,7 +129,7 @@ namespace HYKJ
                 }
             }
         }
-        
+
         //兼容性不好，后续参考十亿伏特更换
         /// <summary>
         /// 方块初始化完成时执行

@@ -8,7 +8,7 @@ namespace HYKJ
     //碎石
     public class GravelBlock : CubeBlock
     {
-        public static int Index = 6;//ID
+        public static int Index = 6;
 
         public GravelBlock()
         {

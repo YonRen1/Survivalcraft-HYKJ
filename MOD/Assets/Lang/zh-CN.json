@@ -38,6 +38,12 @@
 	   "2": "工作桩",
        "3": "背包"
 	},
+	"ContentWidgets": {
+	   "VitalStatsWidget": {
+	       "100": "玩家",
+	       "101": "详细信息"
+	   }
+	},
 	"Blocks": {
 		"StoneAxeBlock:0": {
 			"DisplayName": "锋利石锤",
@@ -52,7 +58,8 @@
 			"CRDescription:1": "将一堆的粒放在一块？"
 		},
 		"ChestBlock:0": {
-			"DisplayName": "木箱子"
+			"DisplayName": "木箱子",
+		    "Description": "木制的箱子是存放你无法或不想携带的多余物品的好地方。它最多可容纳9组物品。"
 		},
 		"ClayBlock:0": {
 			"DisplayName": "粘土块"
@@ -313,6 +320,14 @@
 		"iron_sawBlock:0": {
 			"DisplayName": "铁锯",
 			"Description": "一种加工成刺状的锯子，锯木头最好不过了，缺点是不太耐用。"
+		},
+		"IronChestBlock:0":{
+		    "DisplayName": "铁箱子",
+		    "Description": "铁制的箱子是存放你无法或不想携带的多余物品的好地方。它最多可容纳36组物品。"
+		},
+		"CopperChestBlock:0":{
+		    "DisplayName": "铜箱子",
+		    "Description": "铜制的箱子是存放你无法或不想携带的多余物品的好地方。它最多可容纳16组物品。"
 		},
 	    "ClothingBlock:38": {
 			"DisplayName": "加固木护甲",
