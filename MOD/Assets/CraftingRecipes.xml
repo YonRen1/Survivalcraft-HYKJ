@@ -707,9 +707,10 @@
       "a"
       "b"
     </Recipe>
-    <Recipe Result="SaddleBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" b="stick" Description="[0]">
-      "aba"
-      " a"
+    <!--马鞍-->
+    <Recipe Result="SaddleBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" b="stick" c="Leather_clothBlock" Description="[0]">
+      "cbc"
+      " c"
       "aba"
     </Recipe>
     <Recipe Result="BoatBlock" ResultCount="1" RequiredHeatLevel="0" a="planks" Description="[0]">
@@ -978,37 +979,41 @@
     <Recipe Result="ClothingBlock:26" ResultCount="1" RequiredHeatLevel="0" a="canvas" Description="[0]">
       "aa"
     </Recipe>
-    <Recipe Result="ClothingBlock:31" ResultCount="1" RequiredHeatLevel="0" a="leather" Description="[0]">
-      " a"
-      "aaa"
+    <!--原版皮革类衣物-->
+    <Recipe Result="ClothingBlock:31" ResultCount="1" RequiredHeatLevel="0" a="leather" b="Leather_clothBlock" Description="[0]">
+      " b"
+      "aa"
     </Recipe>
-    <Recipe Result="ClothingBlock:11" ResultCount="1" RequiredHeatLevel="0" a="leather" Description="[0]">
-      " a"
+    <Recipe Result="ClothingBlock:11" ResultCount="1" RequiredHeatLevel="0" a="leather" b="Leather_clothBlock" Description="[0]">
+      " b"
       "a a"
     </Recipe>
-    <Recipe Result="ClothingBlock:5" ResultCount="1" RequiredHeatLevel="0" a="leather" Description="[0]">
+    <Recipe Result="ClothingBlock:5" ResultCount="1" RequiredHeatLevel="0" a="leather" b="Leather_clothBlock" Description="[0]">
+      "b"
+      "b"
       "a"
-      "a"
-      "a"
     </Recipe>
-    <Recipe Result="ClothingBlock:12" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" Description="[0]">
+    <Recipe Result="ClothingBlock:12" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" c="Leather_clothBlock" Description="[0]">
       "bb"
-      "aa"
-      "aa"
+      "ca"
+      "cc"
     </Recipe>
-    <Recipe Result="ClothingBlock:8" ResultCount="1" RequiredHeatLevel="0" a="leather" b="planks" Description="[0]">
-      "aa"
-      "bb"
+    <Recipe Result="ClothingBlock:8" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" c="Leather_clothBlock" Description="[0]">
+      "ac"
+      "cb"
     </Recipe>
-    <Recipe Result="ClothingBlock:29" ResultCount="1" RequiredHeatLevel="0" a="leather" b="planks" Description="[0]">
-      "a"
-      "bb"
+    <Recipe Result="ClothingBlock:29" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" c="Leather_clothBlock"Description="[0]">
+      "b"
+      "ca"
     </Recipe>
-    <Recipe Result="ClothingBlock:27" ResultCount="1" RequiredHeatLevel="0" a="leather" b="planks" Description="[0]">
+    <Recipe Result="ClothingBlock:27" ResultCount="1" RequiredHeatLevel="0" a="leather" b="Leather_clothBlock" c="string" Description="[0]">
       "aa"
-      "aa"
+      "ca"
       "bb"
     </Recipe>
+    
+    
+    
     <Recipe Result="ClothingBlock:18" ResultCount="1" RequiredHeatLevel="0" a="fur" Description="[0]">
       " a"
       "a a"

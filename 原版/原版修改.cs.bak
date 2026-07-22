@@ -6,17 +6,21 @@ using System.Collections.Generic;
 namespace HYKJ
 {
     //碎石
-    public class GravelBlock : CubeBlock {
+    public class GravelBlock : CubeBlock
+    {
         public static int Index = 6;
 
-        public GravelBlock() {
+        public GravelBlock()
+        {
             IsCollapsable = true;//滑落
         }
 
         //随机掉落方法
-        public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris) {
+        public override void GetDropValues(SubsystemTerrain subsystemTerrain, int oldValue, int newValue, int toolLevel, List<BlockDropValue> dropValues, out bool showDebris)
+        {
             showDebris = true;
-            if (toolLevel >= RequiredToolLevel) {
+            if (toolLevel >= RequiredToolLevel)
+            {
                 float num = Random.Float(0f, 1f);
                 if (num > 0f && num < 0.81f)
                 {
@@ -25,7 +29,7 @@ namespace HYKJ
                         Value = Terrain.MakeBlockValue(FlintBlock.Index),
                         Count = 1
                     });
-                    
+                    showDebris = true;
                 }
                 if (num > 0.81f && num < 1f)
                 {
@@ -34,12 +38,12 @@ namespace HYKJ
                         Value = Terrain.MakeBlockValue(copper_particlesBlock.Index),
                         Count = 2,
                     });
-                    
+                    showDebris = true;
                 }
-            else
-            {
-                base.GetDropValues(subsystemTerrain, oldValue, newValue, toolLevel, dropValues, out showDebris);
-            
+                else
+                {
+                    base.GetDropValues(subsystemTerrain, oldValue, newValue, toolLevel, dropValues, out showDebris);
+                }
             }
         }
     }
