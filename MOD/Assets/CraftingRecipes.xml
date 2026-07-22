@@ -1002,7 +1002,7 @@
       "ac"
       "cb"
     </Recipe>
-    <Recipe Result="ClothingBlock:29" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" c="Leather_clothBlock"Description="[0]">
+    <Recipe Result="ClothingBlock:29" ResultCount="1" RequiredHeatLevel="0" a="leather" b="string" c="Leather_clothBlock" Description="[0]">
       "b"
       "ca"
     </Recipe>

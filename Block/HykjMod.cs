@@ -1,4 +1,4 @@
-using Game;
+﻿using Game;
 using Engine;
 using Engine.Graphics;
 using System.Collections.Generic;
@@ -160,7 +160,7 @@ namespace HYKJ
             : base(47, 19)
         {
             DefaultMeleeHitProbability = 3f;//攻击力
-            DefaultMeleePower = 0.6f;//命中率
+            DefaultMeleePower = 0.9f;//命中率
         }
     }
     //燧石小刀
@@ -663,14 +663,16 @@ namespace HYKJ
     public class axe_moldBlock : SFlatBlock
     {
         public axe_moldBlock() : base(210)
-        { }
+        {
+        }
         public static int Index = 356;
     }
     //板模具
     public class slab_moldBlock : SFlatBlock
     {
         public slab_moldBlock() : base(212)
-        { }
+        {
+        }
         public static int Index = 357;
     }
     //铜制加工刀
@@ -690,9 +692,8 @@ namespace HYKJ
         public Dictionary<Texture2D, BlockMesh> m_meshes2 = new Dictionary<Texture2D, BlockMesh>();
         private BlockMesh m_standaloneBlockMesh = new BlockMesh();
         private BlockMesh m_drawBlockMesh = new BlockMesh();
-        private BoundingBox[] m_customCollisionBoxes = new BoundingBox[1]
-        {
-        new BoundingBox(new Vector3(0f, 0f, 0f),new Vector3(3f, 2f, 1f))
+        private BoundingBox[] m_customCollisionBoxes = new BoundingBox[1] {
+            new BoundingBox(new Vector3(0f, 0f, 0f),new Vector3(3f, 2f, 1f))
         };
         public Texture2D texture = ContentManager.Get<Texture2D>("HYKJTextures/yjz");
         public override void Initialize()
@@ -942,17 +943,22 @@ namespace HYKJ
         public static int Index = 383;
 
         public goldIngotBlock()
-            : base("IronIngot", new Color(242, 214, 14)) { }
+            : base("IronIngot", new Color(242, 214, 14))
+        {
+        }
     }
     public class silverIngotBlock : modIngotBlock
     {
         public static int Index = 384;
 
         public silverIngotBlock()
-            : base("IronIngot", new Color(130, 130, 130)) { }
+            : base("IronIngot", new Color(130, 130, 130))
+        {
+        }
     }
     //杯
-    public class CupBlock : Block {
+    public class CupBlock : Block
+    {
         public static int Index = 385;
 
         public BlockMesh m_blockMesh = new();
@@ -978,23 +984,29 @@ namespace HYKJ
             base.Initialize();
         }
 
-        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z) {
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
             generator.GenerateShadedMeshVertices(this, x, y, z, m_blockMesh, Color.White, null, null, geometry.GetGeometry(texture).SubsetOpaque);
         }
 
-        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData) {
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
             BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, texture, color, size, ref matrix, environmentData);
         }
     }
     //箱子
-    public class IronChestBlock : CubeBlock {
+    public class IronChestBlock : CubeBlock
+    {
         public static int Index = 386;
 
-        public override int GetFaceTextureSlot(int face, int value) {//贴图计算方法：y*16+x
-            return face switch {
+        public override int GetFaceTextureSlot(int face, int value)
+        {//贴图计算方法：y*16+x
+            return face switch
+            {
                 4 => 235,
                 5 => 235,//上下两面
-                _ => Terrain.ExtractData(value) switch {
+                _ => Terrain.ExtractData(value) switch
+                {
                     0 => face == 0 ? 234 : 235,
                     1 => face == 1 ? 234 : 235,
                     2 => face == 2 ? 234 : 235,
@@ -1006,7 +1018,8 @@ namespace HYKJ
         public override BlockPlacementData GetPlacementValue(SubsystemTerrain subsystemTerrain,
             ComponentMiner componentMiner,
             int value,
-            TerrainRaycastResult raycastResult) {
+            TerrainRaycastResult raycastResult)
+        {
             Vector3 forward = Matrix.CreateFromQuaternion(componentMiner.ComponentCreature.ComponentCreatureModel.EyeRotation).Forward;
             float num = Vector3.Dot(forward, Vector3.UnitZ);
             float num2 = Vector3.Dot(forward, Vector3.UnitX);
@@ -1021,15 +1034,19 @@ namespace HYKJ
             return result;
         }
     }
-    
-    public class CopperChestBlock : CubeBlock {
+
+    public class CopperChestBlock : CubeBlock
+    {
         public static int Index = 387;
 
-        public override int GetFaceTextureSlot(int face, int value) {//贴图计算方法：y*16+x
-            return face switch {
+        public override int GetFaceTextureSlot(int face, int value)
+        {//贴图计算方法：y*16+x
+            return face switch
+            {
                 4 => 251,
                 5 => 251,//上下两面
-                _ => Terrain.ExtractData(value) switch {
+                _ => Terrain.ExtractData(value) switch
+                {
                     0 => face == 0 ? 250 : 251,
                     1 => face == 1 ? 250 : 251,
                     2 => face == 2 ? 250 : 251,
@@ -1041,7 +1058,8 @@ namespace HYKJ
         public override BlockPlacementData GetPlacementValue(SubsystemTerrain subsystemTerrain,
             ComponentMiner componentMiner,
             int value,
-            TerrainRaycastResult raycastResult) {
+            TerrainRaycastResult raycastResult)
+        {
             Vector3 forward = Matrix.CreateFromQuaternion(componentMiner.ComponentCreature.ComponentCreatureModel.EyeRotation).Forward;
             float num = Vector3.Dot(forward, Vector3.UnitZ);
             float num2 = Vector3.Dot(forward, Vector3.UnitX);
@@ -1055,5 +1073,94 @@ namespace HYKJ
             result.CellFace = raycastResult.CellFace;
             return result;
         }
+    }
+    // 陶土窑
+    public class ClayKilnBlock : Block
+    {
+
+        public static int Index = 388;
+
+        public Texture2D m_texture;
+
+        public BlockMesh[] m_blockMeshesByData = new BlockMesh[4];
+
+        public BlockMesh m_standaloneBlockMesh = new();
+
+        public override void Initialize()
+        {
+            Model model = ContentManager.Get<Model>("Models/Clay_kiln");
+            // 取模型的第一个网格。 model.FindMesh("名称")。
+            ModelMesh modelMesh = model.Meshes[0];
+            Matrix boneAbsoluteTransform = BlockMesh.GetBoneAbsoluteTransform(modelMesh.ParentBone);
+            for (int i = 0; i < 4; i++)
+            {
+                m_blockMeshesByData[i] = new BlockMesh();
+                Matrix identity = Matrix.Identity;
+                identity *= Matrix.CreateRotationY(i * (float)Math.PI / 2f) * Matrix.CreateTranslation(0.5f, 0f, 0.5f);
+                m_blockMeshesByData[i].AppendModelMeshPart(modelMesh.MeshParts[0], boneAbsoluteTransform * identity, false, false, true, false, Color.White);
+            }
+            m_standaloneBlockMesh.AppendModelMeshPart(modelMesh.MeshParts[0], boneAbsoluteTransform * Matrix.CreateTranslation(0f, -0.5f, 0f), false, false, true, false, Color.White);
+            m_texture = ContentManager.Get<Texture2D>("HYKJTextures/Clay_kiln");
+            base.Initialize();
+        }
+
+        public override bool IsFaceTransparent(SubsystemTerrain subsystemTerrain, int face, int value) => true;
+
+        public override void GenerateTerrainVertices(BlockGeometryGenerator generator, TerrainGeometry geometry, int value, int x, int y, int z)
+        {
+            TerrainGeometrySubset subsetAlphaTest = m_texture == null ? geometry.SubsetAlphaTest : geometry.GetGeometry(m_texture).SubsetAlphaTest;
+            int num = Terrain.ExtractData(value);
+            if (num < m_blockMeshesByData.Length)
+            {
+                generator.GenerateShadedMeshVertices(this, x, y, z, m_blockMeshesByData[num], Color.White, null, null, subsetAlphaTest);
+            }
+        }
+
+        public override void DrawBlock(PrimitivesRenderer3D primitivesRenderer, int value, Color color, float size, ref Matrix matrix, DrawBlockEnvironmentData environmentData)
+        {
+            if (m_texture == null)
+            {
+                BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, color, size, ref matrix, environmentData);
+            }
+            else
+            {
+                BlocksManager.DrawMeshBlock(primitivesRenderer, m_standaloneBlockMesh, m_texture, color, size, ref matrix, environmentData);
+            }
+        }
+
+        public override BlockPlacementData GetPlacementValue(SubsystemTerrain subsystemTerrain, ComponentMiner componentMiner, int value, TerrainRaycastResult raycastResult)
+        {
+            Vector3 forward = Matrix.CreateFromQuaternion(componentMiner.ComponentCreature.ComponentCreatureModel.EyeRotation).Forward;
+            float num = Vector3.Dot(forward, Vector3.UnitZ);
+            float num2 = Vector3.Dot(forward, Vector3.UnitX);
+            float num3 = Vector3.Dot(forward, -Vector3.UnitZ);
+            float num4 = Vector3.Dot(forward, -Vector3.UnitX);
+            int data = 0;
+            if (num == MathUtils.Max(num, num2, num3, num4))
+            {
+                data = 2;
+            }
+            else if (num2 == MathUtils.Max(num, num2, num3, num4))
+            {
+                data = 3;
+            }
+            else if (num3 == MathUtils.Max(num, num2, num3, num4))
+            {
+                data = 0;
+            }
+            else if (num4 == MathUtils.Max(num, num2, num3, num4))
+            {
+                data = 1;
+            }
+            BlockPlacementData result = default;
+            result.Value = Terrain.ReplaceData(Terrain.ReplaceContents(ClayKilnBlock.Index), data);
+            result.CellFace = raycastResult.CellFace;
+            return result;
+        }
+    }
+    //陶土窑（燃烧）
+    public class LitClayKilnBlock : ClayKilnBlock
+    {
+        public new static int Index = 389;
     }
 }

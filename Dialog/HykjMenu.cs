@@ -1,4 +1,4 @@
-using Game;
+﻿using Game;
 using System.Xml.Linq;
 using Engine;
 using System;
@@ -9,65 +9,6 @@ using System.Threading.Tasks;
 
 namespace HYKJ
 {
-    public class NewCraftingTableWidget : CanvasWidget
-    {
-        public GridPanelWidget m_inventoryGrid;
-
-        public GridPanelWidget m_craftingGrid;
-
-        public InventorySlotWidget m_craftingResultSlot;
-
-        public InventorySlotWidget m_craftingRemainsSlot;
-
-        public NewComponentCraftingTable m_newcomponentCraftingTable;
-
-        public const string fName = "NewCraftingTableWidget";
-
-        public NewCraftingTableWidget(IInventory inventory, NewComponentCraftingTable newcomponentCraftingTable)
-        {
-            m_newcomponentCraftingTable = newcomponentCraftingTable;
-            XElement node = ContentManager.Get<XElement>("Widgets/NewCraftingTableWidget");
-            LoadContents(this, node);
-            m_inventoryGrid = Children.Find<GridPanelWidget>("InventoryGrid");
-            m_craftingGrid = Children.Find<GridPanelWidget>("CraftingGrid");
-            m_craftingResultSlot = Children.Find<InventorySlotWidget>("CraftingResultSlot");
-            m_craftingRemainsSlot = Children.Find<InventorySlotWidget>("CraftingRemainsSlot");
-            int num = 10;
-            for (int i = 0; i < m_inventoryGrid.RowsCount; i++)
-            {
-                for (int j = 0; j < m_inventoryGrid.ColumnsCount; j++)
-                {
-                    var inventorySlotWidget = new InventorySlotWidget();
-                    inventorySlotWidget.AssignInventorySlot(inventory, num++);
-                    m_inventoryGrid.Children.Add(inventorySlotWidget);
-                    m_inventoryGrid.SetWidgetCell(inventorySlotWidget, new Point2(j, i));
-                }
-            }
-            num = 0;
-            for (int k = 0; k < m_craftingGrid.RowsCount; k++)
-            {
-                for (int l = 0; l < m_craftingGrid.ColumnsCount; l++)
-                {
-                    var inventorySlotWidget2 = new InventorySlotWidget();
-                    inventorySlotWidget2.AssignInventorySlot(m_newcomponentCraftingTable, num++);
-                    m_craftingGrid.Children.Add(inventorySlotWidget2);
-                    m_craftingGrid.SetWidgetCell(inventorySlotWidget2, new Point2(l, k));
-                }
-            }
-            Children.Find<LabelWidget>("name").Text = LanguageControl.Get(fName, "2");
-            Children.Find<LabelWidget>("name1").Text = LanguageControl.Get(fName, "3");
-            m_craftingResultSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.ResultSlotIndex);
-            m_craftingRemainsSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.RemainsSlotIndex);
-        }
-
-        public override void Update()
-        {
-            if (!m_newcomponentCraftingTable.IsAddedToProject)
-            {
-                ParentWidget.Children.Remove(this);
-            }
-        }
-    }
     public class HYKJUpdate
     {
         public static void ShowUpdate()
@@ -603,54 +544,5 @@ namespace HYKJ
         public LabelWidget m_buttonLabel;
         public ButtonWidget m_okButton;
         public Action Action;
-    }
-
-    public class HYKJClothingWidget : CanvasWidget
-    {
-        public StackPanelWidget m_clothingStack;
-        public PlayerModelWidget m_innerClothingModelWidget;
-        public PlayerModelWidget m_outerClothingModelWidget;
-        public ComponentPlayer m_componentPlayer;
-        public ComponentPlayer componentPlayer;
-        public LabelWidget m_titleLabel;
-        public ValueBarWidget m_healthValueBar;
-        public ValueBarWidget m_staminaValueBar;
-        public ValueBarWidget m_foodValueBar;
-        public ValueBarWidget m_sleepValueBar;
-        public ValueBarWidget m_experienceValueBar;
-        public LabelWidget m_insulationLabel;
-        public ValueBarWidget m_temperatureValueBar;
-
-        public HYKJClothingWidget(ComponentPlayer componentPlayer)
-        {
-            m_componentPlayer = componentPlayer;
-            XElement node = ContentManager.Get<XElement>("Widgets/HYKJClothingWidget");
-            LoadContents(this, node);
-            m_clothingStack = Children.Find<StackPanelWidget>("ClothingStack");
-            m_innerClothingModelWidget = Children.Find<PlayerModelWidget>("InnerClothingModel");
-            m_outerClothingModelWidget = Children.Find<PlayerModelWidget>("OuterClothingModel");
-            m_innerClothingModelWidget.PlayerClass = componentPlayer.PlayerData.PlayerClass;
-            m_innerClothingModelWidget.CharacterSkinTexture = m_componentPlayer.ComponentClothing.InnerClothedTexture;
-            m_outerClothingModelWidget.PlayerClass = componentPlayer.PlayerData.PlayerClass;
-            m_outerClothingModelWidget.OuterClothingTexture = m_componentPlayer.ComponentClothing.OuterClothedTexture;
-            m_titleLabel = Children.Find<LabelWidget>("TitleLabel");
-            m_healthValueBar = Children.Find<ValueBarWidget>("HealthValueBar");
-            m_staminaValueBar = Children.Find<ValueBarWidget>("StaminaValueBar");
-            m_temperatureValueBar = Children.Find<ValueBarWidget>("TemperatureValueBar");
-            m_foodValueBar = Children.Find<ValueBarWidget>("FoodValueBar");
-            m_sleepValueBar = Children.Find<ValueBarWidget>("SleepValueBar");
-            m_experienceValueBar = Children.Find<ValueBarWidget>("ExperienceValueBar");
-        }
-
-        public override void Update()
-        {
-            m_titleLabel.Text = $"{m_componentPlayer.PlayerData.Name}, 等级 {MathF.Floor(m_componentPlayer.PlayerData.Level)}  ";
-            m_healthValueBar.Value = m_componentPlayer.ComponentHealth.Health;
-            m_staminaValueBar.Value = m_componentPlayer.ComponentVitalStats.Stamina;
-            m_foodValueBar.Value = m_componentPlayer.ComponentVitalStats.Food;
-            m_sleepValueBar.Value = m_componentPlayer.ComponentVitalStats.Sleep;
-            m_temperatureValueBar.Value = m_componentPlayer.ComponentVitalStats.Temperature / 24f;
-            m_experienceValueBar.Value = m_componentPlayer.PlayerData.Level - MathF.Floor(m_componentPlayer.PlayerData.Level);
-        }
     }
 }

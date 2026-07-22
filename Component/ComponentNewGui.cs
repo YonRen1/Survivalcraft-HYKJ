@@ -5,10 +5,8 @@ using TemplatesDatabase;
 using Engine.Graphics;
 using Game;
 
-namespace HYKJ
-{
-    public class ComponentNewGui : Component, IUpdateable
-    {
+namespace HYKJ {
+    public class ComponentNewGui : Component, IUpdateable {
         public ComponentPlayer m_componentPlayer;
         public ComponentGui m_componentGui;
         public SubsystemTime m_subsystemTime;
@@ -25,8 +23,7 @@ namespace HYKJ
 
         public static string fName = "ModGui";
 
-        public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null)
-        {
+        public static Subtexture ToSubtexture(string imgpath, Vector2? TopLeft = null, Vector2? BottomRight = null) {
             return new Subtexture(ContentManager.Get<Texture2D>(imgpath), TopLeft ?? Vector2.Zero, BottomRight ?? Vector2.One);
         }
 
@@ -36,8 +33,7 @@ namespace HYKJ
         /// <param name="targetWidget">目标控件</param>
         /// <param name="addWidget">要添加的控件</param>
         /// <param name="order">添加顺序(0为目标控件前面1为后面)</param>
-        public void InsertWidget(Widget targetWidget, Widget addWidget, int order)
-        {
+        public void InsertWidget(Widget targetWidget, Widget addWidget, int order) {
             //限制变量在0和1
             int num = (order < 0) ? 0 : (order > 1) ? 1 : order;
             //获取目标控件的容器
@@ -52,8 +48,7 @@ namespace HYKJ
         /// </summary>
         /// <param name="targetWidget">目标控件</param>
         /// <param name="replaceWidget">要替换的新控件</param>
-        public void ReplaceWidget(Widget targetWidget, Widget replaceWidget)
-        {
+        public void ReplaceWidget(Widget targetWidget, Widget replaceWidget) {
             //获取目标控件的容器
             ContainerWidget container = targetWidget.ParentWidget;
             //获取目标控件容器WidgetList
@@ -65,8 +60,7 @@ namespace HYKJ
             children.Insert(widgetIndex, replaceWidget);
         }
 
-        public override void Load(ValuesDictionary valuesDictionary, IdToEntityMap idToEntityMap)
-        {
+        public override void Load(ValuesDictionary valuesDictionary, IdToEntityMap idToEntityMap) {
             //进入游戏初始化
             m_componentPlayer = Entity.FindComponent<ComponentPlayer>(throwOnError: true);
             m_componentGui = m_componentPlayer.ComponentGui;
@@ -76,13 +70,11 @@ namespace HYKJ
             leftContainer = guiWidget.Children.Find<StackPanelWidget>("LeftControlsContainer");
             lightContainer = guiWidget.Children.Find<StackPanelWidget>("RightControlsContainer");
             moreContents = guiWidget.Children.Find<StackPanelWidget>("MoreContents");
-            try
-            {
+            try {
                 //查找界面元素是否存在(防止玩家复活后控件重复添加)
                 tool = gameWidget.Children.Find<BitmapButtonWidget>("toolButton");
             }
-            catch
-            {
+            catch {
                 attribute.AddChildren(attribute_one); //给空白按钮添加图标
                 leftContainer.AddChildren(attribute);
                 moreContents.AddChildren(tool);
@@ -92,21 +84,17 @@ namespace HYKJ
         }
 
 
-        public void Update(float dt)
-        {
-            if (tool.IsClicked)
-            {
+        public void Update(float dt) {
+            if (tool.IsClicked) {
                 m_componentPlayer.ComponentGui.ModalPanelWidget = new ToolWidget(m_componentPlayer);
             }
-            if (attribute.IsClicked)
-            {
+            if (attribute.IsClicked) {
                 m_componentPlayer.ComponentGui.ModalPanelWidget = new HYKJClothingWidget(m_componentPlayer);
             }
         }
 
         //定义新的按钮：工具按钮
-        private BitmapButtonWidget tool = new BitmapButtonWidget
-        {
+        private BitmapButtonWidget tool = new BitmapButtonWidget {
             Name = "toolButton",
             Size = new Vector2(68f, 64f),
             NormalSubtexture = ToSubtexture("HYKJTextures/Button/tool"),
@@ -115,8 +103,7 @@ namespace HYKJ
             Margin = new Vector2(4, 0),
         };
         //定义新的按钮：属性按钮
-        private BitmapButtonWidget attribute = new BitmapButtonWidget
-        {
+        private BitmapButtonWidget attribute = new BitmapButtonWidget {
             Name = "attributeButton",
             Size = new Vector2(68f, 64f),
             NormalSubtexture = ToSubtexture("HYKJTextures/Button/BlankLightButton_1"),
@@ -124,8 +111,7 @@ namespace HYKJ
             Text = "",
         };
         //属性图像
-        private RectangleWidget attribute_one = new RectangleWidget
-        {
+        private RectangleWidget attribute_one = new RectangleWidget {
             Size = new Vector2(45f, 45f),
             OutlineColor = new Color(0, 0, 0, 0),
             FillColor = new Color(255, 255, 255),

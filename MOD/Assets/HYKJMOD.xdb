@@ -1,14 +1,10 @@
 <Database>
 
     <Folder Name="Gameplay" Guid="d3d4b692-acc9-4128-9b99-a5acf1de1fbb">
-        <ComponentTemplate Name="NewCraftingTable" Description="合成桩" 
-                           Guid="58fdc8bb-8ca8-4d0f-af8d-25bfe9b56a19" 
-                           InheritanceParent="81a44c6a-c30a-4f53-8d64-0c30aabab8f9">
-            <Parameter Name="Class" Guid="166663a5-0480-45c8-9266-18c8060a236c" 
-                       Value="HYKJ.NewComponentCraftingTable" Type="string" />
+        <ComponentTemplate Name="NewCraftingTable" Description="合成桩" Guid="58fdc8bb-8ca8-4d0f-af8d-25bfe9b56a19" InheritanceParent="81a44c6a-c30a-4f53-8d64-0c30aabab8f9">
+            <Parameter Name="Class" Guid="166663a5-0480-45c8-9266-18c8060a236c" Value="HYKJ.NewComponentCraftingTable" Type="string" />
         </ComponentTemplate>
-    </Folder>
-    
+    </Folder>  
    
     <Folder Name="Entities" Guid="5fcdf35f-7001-442c-883e-e0502b15d291">
         <!--合成桩-->
@@ -17,88 +13,81 @@
             <MemberComponentTemplate Name="NewCraftingTable" Guid="182420a8-10c6-4a2c-9ea5-725fffee2229" InheritanceParent="58fdc8bb-8ca8-4d0f-af8d-25bfe9b56a19">
                 <Parameter Name="SlotsCount" Guid="35ded02c-224e-402f-84e8-08ba76134dc0" Value="11" Type="int" />
             </MemberComponentTemplate>
-        </EntityTemplate>  
+        </EntityTemplate>
+        <!-- 陶土窑方块实体-->
+        <EntityTemplate Name="ClayKiln" Guid="9f8e7d6c-5b4a-3c2d-1e0f-9e8d7c6b5a4f">
+            <MemberComponentTemplate Name="BlockEntity" Guid="11a2b3c4-5d6e-7f8a-9b0c-1d2e3f4a5b6c" InheritanceParent="09a85cba-d94e-41b8-9497-f20ed942c17e" />
+            <!-- Furnace 组件，InheritanceParent 指向原版 ComponentFurnace 组件模板 (c91f7906-...)，继承其 FireTimeRemaining / HeatLevel 等参数。 -->
+            <MemberComponentTemplate Name="Furnace" Guid="2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e" InheritanceParent="c91f7906-de35-4e94-ba6e-90cd55cd19d4">
+                <!-- 与原版熔炉一致：5 个槽位（2 个冶炼输入 + 燃料 + 产物 + 残留物）。 -->
+                <Parameter Name="SlotsCount" Guid="3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f" Value="5" Type="int" />
+                <Parameter Name="Class" Guid="4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a" Value="HYKJ.ComponentClayKiln" Type="string" />
+            </MemberComponentTemplate>
+        </EntityTemplate>
     </Folder>
     
     <ProjectTemplate Name="Project" Guid="85023bf8-1c90-4dd1-9442-e6c13691d078">
         <!--合成桩-->
-        <MemberSubsystemTemplate Name="NewSubsystemCraftingTable" Guid="16b3m017-93b1-49cf-98cf-6630a3d22b9c" 
-                                 InheritanceParent="fefb9590-4972-4893-b02a-76063611b745">
-            <Parameter Name="Class" Guid="99669ee1-8cc8-451c-bec0-f5294b706ac7" 
-                       Value="HYKJ.NewSubsystemCraftingTable" Type="string" />
+        <MemberSubsystemTemplate Name="NewSubsystemCraftingTable" Guid="16b3m017-93b1-49cf-98cf-6630a3d22b9c" InheritanceParent="fefb9590-4972-4893-b02a-76063611b745">
+            <Parameter Name="Class" Guid="99669ee1-8cc8-451c-bec0-f5294b706ac7" Value="HYKJ.NewSubsystemCraftingTable" Type="string" />
         </MemberSubsystemTemplate>
-        
+        <!--陶土窑-->
+        <MemberSubsystemTemplate Name="ClayKilnBlockBehavior" Guid="7a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d" InheritanceParent="fefb9590-4972-4893-b02a-76063611b745">
+            <Parameter Name="Class" Guid="1a2c3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d" Value="HYKJ.SubsystemClayKilnBlockBehavior" Type="string"/>
+        </MemberSubsystemTemplate>
     </ProjectTemplate>
     
 	<EntityTemplate Name="Player" Guid="4be6c1c5-d65d-4537-8a8b-a391969e6dc2">
-     	<MemberComponentTemplate Name="NewGui" Description="Manages on-screen UI for the game" Guid="00000001-cccc-417c-8ec8-005de26e670d" 
-     	                         InheritanceParent="b05700ed-7e4e-4679-98f5-b597f421496b">
+     	<MemberComponentTemplate Name="NewGui" Description="Manages on-screen UI for the game" Guid="00000001-cccc-417c-8ec8-005de26e670d" InheritanceParent="b05700ed-7e4e-4679-98f5-b597f421496b">
             <Parameter Name="Class" Guid="00000002-6498-4691-9686-cf4edabb8f3f" Value="HYKJ.ComponentNewGui" Type="string" />
         </MemberComponentTemplate>
-	</EntityTemplate>
-	
-        
+	</EntityTemplate>    
     
 <!--奶牛相关-->
                <!--攻击-->
-    <Parameter Name="AttackPower" Guid="4610014f-10ff-4035-bd80-22388a6e98f8" 
-               new-Value="2.5" Type="float" />
+    <Parameter Name="AttackPower" Guid="4610014f-10ff-4035-bd80-22388a6e98f8" new-Value="2.5" Type="float" />
                <!--血量-->
-    <Parameter Name="AttackResilience" Guid="ce3cb9a4-d0c0-4dbb-9c1f-aefdf21f6982" 
-               new-Value="50" Type="float" />
+    <Parameter Name="AttackResilience" Guid="ce3cb9a4-d0c0-4dbb-9c1f-aefdf21f6982" new-Value="50" Type="float" />
                <!--行走速度-->
     <Parameter Name="WalkSpeed" Guid="b9f9e023-d622-401f-b5a8-800068caea4c" 
                new-Value="4.5" Type="float" />
 <!--灰狼相关-->
                <!--攻击-->
-    <Parameter Name="AttackPower" Guid="5bcc1b2c-ffa1-45f8-8783-4f9b93fa97dc" 
-               new-Value="4.0" Type="float" />
+    <Parameter Name="AttackPower" Guid="5bcc1b2c-ffa1-45f8-8783-4f9b93fa97dc" new-Value="4.0" Type="float" />
                <!--血量-->
-    <Parameter Name="AttackResilience" Guid="222b0c92-b59e-4fd7-a774-29df81e827d1" 
-               new-Value="35" Type="float" />
+    <Parameter Name="AttackResilience" Guid="222b0c92-b59e-4fd7-a774-29df81e827d1" new-Value="35" Type="float" />
                <!--行走速度-->
-    <Parameter Name="WalkSpeed" Guid="67228372-3053-4874-b86d-489759c6d9b2" 
-               new-Value="5.0" Type="float" />
+    <Parameter Name="WalkSpeed" Guid="67228372-3053-4874-b86d-489759c6d9b2" new-Value="5.0" Type="float" />
 <!--熊相关-->
                <!--攻击-->
     <Parameter Name="AttackPower" Guid="831ce51c-9167-4061-bd06-e4606f4a95bf" new-Value="6.0" Type="float" />
                <!--血量-->
     <Parameter Name="AttackResilience" Guid="642e5f51-5e3b-48af-a20f-17e50823f087" new-Value="95" Type="float" />
                <!--熊行走速度-->
-    <Parameter Name="WalkSpeed" Guid="843a0835-74db-449f-94aa-05a8d3ae209b" 
-               new-Value="4.8" Type="float" />
+    <Parameter Name="WalkSpeed" Guid="843a0835-74db-449f-94aa-05a8d3ae209b" new-Value="4.8" Type="float" />
 	<!--<Parameter Name="1" Guid="33a26294-cbc9-4391-8284-ab7cb23a0e92" new-Value="bodyBlock;1;2" Type="string" />-->
 <!--豹子相关-->
                <!--攻击-->
-    <Parameter Name="AttackPower" Guid="9b585bcb-32f6-4520-bc60-6f25769b42d2" 
-               new-Value="5.0" Type="float" />
+    <Parameter Name="AttackPower" Guid="9b585bcb-32f6-4520-bc60-6f25769b42d2" new-Value="5.0" Type="float" />
                <!--血量-->
-    <Parameter Name="AttackResilience" Guid="7fb8a106-59b7-4630-b616-ab9f921bf451" 
-               new-Value="35" Type="float" />
+    <Parameter Name="AttackResilience" Guid="7fb8a106-59b7-4630-b616-ab9f921bf451" new-Value="35" Type="float" />
 <!--野猪相关-->
                <!--攻击-->
-    <Parameter Name="AttackPower" Guid="2500fb51-48ec-4f3d-b572-e5747813d61d" 
-               new-Value="2.5" Type="float" />
+    <Parameter Name="AttackPower" Guid="2500fb51-48ec-4f3d-b572-e5747813d61d" new-Value="2.5" Type="float" />
                <!--血量-->
-    <Parameter Name="AttackResilience" Guid="d876342a-0a60-4ef4-8430-b715cde41a12" 
-               new-Value="55" Type="float" />
+    <Parameter Name="AttackResilience" Guid="d876342a-0a60-4ef4-8430-b715cde41a12" new-Value="55" Type="float" />
                <!--行走速度-->
-    <Parameter Name="WalkSpeed" Guid="98847b27-41a8-443f-a091-813b9211d0b0" 
-               new-Value="5.0" Type="float" />
+    <Parameter Name="WalkSpeed" Guid="98847b27-41a8-443f-a091-813b9211d0b0" new-Value="5.0" Type="float" />
 
 <!--犀牛相关-->
                <!--移动-->
-    <Parameter Name="WalkSpeed" Guid="3c36f163-9387-415b-8599-1acba8aad649" 
-               new-Value="9" Type="float" />
+    <Parameter Name="WalkSpeed" Guid="3c36f163-9387-415b-8599-1acba8aad649" new-Value="9" Type="float" />
                <!--攻击-->
-    <Parameter Name="AttackPower" Guid="8703e046-d61b-408d-aa96-671e9c1c6502" 
-               new-Value="9" Type="float" />
+    <Parameter Name="AttackPower" Guid="8703e046-d61b-408d-aa96-671e9c1c6502" new-Value="9" Type="float" />
                <!--犀牛掉落物修改-->
     <ParameterSet Name="Loot" Guid="c52f327b-1aea-48ab-ae2b-abe64d58e90a">
-        <Parameter Name="1" Guid="aa16d66e-4d27-4234-a502-bfac33ac2db6" 
-                   Value="RawMeatBlock;5;6" Type="string" />
-        <Parameter Name="2" Guid="aa16d69e-4d27-4234-a502-bfac33ac2db6" 
-                   Value="emBlock;1;1" Type="string" />
+        <Parameter Name="1" Guid="aa16d66e-4d27-4234-a502-bfac33ac2db6" Value="RawMeatBlock;5;6" Type="string" />
+        <Parameter Name="2" Guid="aa16d69e-4d27-4234-a502-bfac33ac2db6" Value="emBlock;1;1" Type="string" />
     </ParameterSet>
-
+    
 </Database>

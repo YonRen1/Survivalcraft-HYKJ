@@ -2,7 +2,7 @@
 
 ### 💬模组简介
 
-[生存战争插件版](https://gitee.com/SC-SPM/SurvivalcraftApi/ "生存战争插件版")荒野科技(HuangYeKeJi，HYKJ)模组，基于API1.5制作。该模组始创于2023年10月份，经历多次改版，最终定于现样。
+[生存战争插件版](https://gitee.com/SC-SPM/SurvivalcraftApi/ "生存战争插件版")荒野科技(HuangYeKeJi，HYKJ)模组，该模组始创于2023年10月份，基于API1.5制作，经历多次改版，最终定于现样。
 
 HYKJ模组始终以前期拓展为主题，玩家扮演一名海难者被海盗流放荒岛，手无寸铁，只能从原始人开始重新发育。
 

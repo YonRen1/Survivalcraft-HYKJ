@@ -20,20 +20,16 @@ using Engine.Input;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HYKJ
-{
+namespace HYKJ {
     //合成桩
-    public class NewSubsystemCraftingTable : SubsystemBlockBehavior
-    {
+    public class NewSubsystemCraftingTable : SubsystemBlockBehavior {
         public NewComponentCraftingTable newcomponentCraftingTable;
 
-        public override int[] HandledBlocks => new int[1]
-        {
+        public override int[] HandledBlocks => new int[1] {
             BlocksManager.GetBlockIndex<working_pilesBlock>()
         };
 
-        public override void OnBlockAdded(int value, int oldValue, int x, int y, int z)
-        {
+        public override void OnBlockAdded(int value, int oldValue, int x, int y, int z) {
             DatabaseObject databaseObject = base.SubsystemTerrain.Project.GameDatabase.Database.FindDatabaseObject("NewCraftingTable", base.SubsystemTerrain.Project.GameDatabase.EntityTemplateType, throwIfNotFound: true);
             ValuesDictionary valuesDictionary = new ValuesDictionary();
             valuesDictionary.PopulateFromDatabaseObject(databaseObject);
@@ -42,26 +38,21 @@ namespace HYKJ
             base.SubsystemTerrain.Project.AddEntity(entity);
         }
 
-        public override void OnBlockRemoved(int value, int newValue, int x, int y, int z)
-        {
+        public override void OnBlockRemoved(int value, int newValue, int x, int y, int z) {
             ComponentBlockEntity blockEntity = base.SubsystemTerrain.Project.FindSubsystem<SubsystemBlockEntities>(throwOnError: true).GetBlockEntity(x, y, z);
-            if (blockEntity == null)
-            {
+            if (blockEntity == null) {
                 return;
             }
             Vector3 position = new Vector3(x, y, z) + new Vector3(0.5f);
-            foreach (IInventory item in blockEntity.Entity.FindComponents<IInventory>())
-            {
+            foreach (IInventory item in blockEntity.Entity.FindComponents<IInventory>()) {
                 item.DropAllItems(position);
             }
             base.SubsystemTerrain.Project.RemoveEntity(blockEntity.Entity, disposeEntity: true);
         }
 
-        public override bool OnInteract(TerrainRaycastResult raycastResult, ComponentMiner componentMiner)
-        {
+        public override bool OnInteract(TerrainRaycastResult raycastResult, ComponentMiner componentMiner) {
             ComponentBlockEntity blockEntity = base.SubsystemTerrain.Project.FindSubsystem<SubsystemBlockEntities>(throwOnError: true).GetBlockEntity(raycastResult.CellFace.X, raycastResult.CellFace.Y, raycastResult.CellFace.Z);
-            if (blockEntity != null && componentMiner.ComponentPlayer != null)
-            {
+            if (blockEntity != null && componentMiner.ComponentPlayer != null) {
                 NewComponentCraftingTable newcomponentCraftingTable = blockEntity.Entity.FindComponent<NewComponentCraftingTable>(throwOnError: true);
                 componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new NewCraftingTableWidget(componentMiner.Inventory, newcomponentCraftingTable);
                 AudioManager.PlaySound("Audio/UI/ButtonClick", 1f, 0f, 0f);
@@ -70,5 +61,4 @@ namespace HYKJ
             return false;
         }
     }
-
 }
