@@ -7,12 +7,13 @@
 ## 当前版本
 
 <details open>
-<summary><h2 style="display:inline">📦 v0.0.6 (2026)</h2></summary>
+<summary><h2 style="display:inline">📦 v0.1.5 (2026)</h2></summary>
 
 ### 变更内容
 1. 移植至 API 1.9.3，修改部分贴图及物品
 2. 删减部分内容（其他内容应由拓展包实现）
 3. 修改皮革类物品制作方式，让皮革布有用处
+4. 增加新物品，修改原版物品配方
 
 </details>
 

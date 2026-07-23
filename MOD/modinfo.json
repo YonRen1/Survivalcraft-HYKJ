@@ -1,12 +1,11 @@
 {
    "Name": "荒野科技",
-   "Version": "0.0.6",
+   "Version": "0.1.5",
    "ApiVersion": "1.9",
    "Description": "玩家扮演一名海难者被海盗流放荒岛，手无寸铁，只能从原始人开始重新发育......在这片荒岛生存下去吧！",
    "ScVersion": "2.4.0.0",
    "Link": "https://gitee.com/YonRen/Survivalcraft2-HYKJ",
    "Author": "荒野科技制作组",
    "PackageName": "Survivalcraft.HYKJ",
-   "Dependencies": [],
-   "LoadOrder": -10000
+   "Dependencies": []
 }

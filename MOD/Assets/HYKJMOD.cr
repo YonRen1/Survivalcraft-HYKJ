@@ -165,5 +165,11 @@
          "aaa"
          "aaa"
       </Recipe>
+      <!--陶土窑-->
+      <Recipe Result="ClayKilnBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="clay" b="brick" Description="[0]" >
+         "bab"
+         "a a"
+         "aba"
+      </Recipe>
    </Recipes>
 </mod>

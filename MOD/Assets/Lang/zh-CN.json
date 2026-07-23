@@ -49,6 +49,9 @@
 			"DisplayName": "锋利石锤",
 			"Description": "比较锐利的石器。\n属于新石器时代工具。"
 		},
+		"BrickBlock:0": {
+            "CRDescription:4": "将粘土烧制成砖"
+        },
 		"IronOreChunkBlock:0": {
 		    "DisplayName": "铁原矿",
 		    "CRDescription:0": "将一堆的粒放在一块？"

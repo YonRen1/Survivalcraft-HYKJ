@@ -154,15 +154,20 @@
     <Recipe Result="PlanksBlock" ResultCount="1" RequiredHeatLevel="0" a="wickerlamp" Description="[1]">
       "a"
     </Recipe>
-    <Recipe Result="BrickBlock" ResultCount="2" RequiredHeatLevel="0" a="brickblock" Description="[1]">
+    <Recipe Result="BrickBlock" ResultCount="3" RequiredHeatLevel="0" a="brickblock" Description="[1]">
       "a"
     </Recipe>
-    <Recipe Result="BrickBlock" ResultCount="2" RequiredHeatLevel="0" a="brickstairs" Description="[2]">
+    <Recipe Result="BrickBlock" ResultCount="3" RequiredHeatLevel="0" a="brickstairs" Description="[2]">
       "a"
     </Recipe>
-    <Recipe Result="BrickBlock" ResultCount="1" RequiredHeatLevel="0" a="brickslab" Description="[3]">
+    <Recipe Result="BrickBlock" ResultCount="2" RequiredHeatLevel="0" a="brickslab" Description="[3]">
       "a"
     </Recipe>
+    
+    <Recipe Result="BrickBlock" ResultCount="1" RequiredHeatLevel="0" a="clay" b="drill_wood_make_fireBlock" Description="[4]">
+      "ab"
+    </Recipe>
+    
     <Recipe Result="EmptyBucketBlock" ResultCount="1" RequiredHeatLevel="0" a="waterbucket" Description="[1]">
       "a"
     </Recipe>
