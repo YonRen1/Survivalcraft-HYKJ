@@ -134,26 +134,8 @@ namespace HYKJ
         /// <summary>
         /// 方块初始化完成时执行
         /// </summary>
-        public override void BlocksInitalized()
+        /*public override void BlocksInitalized()
         {
-            /*BlocksManager.m_categories.Clear();
-            BlocksManager.m_categories.Add("Terrain");
-            BlocksManager.m_categories.Add("Minerals");
-            BlocksManager.m_categories.Add("Plants");
-            BlocksManager.m_categories.Add("Construction");
-            BlocksManager.m_categories.Add("Items");
-            BlocksManager.m_categories.Add("荒野科技材料");
-            BlocksManager.m_categories.Add("Tools");
-            BlocksManager.m_categories.Add("荒野科技工具");
-            BlocksManager.m_categories.Add("Weapons");
-            BlocksManager.m_categories.Add("荒野科技武器");
-            BlocksManager.m_categories.Add("Clothes");
-            BlocksManager.m_categories.Add("Electrics");
-            BlocksManager.m_categories.Add("Food");
-            BlocksManager.m_categories.Add("Spawner Eggs");
-            BlocksManager.m_categories.Add("Painted");
-            BlocksManager.m_categories.Add("Dyed");
-            BlocksManager.m_categories.Add("Fireworks");*/
-        }
+        }*/
     }
 }
