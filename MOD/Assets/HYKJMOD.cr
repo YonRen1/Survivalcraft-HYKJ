@@ -1,5 +1,9 @@
 <mod>
    <Recipes>
+      <Recipe Result="Flint_processing_tableBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="stoneaxe" b="cobblestoneslab" c="planks" Description="合成一个装饰物品" >
+         " a"
+         "bcc"
+      </Recipe>
       <Recipe Result="straw_ropeBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="plant_fiberBlock" Description="合成物品" >
          "aa"
          "aa"

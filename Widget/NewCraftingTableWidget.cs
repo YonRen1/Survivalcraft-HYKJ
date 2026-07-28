@@ -46,8 +46,6 @@ namespace HYKJ {
                     m_craftingGrid.SetWidgetCell(inventorySlotWidget2, new Point2(l, k));
                 }
             }
-            Children.Find<LabelWidget>("name").Text = LanguageControl.Get(fName, "2");
-            Children.Find<LabelWidget>("name1").Text = LanguageControl.Get(fName, "3");
             m_craftingResultSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.ResultSlotIndex);
             m_craftingRemainsSlot.AssignInventorySlot(m_newcomponentCraftingTable, m_newcomponentCraftingTable.RemainsSlotIndex);
         }
