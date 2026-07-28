@@ -13,8 +13,6 @@ namespace HYKJ
 {
     public class HYKJModLoader : ModLoader
     {
-
-        //public ModEntity Entity;
         public static ReadOnlyList<string> Categories => new(m_categories);
 
         public static List<string> m_categories = [];
@@ -130,30 +128,41 @@ namespace HYKJ
             }
         }
 
-        //兼容性不好，后续参考十亿伏特更换
         /// <summary>
         /// 方块初始化完成时执行
         /// </summary>
         public override void BlocksInitalized()
         {
-            /*BlocksManager.m_categories.Clear();
-            BlocksManager.m_categories.Add("Terrain");
-            BlocksManager.m_categories.Add("Minerals");
-            BlocksManager.m_categories.Add("Plants");
-            BlocksManager.m_categories.Add("Construction");
-            BlocksManager.m_categories.Add("Items");
-            BlocksManager.m_categories.Add("荒野科技材料");
-            BlocksManager.m_categories.Add("Tools");
-            BlocksManager.m_categories.Add("荒野科技工具");
-            BlocksManager.m_categories.Add("Weapons");
-            BlocksManager.m_categories.Add("荒野科技武器");
-            BlocksManager.m_categories.Add("Clothes");
-            BlocksManager.m_categories.Add("Electrics");
-            BlocksManager.m_categories.Add("Food");
-            BlocksManager.m_categories.Add("Spawner Eggs");
-            BlocksManager.m_categories.Add("Painted");
-            BlocksManager.m_categories.Add("Dyed");
-            BlocksManager.m_categories.Add("Fireworks");*/
+            BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Material");
+            BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Tool");
+            BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Weapons");
+            BlocksManager.m_categories.RemoveAll(c => c == "测试");
+            BlocksManager.m_categories.RemoveAll(c => c == " ");
+            
+            int idx1 = BlocksManager.m_categories.FindIndex(c => c == "Items");
+            if (idx1 != -1)
+            {
+                BlocksManager.m_categories.Insert(idx1 + 1, "HYKJ Material");
+            }
+
+            int idx2 = BlocksManager.m_categories.FindIndex(c => c == "Weapons");
+            if (idx2 != -1)
+            {
+                BlocksManager.m_categories.Insert(idx2, "HYKJ Tool");
+            }
+
+            int idx3 = BlocksManager.m_categories.FindIndex(c => c == "Weapons");
+            if (idx3 != -1)
+            {
+                BlocksManager.m_categories.Insert(idx3 + 1, "HYKJ Weapons");
+            }
+
+            int idx4 = BlocksManager.m_categories.FindIndex(c => c == "Fireworks");
+            if (idx4 != -1)
+            {
+                BlocksManager.m_categories.Insert(idx3 + 1, "测试");
+                BlocksManager.m_categories.Insert(idx3 + 1, " ");
+            }
         }
     }
 }

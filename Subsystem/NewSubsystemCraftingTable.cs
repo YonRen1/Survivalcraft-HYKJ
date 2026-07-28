@@ -54,15 +54,8 @@ namespace HYKJ
             ComponentBlockEntity blockEntity = base.SubsystemTerrain.Project.FindSubsystem<SubsystemBlockEntities>(throwOnError: true).GetBlockEntity(raycastResult.CellFace.X, raycastResult.CellFace.Y, raycastResult.CellFace.Z);
             if (blockEntity != null && componentMiner.ComponentPlayer != null)
             {
-                try
-                {
-                    NewComponentCraftingTable newcomponentCraftingTable = blockEntity.Entity.FindComponent<NewComponentCraftingTable>(throwOnError: true);
-                    componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new NewCraftingTableWidget(componentMiner.Inventory, newcomponentCraftingTable);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e);
-                }
+                NewComponentCraftingTable newcomponentCraftingTable = blockEntity.Entity.FindComponent<NewComponentCraftingTable>(throwOnError: true);
+                componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new NewCraftingTableWidget(componentMiner.Inventory, newcomponentCraftingTable);
                 AudioManager.PlaySound("Audio/UI/ButtonClick", 1f, 0f, 0f);
                 return true;
             }
