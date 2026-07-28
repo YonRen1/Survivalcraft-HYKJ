@@ -5,7 +5,8 @@ using TemplatesDatabase;
 using Engine.Graphics;
 using Game;
 
-namespace HYKJ {
+namespace HYKJ 
+{
     public class ComponentNewGui : Component, IUpdateable {
         public ComponentPlayer m_componentPlayer;
         public ComponentGui m_componentGui;

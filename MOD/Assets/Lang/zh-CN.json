@@ -34,14 +34,14 @@
        "HYKJ Tool": "HYKJ 工具",
        "HYKJ Weapons": "HYKJ 武器"
     },
-	"NewCraftingTableWidget": {
-	   "2": "工作桩",
-       "3": "背包"
-	},
 	"ContentWidgets": {
 	   "VitalStatsWidget": {
 	      "100": "玩家",
 	      "101": "详细信息"
+	   },
+	   "NewCraftingTableWidget": {
+	      "2": "工作桩",
+          "3": "背包"
 	   },
 	   "ClaykilnWidget": {
           "1": "原料",

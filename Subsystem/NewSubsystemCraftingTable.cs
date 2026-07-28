@@ -1,28 +1,21 @@
 ﻿using System.Linq;
 using Game;
-using Engine.Serialization;
 using System.Xml.Linq;
 using Engine;
 using System;
-using Engine.Media;
 using Random = Game.Random;
 using Engine.Graphics;
 using GameEntitySystem;
-using System.Collections.Generic;
-using System.Globalization;
 using TemplatesDatabase;
 using System.Reflection;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using XmlUtilities;
 using Engine.Input;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HYKJ
 {
-    //合成桩
     public class NewSubsystemCraftingTable : SubsystemBlockBehavior
     {
         public NewComponentCraftingTable newcomponentCraftingTable;
@@ -61,8 +54,15 @@ namespace HYKJ
             ComponentBlockEntity blockEntity = base.SubsystemTerrain.Project.FindSubsystem<SubsystemBlockEntities>(throwOnError: true).GetBlockEntity(raycastResult.CellFace.X, raycastResult.CellFace.Y, raycastResult.CellFace.Z);
             if (blockEntity != null && componentMiner.ComponentPlayer != null)
             {
-                NewComponentCraftingTable newcomponentCraftingTable = blockEntity.Entity.FindComponent<NewComponentCraftingTable>(throwOnError: true);
-                componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new NewCraftingTableWidget(componentMiner.Inventory, newcomponentCraftingTable);
+                try
+                {
+                    NewComponentCraftingTable newcomponentCraftingTable = blockEntity.Entity.FindComponent<NewComponentCraftingTable>(throwOnError: true);
+                    componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new NewCraftingTableWidget(componentMiner.Inventory, newcomponentCraftingTable);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
                 AudioManager.PlaySound("Audio/UI/ButtonClick", 1f, 0f, 0f);
                 return true;
             }
