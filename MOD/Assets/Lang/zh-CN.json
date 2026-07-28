@@ -40,10 +40,17 @@
 	},
 	"ContentWidgets": {
 	   "VitalStatsWidget": {
-	       "100": "玩家",
-	       "101": "详细信息"
-	   }
-	},
+	      "100": "玩家",
+	      "101": "详细信息"
+	   },
+	   "ClaykilnWidget": {
+          "1": "原料",
+          "2": "燃料",
+          "3": "...",
+          "4": "陶土窑",
+          "5": "背包"
+       }
+    },
 	"Blocks": {
 		"StoneAxeBlock:0": {
 			"DisplayName": "锋利石锤",

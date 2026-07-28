@@ -20,7 +20,7 @@
             <!-- Furnace 组件，InheritanceParent 指向原版 ComponentFurnace 组件模板 (c91f7906-...)，继承其 FireTimeRemaining / HeatLevel 等参数。 -->
             <MemberComponentTemplate Name="Furnace" Guid="2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e" InheritanceParent="c91f7906-de35-4e94-ba6e-90cd55cd19d4">
                 <!-- 与原版熔炉一致：5 个槽位（2 个冶炼输入 + 燃料 + 产物 + 残留物）。 -->
-                <Parameter Name="SlotsCount" Guid="3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f" Value="5" Type="int" />
+                <Parameter Name="SlotsCount" Guid="3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f" Value="4" Type="int" />
                 <Parameter Name="Class" Guid="4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a" Value="HYKJ.ComponentClayKiln" Type="string" />
             </MemberComponentTemplate>
         </EntityTemplate>

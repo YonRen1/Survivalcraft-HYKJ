@@ -19,7 +19,6 @@
     <Compile Update="Subsystem/SubsystemClayKilnBlockBehavior.cs" />
     <Compile Update="Widget/HYKJClothingWidget.cs" />
     <Compile Update="Widget/NewCraftingTableWidget.cs" />
-    <Compile Update="Widget/ClaykilnWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath=".../Engine.dll" />

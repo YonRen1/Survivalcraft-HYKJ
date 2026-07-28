@@ -1,7 +1,6 @@
 ﻿using Engine;
 using GameEntitySystem;
 using TemplatesDatabase;
-using System;
 using Game;
 
 namespace HYKJ
@@ -18,7 +17,8 @@ namespace HYKJ
         public override void OnBlockAdded(int value, int oldValue, int x, int y, int z)
         {
             // 在未点燃 / 点燃两种陶土窑之间切换时不重建实体，仅真正新放置时才创建实体（与原版熔炉一致）。
-            if (Terrain.ExtractContents(oldValue) != ClayKilnBlock.Index && Terrain.ExtractContents(oldValue) != LitClayKilnBlock.Index)
+            if (Terrain.ExtractContents(oldValue) != ClayKilnBlock.Index
+                && Terrain.ExtractContents(oldValue) != LitClayKilnBlock.Index)
             {
                 base.OnBlockAdded(value, oldValue, x, y, z);
             }
@@ -27,19 +27,21 @@ namespace HYKJ
         public override void OnBlockRemoved(int value, int newValue, int x, int y, int z)
         {
             // 在未点燃 / 点燃两种陶土窑之间切换时不移除实体，仅真正被替换为其他方块时才移除并掉落物品。
-            if (Terrain.ExtractContents(newValue) != ClayKilnBlock.Index && Terrain.ExtractContents(newValue) != LitClayKilnBlock.Index)
+            if (Terrain.ExtractContents(newValue) != ClayKilnBlock.Index
+                && Terrain.ExtractContents(newValue) != LitClayKilnBlock.Index)
             {
                 base.OnBlockRemoved(value, newValue, x, y, z);
             }
         }
 
-        // 与陶土窑方块交互时打开界面
+        // 与陶土窑方块交互时打开熔炉界面（复用原版 FurnaceWidget，ComponentClayKiln 继承自 ComponentFurnace）。
         public override bool InteractBlockEntity(ComponentBlockEntity blockEntity, ComponentMiner componentMiner)
         {
-            if (blockEntity != null && componentMiner.ComponentPlayer != null)
+            if (blockEntity != null
+                && componentMiner.ComponentPlayer != null)
             {
                 ComponentFurnace componentFurnace = blockEntity.Entity.FindComponent<ComponentFurnace>(true);
-                componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new ClaykilnWidget(componentMiner.Inventory, componentFurnace);
+                componentMiner.ComponentPlayer.ComponentGui.ModalPanelWidget = new FurnaceWidget(componentMiner.Inventory, componentFurnace);
                 AudioManager.PlaySound("Audio/UI/ButtonClick", 1f, 0f, 0f);
                 return true;
             }
