@@ -5,6 +5,8 @@
 *.exe
 *.pdb
 *.log
+*.db
+*.bak
 
 # IDE
 .vs/

@@ -138,7 +138,7 @@ namespace HYKJ
             BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Weapons");
             BlocksManager.m_categories.RemoveAll(c => c == "测试");
             BlocksManager.m_categories.RemoveAll(c => c == " ");
-            
+
             int idx1 = BlocksManager.m_categories.FindIndex(c => c == "Items");
             if (idx1 != -1)
             {
