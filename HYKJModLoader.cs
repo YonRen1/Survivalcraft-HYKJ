@@ -40,7 +40,18 @@ namespace HYKJ
             ModsManager.RegisterHook("BlocksInitalized", this);//方块初始化完成时执行
             ModsManager.RegisterHook("OnMainMenuScreenCreated", this);//在主界面初始化后执行
             ModsManager.RegisterHook("AfterWidgetUpdate", this);//在Widget完成Update()后立即执行
-            ModsManager.RegisterHook("ClothingProcessSlotItems", this);
+            ModsManager.RegisterHook("TerrainContentsGenerator24Initialize", this);// 注册地形生成器初始化 hook
+        }
+
+        /// <summary>
+        /// API 地形生成器初始化时回调，在此追加本模组自定义的生成步骤。
+        /// </summary>
+        public override void TerrainContentsGenerator24Initialize(ITerrainContentsGenerator terrainContentsGenerator, SubsystemTerrain subsystemTerrain)
+        {
+            if (terrainContentsGenerator is TerrainContentsGenerator24 generator)
+            {
+                ExtraGravelGenerator.Register(generator);
+            }
         }
 
         /// <summary>
@@ -137,7 +148,6 @@ namespace HYKJ
             BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Tool");
             BlocksManager.m_categories.RemoveAll(c => c == "HYKJ Weapons");
             BlocksManager.m_categories.RemoveAll(c => c == "测试");
-            BlocksManager.m_categories.RemoveAll(c => c == " ");
 
             int idx1 = BlocksManager.m_categories.FindIndex(c => c == "Items");
             if (idx1 != -1)
@@ -161,7 +171,6 @@ namespace HYKJ
             if (idx4 != -1)
             {
                 BlocksManager.m_categories.Insert(idx3 + 1, "测试");
-                BlocksManager.m_categories.Insert(idx3 + 1, " ");
             }
         }
     }

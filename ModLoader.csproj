@@ -7,7 +7,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ModLoader.cs" />
+    <Compile Include="HYKJModLoader.cs" />
     <Compile Update="Block/BaseClass.cs" />
     <Compile Update="Block/HykjMod.cs" />
     <Compile Update="Block/OriginalRevision.cs" />
@@ -20,6 +20,7 @@
     <Compile Update="Widget/HYKJClothingWidget.cs" />
     <Compile Update="Widget/NewCraftingTableWidget.cs" />
     <Compile Update="Widget/ClaykilnWidget.cs" />
+    <Compile Update="Terrain/ExtraGravelGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath=".../Engine.dll" />
