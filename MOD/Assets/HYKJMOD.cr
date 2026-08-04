@@ -17,9 +17,8 @@
          "aa"
       </Recipe>
       <!--粘合剂-->
-      <Recipe Result="adhesiveBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="clay" b="dirt" Description="合成物品" >
+      <Recipe Result="adhesiveBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="clay_Block" b="dirt" Description="合成物品" >
          "ab"
-         "ba"
       </Recipe>
       <!--石头-->
       <Recipe Result="CobblestoneBlock" ResultCount="1" RequiredHeatLevel="0" RequiredPlayerLevel="0" a="stonechunk" Description="合成物品" >

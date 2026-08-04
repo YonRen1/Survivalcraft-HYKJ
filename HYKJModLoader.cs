@@ -26,6 +26,8 @@ namespace HYKJ
         private BevelledButtonWidget hykjButton;
         public GameMode gameMode;
 
+        private SubsystemTimeOfDay m_subsystemTimeOfDay;
+
         public SubsystemParticles m_subsystemParticles;
 
         public const string fName = "HYKJModLoader";
@@ -40,7 +42,26 @@ namespace HYKJ
             ModsManager.RegisterHook("BlocksInitalized", this);//方块初始化完成时执行
             ModsManager.RegisterHook("OnMainMenuScreenCreated", this);//在主界面初始化后执行
             ModsManager.RegisterHook("AfterWidgetUpdate", this);//在Widget完成Update()后立即执行
+            ModsManager.RegisterHook("OnProjectLoaded", this);
             ModsManager.RegisterHook("TerrainContentsGenerator24Initialize", this);// 注册地形生成器初始化 hook
+        }
+
+        /// <summary>
+        /// 当Project被加载时执行
+        /// </summary>
+        /// <param name="project"></param>
+        public override void OnProjectLoaded(Project project)
+        {
+            //后续应尝试换成设置
+            //获取掉落物子系统对象
+            m_subsystemParticles = project.FindSubsystem<SubsystemParticles>(throwOnError: true);
+            //获取天数时长
+            m_subsystemTimeOfDay = project.FindSubsystem<SubsystemTimeOfDay>(true);
+            if (m_subsystemTimeOfDay.DayDuration != 1800f)
+            {
+                m_subsystemTimeOfDay.DayDuration = 1800f;
+                Log.Warning("[HYKJ]:一天时长修改为1800");
+            }
         }
 
         /// <summary>
