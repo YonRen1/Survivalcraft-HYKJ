@@ -13,7 +13,6 @@
 						<StackPanelWidget Direction="Horizontal" HorizontalAlignment="Center" Margin="0, 0" >
                             <LabelWidget FontScale="0.8" Text="" HorizontalAlignment="Center" Color="64, 192, 64" DropShadow="true" />
 					  	        <RectangleWidget Size="160, 210" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/QQQ}" />
-					  	        <RectangleWidget Size="160, 210" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/PD}" />
 			                <LabelWidget Name="ContentLabel" Text=""  Color="255,255,255" HorizontalAlignment="Center" TextAnchor="HorizontalCenter" WordWrap="true" />
 			            </StackPanelWidget>
 				    </CanvasWidget>

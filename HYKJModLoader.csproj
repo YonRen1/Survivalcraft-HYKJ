@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <OutputType>Library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="HYKJModLoader.cs" />
     <Compile Update="Block/BaseClass.cs" />
     <Compile Update="Block/HykjMod.cs" />
     <Compile Update="Block/OriginalRevision.cs" />
@@ -23,9 +22,9 @@
     <Compile Update="Terrain/ExtraGravelGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Engine" HintPath=".../Engine.dll" />
-    <Reference Include="EntitySystem" HintPath=".../EntitySystem.dll" />
-    <Reference Include="Survivalcraft" HintPath=".../Survivalcraft.dll" />
+    <Reference Include="Engine" HintPath="../SurvivalcraftApi/Engine.dll" />
+    <Reference Include="EntitySystem" HintPath="../SurvivalcraftApi/EntitySystem.dll" />
+    <Reference Include="Survivalcraft" HintPath="../SurvivalcraftApi/Survivalcraft.dll" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <PropertyGroup>

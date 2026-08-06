@@ -23,17 +23,17 @@
                             <RectangleWidget Size="350, 130" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/scpd}" />
                             <LabelWidget FontScale="1.0" Text="生存战争2频道" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
                             <LabelWidget FontScale="0.8" Text="#腾讯频道：survivalcraft2" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
-                            <LabelWidget FontScale="0.8" Text="备注：内有各种资源及荒野科技教程板块，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="最初为火药当燃料创建，频道中管理活跃" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
                             <LabelWidget FontScale="0.9" Text="\n————————————————\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
                             <RectangleWidget Size="400, 170" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/schub}" />
                             <LabelWidget FontScale="1.0" Text="生存战争中文社区" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
                             <LabelWidget FontScale="0.8" Text="网站官网：www.schub.top" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
-                            <LabelWidget FontScale="0.8" Text="生存战争的优质社区，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="生存战争最齐全的社区，大部分资源都在此处" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
                             <LabelWidget FontScale="0.9" Text="\n————————————————\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
                              <RectangleWidget Size="400, 170" OutlineColor="0, 0, 0, 0" HorizontalAlignment="Center" FillColor="255, 255, 255" Margin="0, 0" Subtexture="{HYKJTextures/QQ/ModWeb}" />
                             <LabelWidget FontScale="1.0" Text="生存战争清凝模组网" HorizontalAlignment="Center" Color="24, 179, 15" DropShadow="false" />
                             <LabelWidget FontScale="0.8" Text="网站官网：www.scmod.cn" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
-                            <LabelWidget FontScale="0.8" Text="生存战争的优质模组网站，推荐！" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
+                            <LabelWidget FontScale="0.8" Text="生存战争的优质模组网站，欢迎各位来分享自己的模组" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
                             <LabelWidget FontScale="0.9" Text="\n" HorizontalAlignment="Center" Color="255, 255, 255" DropShadow="false" />
  						</StackPanelWidget>
 					</CanvasWidget>
