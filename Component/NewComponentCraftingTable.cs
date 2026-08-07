@@ -46,7 +46,13 @@ namespace HYKJ
                 Block resultBlock = BlocksManager.Blocks[resultContents];
                 int maxStack = resultBlock.GetMaxStacking(m_matchedRecipe.ResultValue);
 
-                if (currentResult + m_matchedRecipe.ResultCount <= maxStack)
+                // 成品槽有未取走的其他配方产物 → 暂停合成，等玩家取走
+                if (currentResult > 0 && m_slots[ResultSlotIndex].Value != m_matchedRecipe.ResultValue)
+                {
+                    m_isCrafting = false;
+                    m_craftingProgress = 0f;
+                }
+                else if (currentResult + m_matchedRecipe.ResultCount <= maxStack)
                 {
                     m_isCrafting = true;
                     // 不同工具等级不同耗时
@@ -153,13 +159,37 @@ namespace HYKJ
 
         public override void AddSlotItems(int slotIndex, int value, int count) 
         {
+            // === 合成保护：正在合成或有已合成产物时，拒绝放入会改变配方的物品 ===
+            // 防止配方被中途更换导致吞掉已合成的产物
+            if (m_matchedRecipe != null && (m_isCrafting || m_craftingProgress > 0f || m_slots[ResultSlotIndex].Count > 0))
+            {
+                if (!IsIngredientOfCurrentRecipe(slotIndex, value))
+                {
+                    return; // 拒绝放入
+                }
+            }
             int oldCount = GetSlotCount(slotIndex);
             base.AddSlotItems(slotIndex, value, count);
             if (oldCount == 0) m_recipeRefindNeeded = true;
             m_recipeUpdateNeeded = true;
-            m_slots[RemainsSlotIndex].Count = 0;
-            m_slots[ResultSlotIndex].Count = 0;
+            // 注意：不在这里清空成品槽/副产物槽，避免补充材料时已合成产物丢失
             m_craftingProgress = 0f;
+        }
+
+        /// <summary>
+        /// 判断放入的物品是否属于当前配方在该槽位需要的材料
+        /// </summary>
+        public bool IsIngredientOfCurrentRecipe(int slotIndex, int value)
+        {
+            if (m_matchedRecipe == null) return true;
+            if (slotIndex < 0 || slotIndex >= m_matchedIngredients.Length) return true;
+            string required = m_matchedIngredients[slotIndex];
+            // 当前配方在该位置没有材料 → 放入任何东西都会改变配方 → 拒绝
+            if (string.IsNullOrEmpty(required)) return false;
+            int contents = Terrain.ExtractContents(value);
+            Block block = BlocksManager.Blocks[contents];
+            string newId = block.GetCraftingId(value) + ":" + Terrain.ExtractData(value).ToString(CultureInfo.InvariantCulture);
+            return newId == required;
         }
 
         public override int RemoveSlotItems(int slotIndex, int count) 
@@ -240,8 +270,12 @@ namespace HYKJ
             else craftingRecipe = m_matchedRecipe;
             if (craftingRecipe != null && craftingRecipe.ResultValue != 0) 
             {
+                // 成品槽有未取走的产物时保留原 Value，避免与新配方产物混淆
+                if (m_slots[ResultSlotIndex].Count == 0)
+                {
+                    m_slots[ResultSlotIndex].Value = craftingRecipe.ResultValue;
+                }
                 m_matchedRecipe = craftingRecipe;
-                m_slots[ResultSlotIndex].Value = craftingRecipe.ResultValue;
             }
             else 
             {
