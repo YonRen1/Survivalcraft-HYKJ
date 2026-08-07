@@ -87,6 +87,13 @@ namespace HYKJ
             return MathUtils.Max(data.TotalHits - data.CurrentHits, 0);
         }
 
+        public static int GetTotalHits(Entity entity)
+        {
+            if (!Corpses.TryGetValue(entity, out CorpseData data))
+                return 0;
+            return data.TotalHits;
+        }
+
         /// <summary>
         /// 移除尸体记录
         /// </summary>
