@@ -25,9 +25,6 @@ nuget.config
 # Cache
 cache/
 
-# Config
-config.json
-
 # OS
 .DS_Store
 Thumbs.db.worktrees/

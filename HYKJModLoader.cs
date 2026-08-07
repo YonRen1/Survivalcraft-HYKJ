@@ -211,10 +211,10 @@ namespace HYKJ
 
             dropAllItems = false;
 
-            // 从配置文件获取腐烂时间和解剖刀数
-            string displayName = componentHealth.Entity.FindComponent<ComponentCreature>()?.DisplayName ?? "";
-            CorpseManager.CreatureCfg cfg = CorpseManager.GetCreatureConfig(displayName);
-            int hitsNeeded = CorpseManager.CalculateHitsNeeded(componentHealth, displayName);
+            // 从配置文件获取腐烂时间和解剖刀数（按实体模板名匹配）
+            string templateName = componentHealth.Entity.ValuesDictionary.DatabaseObject.Name;
+            CorpseManager.CreatureCfg cfg = CorpseManager.GetCreatureConfig(componentHealth.Entity);
+            int hitsNeeded = CorpseManager.CalculateHitsNeeded(componentHealth, componentHealth.Entity);
             float naturalDecay = cfg.CorpseDuration > 0f ? cfg.CorpseDuration : 120f;
 
             CorpseManager.Register(
@@ -233,7 +233,7 @@ namespace HYKJ
                 );
             }
 
-            Log.Information($"[HYKJ] 尸体注册: {displayName}, 需解剖{hitsNeeded}刀, 腐烂{naturalDecay}秒");
+            Log.Information($"[HYKJ] 尸体注册: {templateName}, 需解剖{hitsNeeded}刀, 腐烂{naturalDecay}秒");
         }
 
         /// <summary>

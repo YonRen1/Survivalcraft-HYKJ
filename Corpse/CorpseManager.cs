@@ -8,26 +8,27 @@ using Engine;
 namespace HYKJ
 {
     /// <summary>
-    /// 尸体管理器：存储尸体数据、加载配置、处理解剖逻辑
+    /// 根据实体模板名查找配置
     /// </summary>
-    public static class CorpseManager
+    public static CreatureCfg GetCreatureConfig(Entity entity)
     {
-        public static Dictionary<Entity, CorpseData> Corpses = new();
+        string templateName = entity.ValuesDictionary.DatabaseObject.Name;
+        if (s_creatureConfig.TryGetValue(templateName, out CreatureCfg cfg))
+            return cfg;
+        return s_defaultConfig;
+    }
 
-        // JSON 配置
-        private static Dictionary<string, float> s_toolEfficiency = new();
-        private static Dictionary<string, CreatureCfg> s_creatureConfig = new();
-        private static CreatureCfg s_defaultConfig = new() { CorpseDuration = 120f, HitsNeeded = 0 };
-        private static bool s_loaded;
-
-        public class CorpseData
-        {
-            public int TotalHits;
-            public int CurrentHits;
-            public double DeathTime;
-            public float NaturalDecay;
-            public float Efficiency; // 当前使用的工具效率
-        }
+    /// <summary>
+    /// 根据配置计算解剖需要刀数
+    /// </summary>
+    public static int CalculateHitsNeeded(ComponentHealth health, Entity entity)
+    {
+        CreatureCfg cfg = GetCreatureConfig(entity);
+        if (cfg.HitsNeeded > 0)
+            return cfg.HitsNeeded;
+        float resilience = health.AttackResilience;
+        return (int)MathUtils.Clamp(resilience / 10f, 2f, 20f);
+    }
 
         public class CreatureCfg
         {
