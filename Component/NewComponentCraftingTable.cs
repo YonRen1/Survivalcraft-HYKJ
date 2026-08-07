@@ -159,6 +159,7 @@ namespace HYKJ
             m_recipeUpdateNeeded = true;
             m_slots[RemainsSlotIndex].Count = 0;
             m_slots[ResultSlotIndex].Count = 0;
+            m_craftingProgress = 0f;
         }
 
         public override int RemoveSlotItems(int slotIndex, int count) 
@@ -241,13 +242,14 @@ namespace HYKJ
             {
                 m_matchedRecipe = craftingRecipe;
                 m_slots[ResultSlotIndex].Value = craftingRecipe.ResultValue;
-                m_slots[ResultSlotIndex].Count = craftingRecipe.ResultCount * num;
             }
             else 
             {
                 m_matchedRecipe = null;
-                m_slots[ResultSlotIndex].Value = 0;
-                m_slots[ResultSlotIndex].Count = 0;
+                if (m_slots[ResultSlotIndex].Count == 0)
+                {
+                    m_slots[ResultSlotIndex].Value = 0;
+                }
             }
             if (craftingRecipe != null && !string.IsNullOrEmpty(craftingRecipe.Message)) 
             {
