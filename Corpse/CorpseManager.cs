@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using GameEntitySystem;
 using Game;
 using Engine;
@@ -6,23 +8,152 @@ using Engine;
 namespace HYKJ
 {
     /// <summary>
-    /// 尸体管理器：存储每个生物尸体数据（解剖进度、奖励掉落等）
+    /// 尸体管理器：存储尸体数据、加载配置、处理解剖逻辑
     /// </summary>
     public static class CorpseManager
     {
         public static Dictionary<Entity, CorpseData> Corpses = new();
 
+        // JSON 配置
+        private static Dictionary<string, float> s_toolEfficiency = new();
+        private static Dictionary<string, CreatureCfg> s_creatureConfig = new();
+        private static CreatureCfg s_defaultConfig = new() { CorpseDuration = 120f, HitsNeeded = 0 };
+        private static bool s_loaded;
+
         public class CorpseData
         {
-            public int TotalHits;      // 总共需要解剖刀数
-            public int CurrentHits;    // 已解剖刀数
-            public double DeathTime;   // 死亡时间
-            public float NaturalDecay; // 自然腐烂时间（秒）
+            public int TotalHits;
+            public int CurrentHits;
+            public double DeathTime;
+            public float NaturalDecay;
+            public float Efficiency; // 当前使用的工具效率
+        }
+
+        public class CreatureCfg
+        {
+            public float CorpseDuration { get; set; }
+            public int HitsNeeded { get; set; }
         }
 
         /// <summary>
-        /// 注册一个新尸体
+        /// 加载 JSON 配置文件
         /// </summary>
+        public static void LoadConfig()
+        {
+            if (s_loaded) return;
+            s_loaded = true;
+
+            try
+            {
+                string json = null;
+                try
+                {
+                    // 从模组 Assets 中读取
+                    using var stream = ContentManager.Get<Stream>("CorpseConfig.json");
+                    using var reader = new StreamReader(stream);
+                    json = reader.ReadToEnd();
+                }
+                catch
+                {
+                    Log.Warning("[HYKJ] 无法读取CorpseConfig.json，使用默认配置");
+                    SetupDefaults();
+                    return;
+                }
+
+                using JsonDocument doc = JsonDocument.Parse(json);
+                JsonElement root = doc.RootElement;
+
+                // 解析工具
+                if (root.TryGetProperty("Tools", out JsonElement tools))
+                {
+                    foreach (JsonProperty prop in tools.EnumerateObject())
+                    {
+                        if (prop.Name.StartsWith("_")) continue;
+                        float eff = (float)prop.Value.GetDouble();
+                        s_toolEfficiency[prop.Name] = eff;
+                    }
+                }
+
+                // 解析生物
+                if (root.TryGetProperty("Creatures", out JsonElement creatures))
+                {
+                    foreach (JsonProperty prop in creatures.EnumerateObject())
+                    {
+                        if (prop.Name.StartsWith("_")) continue;
+                        var cfg = new CreatureCfg
+                        {
+                            CorpseDuration = prop.Value.TryGetProperty("CorpseDuration", out JsonElement cd)
+                                ? cd.GetSingle() : 120f,
+                            HitsNeeded = prop.Value.TryGetProperty("HitsNeeded", out JsonElement hn)
+                                ? hn.GetInt32() : 0
+                        };
+                        s_creatureConfig[prop.Name] = cfg;
+                    }
+                }
+
+                // 默认配置
+                if (root.TryGetProperty("Default", out JsonElement def))
+                {
+                    s_defaultConfig = new CreatureCfg
+                    {
+                        CorpseDuration = def.TryGetProperty("CorpseDuration", out JsonElement dcd)
+                            ? dcd.GetSingle() : 120f,
+                        HitsNeeded = def.TryGetProperty("HitsNeeded", out JsonElement dhn)
+                            ? dhn.GetInt32() : 0
+                    };
+                }
+
+                Log.Information($"[HYKJ] 尸体配置加载: {s_toolEfficiency.Count}种工具, {s_creatureConfig.Count}种生物");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[HYKJ] 加载尸体配置失败: {ex.Message}");
+                SetupDefaults();
+            }
+        }
+
+        private static void SetupDefaults()
+        {
+            s_toolEfficiency.Clear();
+            s_toolEfficiency["Flint_knifeBlock"] = 1.0f;
+            s_toolEfficiency["leather_knifeBlock"] = 1.2f;
+            s_toolEfficiency["bone_MacheteBlock"] = 1.5f;
+            s_toolEfficiency["copper_sawBlock"] = 1.8f;
+            s_toolEfficiency["iron_sawBlock"] = 2.0f;
+        }
+
+        /// <summary>
+        /// 判断是否为解剖工具
+        /// </summary>
+        public static bool IsDissectionTool(int blockIndex)
+        {
+            var block = BlocksManager.Blocks[blockIndex];
+            string name = block.GetType().Name;
+            return s_toolEfficiency.ContainsKey(name);
+        }
+
+        /// <summary>
+        /// 获取工具解剖效率
+        /// </summary>
+        public static float GetToolEfficiency(int blockIndex)
+        {
+            var block = BlocksManager.Blocks[blockIndex];
+            string name = block.GetType().Name;
+            return s_toolEfficiency.TryGetValue(name, out float eff) ? eff : 1.0f;
+        }
+
+        /// <summary>
+        /// 根据生物名称查找配置
+        /// </summary>
+        public static CreatureCfg GetCreatureConfig(string displayName)
+        {
+            if (s_creatureConfig.TryGetValue(displayName, out CreatureCfg cfg))
+                return cfg;
+            return s_defaultConfig;
+        }
+
+        // ==================== 尸体生命周期 ====================
+
         public static void Register(Entity entity, int totalHits, float naturalDecay, double deathTime)
         {
             Corpses[entity] = new CorpseData
@@ -30,36 +161,37 @@ namespace HYKJ
                 TotalHits = totalHits,
                 CurrentHits = 0,
                 DeathTime = deathTime,
-                NaturalDecay = naturalDecay
+                NaturalDecay = naturalDecay,
+                Efficiency = 1.0f
             };
         }
 
-        /// <summary>
-        /// 执行一次解剖，返回剩余刀数（0=完成）
-        /// </summary>
-        public static int Dissect(Entity entity, SubsystemTerrain terrain, Vector3 position)
+        public static int Dissect(Entity entity, int blockIndex, SubsystemTerrain terrain, Vector3 position)
         {
             if (!Corpses.TryGetValue(entity, out CorpseData data))
                 return -1;
 
-            data.CurrentHits++;
+            float efficiency = GetToolEfficiency(blockIndex);
+            data.Efficiency = efficiency;
+            // 每刀的实际进度 = 工具效率
+            data.CurrentHits += (int)System.Math.Ceiling(efficiency);
 
             // 血粒子
             if (terrain != null)
             {
                 var blood = new KillParticleSystem(terrain, position, 0.8f);
-                // KillParticleSystem 通过 SubsystemParticles 添加
                 var particles = terrain.Project.FindSubsystem<SubsystemParticles>(false);
                 particles?.AddParticleSystem(blood);
             }
 
-            int remaining = data.TotalHits - data.CurrentHits;
-            return MathUtils.Max(remaining, 0);
+            // 重新计算基于效率的等效刀数
+            int effectiveTotal = (int)System.Math.Ceiling(data.TotalHits / efficiency);
+            int effectiveCurrent = (int)System.Math.Ceiling(data.CurrentHits / efficiency);
+            // 直接返回实际剩余刀数
+            int remaining = System.Math.Max(data.TotalHits - data.CurrentHits, 0);
+            return remaining;
         }
 
-        /// <summary>
-        /// 尸体是否已完全解剖
-        /// </summary>
         public static bool IsFullyDissected(Entity entity)
         {
             if (!Corpses.TryGetValue(entity, out CorpseData data))
@@ -67,9 +199,6 @@ namespace HYKJ
             return data.CurrentHits >= data.TotalHits;
         }
 
-        /// <summary>
-        /// 获取解剖进度 0~1
-        /// </summary>
         public static float GetProgress(Entity entity)
         {
             if (!Corpses.TryGetValue(entity, out CorpseData data) || data.TotalHits == 0)
@@ -77,14 +206,11 @@ namespace HYKJ
             return (float)data.CurrentHits / data.TotalHits;
         }
 
-        /// <summary>
-        /// 获取剩余刀数
-        /// </summary>
         public static int GetRemainingHits(Entity entity)
         {
             if (!Corpses.TryGetValue(entity, out CorpseData data))
                 return -1;
-            return MathUtils.Max(data.TotalHits - data.CurrentHits, 0);
+            return System.Math.Max(data.TotalHits - data.CurrentHits, 0);
         }
 
         public static int GetTotalHits(Entity entity)
@@ -94,61 +220,51 @@ namespace HYKJ
             return data.TotalHits;
         }
 
-        /// <summary>
-        /// 移除尸体记录
-        /// </summary>
+        public static bool IsCorpse(Entity entity)
+        {
+            return entity != null && Corpses.ContainsKey(entity);
+        }
+
         public static void Remove(Entity entity)
         {
             Corpses.Remove(entity);
         }
 
         /// <summary>
-        /// 判断实体是否是尸体
+        /// 根据生物类型和配置计算解剖需要刀数
         /// </summary>
-        public static bool IsCorpse(Entity entity)
+        public static int CalculateHitsNeeded(ComponentHealth health, string displayName)
         {
-            return entity != null && Corpses.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// 根据生物类型计算解剖需要刀数
-        /// </summary>
-        public static int CalculateHitsNeeded(ComponentHealth health)
-        {
+            CreatureCfg cfg = GetCreatureConfig(displayName);
+            if (cfg.HitsNeeded > 0)
+                return cfg.HitsNeeded;
+            // 未配置时按血量估算
             float resilience = health.AttackResilience;
-            // 基础: 攻击韧性 / 10，最少 2 刀，最多 20 刀
             return (int)MathUtils.Clamp(resilience / 10f, 2f, 20f);
         }
 
-        /// <summary>
-        /// 自然腐烂时掉落（减少50%食物，保留骨头）
-        /// </summary>
+        // ==================== 掉落逻辑 ====================
+
         public static void DropDecayedLoot(Entity entity)
         {
             Vector3 position = entity.FindComponent<ComponentBody>()?.Position ?? Vector3.Zero;
             foreach (IInventory inventory in entity.FindComponents<IInventory>())
             {
-                // 只掉落一半
                 int totalSlots = inventory.SlotsCount;
                 for (int i = 0; i < totalSlots; i++)
                 {
                     int count = inventory.GetSlotCount(i);
                     if (count > 0)
                     {
-                        int decayedCount = count / 2; // 腐烂减半
+                        int decayedCount = count / 2;
                         if (decayedCount > 0)
-                        {
                             inventory.RemoveSlotItems(i, count - decayedCount);
-                        }
                     }
                 }
                 inventory.DropAllItems(position);
             }
         }
 
-        /// <summary>
-        /// 完全解剖后掉落（全量 + 额外骨头）
-        /// </summary>
         public static void DropFullLoot(Entity entity)
         {
             Vector3 position = entity.FindComponent<ComponentBody>()?.Position ?? Vector3.Zero;

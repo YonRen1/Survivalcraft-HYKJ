@@ -1,0 +1,24 @@
+{
+  "_comment": "荒野科技 - 尸体解剖配置文件",
+  
+  "Tools": {
+    "_comment": "解剖工具及效率(1.0基准,越高越快)",
+    "Flint_knifeBlock":   1.0,
+    "leather_knifeBlock": 1.2,
+    "bone_MacheteBlock":  1.5,
+    "copper_sawBlock":    1.8,
+    "iron_sawBlock":      2.0
+  },
+
+  "Creatures": {
+    "_comment": "生物的腐烂时长(秒)和解剖刀数(基准值)",
+    "犀牛": { "CorpseDuration": 480, "HitsNeeded": 10 },
+    "奶牛": { "CorpseDuration": 300, "HitsNeeded": 6 },
+    "灰狼": { "CorpseDuration": 240, "HitsNeeded": 5 },
+    "野猪": { "CorpseDuration": 180, "HitsNeeded": 4 },
+    "豹子": { "CorpseDuration": 200, "HitsNeeded": 5 },
+    "熊":   { "CorpseDuration": 360, "HitsNeeded": 8 }
+  },
+
+  "Default": { "CorpseDuration": 120, "HitsNeeded": 0 }
+}
