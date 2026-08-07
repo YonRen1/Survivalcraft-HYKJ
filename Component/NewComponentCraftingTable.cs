@@ -197,17 +197,19 @@ namespace HYKJ
             int num = 0;
             if (slotIndex == ResultSlotIndex) 
             {
+                // 合成中：取出的数量按配方产出量取整（例如一次产4支箭则按4取整）
                 if (m_matchedRecipe != null) 
                 {
                     count = count / m_matchedRecipe.ResultCount * m_matchedRecipe.ResultCount;
-                    num = base.RemoveSlotItems(slotIndex, count);
-                    if (num > 0) 
+                }
+                // 无论合成是否结束（m_matchedRecipe 是否为 null），产物都应当能取出
+                num = base.RemoveSlotItems(slotIndex, count);
+                if (num > 0) 
+                {
+                    ComponentPlayer componentPlayer = FindInteractingPlayer();
+                    if (componentPlayer != null && componentPlayer.PlayerStats != null) 
                     {
-                        ComponentPlayer componentPlayer = FindInteractingPlayer();
-                        if (componentPlayer != null && componentPlayer.PlayerStats != null) 
-                        {
-                            componentPlayer.PlayerStats.ItemsCrafted += num;
-                        }
+                        componentPlayer.PlayerStats.ItemsCrafted += num;
                     }
                 }
             }
