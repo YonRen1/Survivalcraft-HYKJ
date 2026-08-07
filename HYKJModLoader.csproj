@@ -29,6 +29,8 @@
     <Reference Include="EntitySystem" HintPath="Quoted/EntitySystem.dll" />
     <Reference Include="Survivalcraft" HintPath="Quoted/Survivalcraft.dll" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Memory" />
+    <Reference Include="System.Text.Json" />
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>latestMajor</LangVersion>

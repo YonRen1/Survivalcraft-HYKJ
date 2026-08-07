@@ -46,7 +46,7 @@ namespace HYKJ
             ModsManager.RegisterHook("TerrainContentsGenerator24Initialize", this);
             ModsManager.RegisterHook("DeadBeforeDrops", this);
             ModsManager.RegisterHook("OnMinerHit2", this);
-            
+
             CorpseManager.LoadConfig(); // 加载尸体配置
         }
 
