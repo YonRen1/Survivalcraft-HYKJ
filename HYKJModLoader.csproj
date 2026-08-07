@@ -7,6 +7,7 @@
   <PropertyGroup>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HYKJModLoader.cs" />
     <Compile Update="Block/BaseClass.cs" />
     <Compile Update="Block/HykjMod.cs" />
     <Compile Update="Block/OriginalRevision.cs" />
