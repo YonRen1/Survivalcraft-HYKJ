@@ -23,9 +23,9 @@
     <Compile Update="Terrain/ExtraGravelGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Engine" HintPath=".../Engine.dll" />
-    <Reference Include="EntitySystem" HintPath=".../EntitySystem.dll" />
-    <Reference Include="Survivalcraft" HintPath=".../Survivalcraft.dll" />
+    <Reference Include="Engine" HintPath="Quoted/Engine.dll" />
+    <Reference Include="EntitySystem" HintPath="Quoted/EntitySystem.dll" />
+    <Reference Include="Survivalcraft" HintPath="Quoted/Survivalcraft.dll" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <PropertyGroup>
