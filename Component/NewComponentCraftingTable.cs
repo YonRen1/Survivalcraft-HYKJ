@@ -26,14 +26,120 @@ namespace HYKJ
 
         public bool m_resetWhenSlotItemsRemoved;
 
+        // === 进度条系统 ===
+        public float m_craftingProgress;
+        public bool m_isCrafting;
+        public float m_craftingTimePerUnit = 2f;
+
         public virtual void Update(float dt) 
         {
             if (m_recipeUpdateNeeded) 
             {
                 UpdateCraftingResult(m_recipeRefindNeeded);
             }
+
+            // === 自动合成 + 进度条 ===
+            if (m_matchedRecipe != null && m_matchedRecipe.ResultValue != 0)
+            {
+                int currentResult = GetSlotCount(ResultSlotIndex);
+                int resultContents = Terrain.ExtractContents(m_matchedRecipe.ResultValue);
+                Block resultBlock = BlocksManager.Blocks[resultContents];
+                int maxStack = resultBlock.GetMaxStacking(m_matchedRecipe.ResultValue);
+
+                if (currentResult + m_matchedRecipe.ResultCount <= maxStack)
+                {
+                    m_isCrafting = true;
+                    // 不同工具等级不同耗时
+                    float time = GetCraftingTimeForRecipe(m_matchedRecipe);
+                    m_craftingProgress += dt / time;
+
+                    if (m_craftingProgress >= 1f)
+                    {
+                        CraftOneUnit();
+                        m_craftingProgress -= 1f;
+                        UpdateCraftingResult(true);
+                    }
+                }
+                else
+                {
+                    m_isCrafting = false;
+                    if (m_craftingProgress > 0.99f) m_craftingProgress = 0.99f;
+                }
+            }
+            else
+            {
+                m_isCrafting = false;
+                m_craftingProgress = 0f;
+            }
+
             m_recipeUpdateNeeded = false;
             m_recipeRefindNeeded = false;
+        }
+
+        /// <summary>
+        /// 根据合成产物的工具等级返回耗时（可扩展）
+        /// </summary>
+        public float GetCraftingTimeForRecipe(CraftingRecipe recipe)
+        {
+            int blockIndex = Terrain.ExtractContents(recipe.ResultValue);
+            // 骨器: 2s
+            if (blockIndex == bone_pickBlock.Index ||
+                blockIndex == bone_AxeBlock.Index ||
+                blockIndex == bone_ShovelBlock.Index ||
+                blockIndex == bone_MacheteBlock.Index ||
+                blockIndex == bone_SpearBlock.Index ||
+                blockIndex == bone_hammerBlock.Index)
+                return 2f;
+            // 铜器: 3s
+            if (blockIndex == copper_hammerBlock.Index ||
+                blockIndex == copper_sawBlock.Index ||
+                blockIndex == CopperAxe1Block.Index ||
+                blockIndex == CopperPickaxe1Block.Index)
+                return 3f;
+            // 铁器: 5s
+            if (blockIndex == iron_hammerBlock.Index ||
+                blockIndex == iron_sawBlock.Index)
+                return 5f;
+            // 燧石工具/武器: 1.5s
+            if (blockIndex == flint_hammerBlock.Index ||
+                blockIndex == Flint_knifeBlock.Index ||
+                blockIndex == leather_knifeBlock.Index)
+                return 1.5f;
+            // 木/石武器: 2.5s
+            if (blockIndex == WoodenClubBlock.Index ||
+                blockIndex == StoneClubBlock.Index ||
+                blockIndex == malletBlock.Index ||
+                blockIndex == WoodenSpearBlock.Index ||
+                blockIndex == RockSpearBlock.Index)
+                return 2.5f;
+            // 默认
+            return m_craftingTimePerUnit;
+        }
+
+        /// <summary>
+        /// 消耗材料、产出一份成品
+        /// </summary>
+        public void CraftOneUnit()
+        {
+            if (m_matchedRecipe == null) return;
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (!string.IsNullOrEmpty(m_matchedIngredients[i]))
+                {
+                    int index = (i % 3) + (m_craftingGridSize * (i / 3));
+                    m_slots[index].Count = MathUtils.Max(m_slots[index].Count - 1, 0);
+                }
+            }
+
+            m_slots[ResultSlotIndex].Value = m_matchedRecipe.ResultValue;
+            m_slots[ResultSlotIndex].Count += m_matchedRecipe.ResultCount;
+
+            if (m_matchedRecipe.RemainsValue != 0 && m_matchedRecipe.RemainsCount > 0)
+            {
+                m_slots[RemainsSlotIndex].Value = m_matchedRecipe.RemainsValue;
+                m_slots[RemainsSlotIndex].Count += m_matchedRecipe.RemainsCount;
+            }
         }
 
         public override int GetSlotCapacity(int slotIndex, int value) 
@@ -58,44 +164,14 @@ namespace HYKJ
         public override int RemoveSlotItems(int slotIndex, int count) 
         {
             int num = 0;
-            int[] originalCount = new int[SlotsCount - 2];
-            for (int i = 0; i < originalCount.Length; i++) 
-            {
-                originalCount[i] = GetSlotCount(i);
-            }
             if (slotIndex == ResultSlotIndex) 
             {
                 if (m_matchedRecipe != null) 
                 {
-                    if (m_matchedRecipe.RemainsValue != 0 && m_matchedRecipe.RemainsCount > 0) 
-                    {
-                        if (m_slots[RemainsSlotIndex].Count == 0 || m_slots[RemainsSlotIndex].Value == m_matchedRecipe.RemainsValue) 
-                        {
-                            int num2 = BlocksManager.Blocks[Terrain.ExtractContents(m_matchedRecipe.RemainsValue)].GetMaxStacking(m_matchedRecipe.RemainsValue) - m_slots[RemainsSlotIndex].Count;
-                            count = MathUtils.Min(count, num2 / m_matchedRecipe.RemainsCount * m_matchedRecipe.ResultCount);
-                        }
-                        else 
-                        {
-                            count = 0;
-                        }
-                    }
                     count = count / m_matchedRecipe.ResultCount * m_matchedRecipe.ResultCount;
                     num = base.RemoveSlotItems(slotIndex, count);
                     if (num > 0) 
                     {
-                        for (int i = 0; i < 9; i++) 
-                        {
-                            if (!string.IsNullOrEmpty(m_matchedIngredients[i])) 
-                            {
-                                int index = (i % 3) + (m_craftingGridSize * (i / 3));
-                                m_slots[index].Count = MathUtils.Max(m_slots[index].Count - (num / m_matchedRecipe.ResultCount), 0);
-                            }
-                        }
-                        if (m_matchedRecipe.RemainsValue != 0 && m_matchedRecipe.RemainsCount > 0) 
-                        {
-                            m_slots[RemainsSlotIndex].Value = m_matchedRecipe.RemainsValue;
-                            m_slots[RemainsSlotIndex].Count += num / m_matchedRecipe.ResultCount * m_matchedRecipe.RemainsCount;
-                        }
                         ComponentPlayer componentPlayer = FindInteractingPlayer();
                         if (componentPlayer != null && componentPlayer.PlayerStats != null) 
                         {
@@ -109,6 +185,11 @@ namespace HYKJ
                 num = base.RemoveSlotItems(slotIndex, count);
             }
             m_recipeUpdateNeeded = true;
+            int[] originalCount = new int[SlotsCount - 2];
+            for (int i = 0; i < originalCount.Length; i++) 
+            {
+                originalCount[i] = GetSlotCount(i);
+            }
             if (m_resetWhenSlotItemsRemoved) m_slots[ResultSlotIndex].Count = 0;
             for (int i = 0; i < originalCount.Length; i++) 
             {
