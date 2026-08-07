@@ -2,12 +2,10 @@ using System.Collections.Generic;
 using GameEntitySystem;
 using Game;
 using Engine;
+using TemplatesDatabase;
 
 namespace HYKJ
 {
-    /// <summary>
-    /// 尸体管理子系统：处理自然腐烂和解剖完成的尸体清理
-    /// </summary>
     public class SubsystemCorpseManager : Subsystem, IUpdateable
     {
         public SubsystemGameInfo m_subsystemGameInfo;
@@ -31,7 +29,7 @@ namespace HYKJ
                 Entity entity = kvp.Key;
                 CorpseManager.CorpseData data = kvp.Value;
 
-                if (entity.IsDisposed || !entity.IsAddedToProject)
+                if (!entity.IsAddedToProject)
                 {
                     expiredList.Add(entity);
                     continue;
@@ -46,14 +44,12 @@ namespace HYKJ
 
                 double elapsed = m_subsystemGameInfo.TotalElapsedGameTime - data.DeathTime;
 
-                // 自然腐烂到期
                 if (data.NaturalDecay > 0f && elapsed > data.NaturalDecay)
                 {
                     CorpseManager.DropDecayedLoot(entity);
                     expiredList.Add(entity);
                     ForceDespawn(entity);
                 }
-                // 完全解剖
                 else if (CorpseManager.IsFullyDissected(entity))
                 {
                     CorpseManager.DropFullLoot(entity);
@@ -72,7 +68,7 @@ namespace HYKJ
         {
             try
             {
-                if (entity.IsDisposed || !entity.IsAddedToProject) return;
+                if (!entity.IsAddedToProject) return;
                 ComponentCreature creature = entity.FindComponent<ComponentCreature>();
                 if (creature?.ComponentSpawn != null)
                     creature.ComponentSpawn.Despawn();

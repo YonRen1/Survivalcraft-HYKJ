@@ -260,10 +260,8 @@ namespace HYKJ
             if (!IsKnifeBlock(blockIndex)) return;
 
             // 执行解剖
-            SubsystemParticles particles = m_subsystemParticles;
-            if (particles == null)
-                particles = componentMiner.Project.FindSubsystem<SubsystemParticles>(false);
-            int remaining = CorpseManager.Dissect(componentBody.Entity, particles, hitPoint);
+            SubsystemTerrain terrain = componentMiner.Project.FindSubsystem<SubsystemTerrain>(false);
+            int remaining = CorpseManager.Dissect(componentBody.Entity, terrain, hitPoint);
 
             // 消耗工具耐久
             durabilityReduction = 1;

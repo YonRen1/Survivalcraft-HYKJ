@@ -37,7 +37,7 @@ namespace HYKJ
         /// <summary>
         /// 执行一次解剖，返回剩余刀数（0=完成）
         /// </summary>
-        public static int Dissect(Entity entity, SubsystemParticles particles, Vector3 position)
+        public static int Dissect(Entity entity, SubsystemTerrain terrain, Vector3 position)
         {
             if (!Corpses.TryGetValue(entity, out CorpseData data))
                 return -1;
@@ -45,10 +45,12 @@ namespace HYKJ
             data.CurrentHits++;
 
             // 血粒子
-            if (particles != null)
+            if (terrain != null)
             {
-                var blood = new KillParticleSystem(particles.SubsystemTerrain, position, 0.8f);
-                particles.AddParticleSystem(blood);
+                var blood = new KillParticleSystem(terrain, position, 0.8f);
+                // KillParticleSystem 通过 SubsystemParticles 添加
+                var particles = terrain.Project.FindSubsystem<SubsystemParticles>(false);
+                particles?.AddParticleSystem(blood);
             }
 
             int remaining = data.TotalHits - data.CurrentHits;
