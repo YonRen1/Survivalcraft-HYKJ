@@ -35,6 +35,10 @@
         <MemberSubsystemTemplate Name="ClayKilnBlockBehavior" Guid="7a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d" InheritanceParent="fefb9590-4972-4893-b02a-76063611b745">
             <Parameter Name="Class" Guid="1a2c3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d" Value="HYKJ.SubsystemClayKilnBlockBehavior" Type="string"/>
         </MemberSubsystemTemplate>
+        <!--尸体管理-->
+        <MemberSubsystemTemplate Name="SubsystemCorpseManager" Guid="c01d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f" InheritanceParent="fefb9590-4972-4893-b02a-76063611b745">
+            <Parameter Name="Class" Guid="d02e3f4a-5b6c-7d8e-9f0a-1b2c3d4e5f6a" Value="HYKJ.SubsystemCorpseManager" Type="string"/>
+        </MemberSubsystemTemplate>
     </ProjectTemplate>
     
 	<EntityTemplate Name="Player" Guid="4be6c1c5-d65d-4537-8a8b-a391969e6dc2">
@@ -84,6 +88,8 @@
     <Parameter Name="WalkSpeed" Guid="3c36f163-9387-415b-8599-1acba8aad649" new-Value="9" Type="float" />
                <!--攻击-->
     <Parameter Name="AttackPower" Guid="8703e046-d61b-408d-aa96-671e9c1c6502" new-Value="9" Type="float" />
+               <!--尸体腐烂时间（秒）-->
+    <Parameter Name="CorpseDuration" Guid="fa1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d" new-Value="480" Type="float" />
                <!--犀牛掉落物修改-->
     <ParameterSet Name="Loot" Guid="c52f327b-1aea-48ab-ae2b-abe64d58e90a">
         <Parameter Name="1" Guid="aa16d66e-4d27-4234-a502-bfac33ac2db6" Value="RawMeatBlock;5;6" Type="string" />

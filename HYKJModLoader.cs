@@ -44,6 +44,8 @@ namespace HYKJ
             ModsManager.RegisterHook("AfterWidgetUpdate", this);//在Widget完成Update()后立即执行
             ModsManager.RegisterHook("OnProjectLoaded", this);
             ModsManager.RegisterHook("TerrainContentsGenerator24Initialize", this);// 注册地形生成器初始化 hook
+            ModsManager.RegisterHook("DeadBeforeDrops", this);// 生物死亡掉落前
+            ModsManager.RegisterHook("OnMinerHit2", this);// 玩家攻击命中时（解剖检测）
         }
 
         /// <summary>
@@ -193,6 +195,106 @@ namespace HYKJ
             {
                 BlocksManager.m_categories.Insert(idx3 + 1, "测试");
             }
+        }
+
+        // ==================== 尸体/解剖系统 ====================
+
+        /// <summary>
+        /// 生物死亡时阻止立即掉落物品，改为尸体保留+解剖机制
+        /// </summary>
+        public override void DeadBeforeDrops(ComponentHealth componentHealth, ref KillParticleSystem killParticleSystem, ref bool dropAllItems)
+        {
+            // 只处理非玩家生物
+            ComponentPlayer player = componentHealth.Entity.FindComponent<ComponentPlayer>();
+            if (player != null) return;
+
+            // 阻止立即掉落物品
+            dropAllItems = false;
+
+            // 计算解剖刀数和自然腐烂时间
+            int hitsNeeded = CorpseManager.CalculateHitsNeeded(componentHealth);
+            float naturalDecay = componentHealth.CorpseDuration > 0f ? componentHealth.CorpseDuration : 120f;
+
+            // 注册尸体（存储自然腐烂时间，由 SubsystemCorpseManager 统一管理）
+            CorpseManager.Register(
+                componentHealth.Entity,
+                hitsNeeded,
+                naturalDecay,
+                componentHealth.DeathTime ?? 0f
+            );
+
+            // 将 CorpseDuration 设为极大值，禁止原版自动移除尸体
+            componentHealth.CorpseDuration = float.MaxValue;
+
+            // 放大死亡粒子
+            if (killParticleSystem == null && m_subsystemParticles != null)
+            {
+                Vector3 pos = componentHealth.Entity.FindComponent<ComponentBody>()?.Position ?? Vector3.Zero;
+                killParticleSystem = new KillParticleSystem(
+                    m_subsystemParticles.SubsystemTerrain,
+                    pos + new Vector3(0f, 0.5f, 0f),
+                    1.5f
+                );
+            }
+
+            Log.Information($"[HYKJ] 尸体注册: 需解剖{hitsNeeded}刀, 自然腐烂{naturalDecay}秒");
+        }
+
+        /// <summary>
+        /// 玩家攻击命中时检测是否在解剖尸体
+        /// </summary>
+        public override void OnMinerHit2(ComponentMiner componentMiner,
+            ComponentBody componentBody,
+            Vector3 hitPoint,
+            Vector3 hitDirection,
+            ref int durabilityReduction,
+            ref Attackment attackment)
+        {
+            if (componentBody == null || componentBody.Entity == null) return;
+            if (!CorpseManager.IsCorpse(componentBody.Entity)) return;
+
+            // 只有刀类工具可以解剖
+            int activeValue = componentMiner.ActiveBlockValue;
+            if (activeValue == 0) return;
+            int blockIndex = Terrain.ExtractContents(activeValue);
+            if (!IsKnifeBlock(blockIndex)) return;
+
+            // 执行解剖
+            SubsystemParticles particles = m_subsystemParticles;
+            if (particles == null)
+                particles = componentMiner.Project.FindSubsystem<SubsystemParticles>(false);
+            int remaining = CorpseManager.Dissect(componentBody.Entity, particles, hitPoint);
+
+            // 消耗工具耐久
+            durabilityReduction = 1;
+
+            // 显示进度信息
+            ComponentPlayer componentPlayer = componentMiner.ComponentPlayer;
+            if (componentPlayer != null)
+            {
+                if (remaining == 0)
+                {
+                    componentPlayer.ComponentGui.DisplaySmallMessage(
+                        "解剖完成！", Color.Green, blinking: true, playNotificationSound: true);
+                }
+                else
+                {
+                    componentPlayer.ComponentGui.DisplaySmallMessage(
+                        $"解剖中... 还需{remaining}刀", Color.White, blinking: false, playNotificationSound: false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 判断是否为可用于解剖的刀类工具
+        /// </summary>
+        private bool IsKnifeBlock(int blockIndex)
+        {
+            return blockIndex == Flint_knifeBlock.Index ||
+                   blockIndex == leather_knifeBlock.Index ||
+                   blockIndex == bone_MacheteBlock.Index ||
+                   blockIndex == copper_sawBlock.Index ||
+                   blockIndex == iron_sawBlock.Index;
         }
     }
 }

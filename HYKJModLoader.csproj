@@ -17,6 +17,8 @@
     <Compile Update="Dialog/HykjMenu.cs" />
     <Compile Update="Subsystem/NewSubsystemCraftingTable.cs" />
     <Compile Update="Subsystem/SubsystemClayKilnBlockBehavior.cs" />
+    <Compile Update="Subsystem/SubsystemCorpseManager.cs" />
+    <Compile Update="Corpse/CorpseManager.cs" />
     <Compile Update="Widget/HYKJClothingWidget.cs" />
     <Compile Update="Widget/NewCraftingTableWidget.cs" />
     <Compile Update="Widget/ClaykilnWidget.cs" />
