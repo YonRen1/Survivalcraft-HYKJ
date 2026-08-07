@@ -236,7 +236,7 @@
     </Recipe>
   </WoodenTools>
   <StoneTools>
-	  <Recipe Result="StoneAxeBlock" ResultCount="1" RequiredHeatLevel="2" a="stick" b="cobblestone" c="string" Description="[0]">
+	  <Recipe Result="StoneAxeBlock" ResultCount="1" RequiredHeatLevel="0" a="stick" b="cobblestone" c="string" Description="[0]">
 		  "bbb"
 		  "cac"
 		  " a"
