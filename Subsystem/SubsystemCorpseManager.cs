@@ -98,7 +98,7 @@ namespace HYKJ
                 m_primitivesRenderer = modelsRenderer.PrimitivesRenderer;
             }
 
-            BitmapFont font = ContentManager.Get<BitmapFont>("Fonts/Pericles12");
+            BitmapFont font = ContentManager.Get<BitmapFont>("Fonts/Pericles");
 
             foreach (KeyValuePair<Entity, CorpseManager.CorpseData> kvp in CorpseManager.Corpses)
             {
