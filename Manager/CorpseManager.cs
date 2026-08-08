@@ -245,9 +245,6 @@ namespace HYKJ
         public static void DropDecayedLoot(Entity entity)
         {
             Vector3 position = entity.FindComponent<ComponentBody>()?.Position ?? Vector3.Zero;
-            // 1. 原版 Loot 组件掉落（动物配置的肉/皮毛等）——自然腐烂也掉
-            entity.FindComponent<ComponentLoot>()?.DropLootNow();
-            // 2. 实体背包物品减半掉落（若有 IInventory 容器）
             foreach (IInventory inventory in entity.FindComponents<IInventory>())
             {
                 int totalSlots = inventory.SlotsCount;
@@ -268,9 +265,6 @@ namespace HYKJ
         public static void DropFullLoot(Entity entity)
         {
             Vector3 position = entity.FindComponent<ComponentBody>()?.Position ?? Vector3.Zero;
-            // 1. 原版 Loot 组件掉落（动物配置的肉/皮毛等）——解剖完成全量掉落
-            entity.FindComponent<ComponentLoot>()?.DropLootNow();
-            // 2. 实体背包物品全量掉落（若有 IInventory 容器）
             foreach (IInventory inventory in entity.FindComponents<IInventory>())
             {
                 inventory.DropAllItems(position);

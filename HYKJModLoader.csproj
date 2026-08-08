@@ -1,10 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-        <OutputType>Library</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="HYKJModLoader.cs" />
+    <Compile Update="Block/BaseClass.cs" />
+    <Compile Update="Block/HykjMod.cs" />
+    <Compile Update="Block/OriginalRevision.cs" />
+    <Compile Update="Component/ComponentClayKiln.cs" />
+    <Compile Update="Component/NewComponentCraftingTable.cs" />
+    <Compile Update="Component/ComponentNewGui.cs" />
+    <Compile Update="Dialog/HykjMenu.cs" />
+    <Compile Update="Subsystem/NewSubsystemCraftingTable.cs" />
+    <Compile Update="Subsystem/SubsystemClayKilnBlockBehavior.cs" />
+    <Compile Update="Subsystem/SubsystemCorpseManager.cs" />
+    <Compile Update="Manager/CorpseManager.cs" />
+    <Compile Update="Widget/HYKJClothingWidget.cs" />
+    <Compile Update="Widget/NewCraftingTableWidget.cs" />
+    <Compile Update="Widget/ClaykilnWidget.cs" />
+    <Compile Update="Terrain/ExtraGravelGenerator.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Engine" HintPath="Quoted/Engine.dll" />
     <Reference Include="EntitySystem" HintPath="Quoted/EntitySystem.dll" />
